@@ -1,0 +1,43 @@
+Personal Accounting System Requirements
+=======================================
+
+1) View accounts and their current balance.
+
+2) Create an account.
+
+3) Delete an account.
+
+4) Modify account (name, initial balance, parent account).
+
+5) Create an external organization.
+
+6) Delete an external organization.
+
+7) Modify an external organization.
+
+8) Create/Add a new transaction.
+
+9) Modify/Delete an existent transaction.
+
+10) View transactions for a specific account.
+
+11) View transactions for a specific period of time.
+
+12) View transactions for a specific external organization.
+
+13) View transactions between two specific accounts.
+
+14) Create an outcome status report for a specific time period and group of 
+accounts. The outcomes should be grouped either by account or by time period 
+(i.e. per month) or by external organization.
+
+15) Create a balance report for a specific time period and group of accounts. 
+
+16) Create an income status report for a specifc period of time and group of
+accounts. The incomes should be grouped either by account or by time period
+(i.e. per month) or by external organization.
+
+17) Create a total standing report for a specific period of time. Values can be
+grouped by week, month, year.
+
+18) 
