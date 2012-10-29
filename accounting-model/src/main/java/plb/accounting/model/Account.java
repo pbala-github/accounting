@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: panagiotis
- * Date: 10/29/12
- * Time: 9:29 PM
- * To change this template use File | Settings | File Templates.
+ * User: pbala
+ * Date: 10/29/12 9:28 PM
  */
 public class Account extends BaseEntity{
     /**

@@ -3,11 +3,8 @@ package plb.accounting.model;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: panagiotis
- * Date: 10/29/12
- * Time: 9:31 PM
- * To change this template use File | Settings | File Templates.
+ * User: pbala
+ * Date: 10/29/12  9:31 PM
  */
 public class ExternalOrganization extends BaseEntity{
 
