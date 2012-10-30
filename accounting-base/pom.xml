@@ -13,7 +13,7 @@
     <modules>
         <module>../accounting-model</module>
         <module>../accounting-services</module>
-        <module>../accounting-ao</module>
+        <module>../accounting-dao</module>
     </modules>
 
 </project>

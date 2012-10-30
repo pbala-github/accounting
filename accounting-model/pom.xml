@@ -8,6 +8,7 @@
         <groupId>accounting</groupId>
         <artifactId>accounting-base</artifactId>
         <version>1.0</version>
+        <relativePath>../accounting-base/pom.xml</relativePath>
     </parent>
 
     <artifactId>accounting-model</artifactId>
