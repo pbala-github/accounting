@@ -1,14 +1,11 @@
 package plb.accounting.dao.impl.db4o;
 
 import EDU.purdue.cs.bloat.util.Assert;
-import com.db4o.Db4oEmbedded;
-import com.db4o.EmbeddedObjectContainer;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import plb.accounting.dao.IDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.BaseEntity;
-import plb.accounting.model.Transaction;
 
 /**
  * User: pbala
@@ -61,17 +58,4 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
         return db;
     }
 
-    static class AccountingObjectContainer {
-
-        private static ObjectContainer objectContainer;
-
-        public static ObjectContainer get(){
-
-            if(objectContainer == null){
-                objectContainer = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"/home/pbala/myProjects/accounting/db");
-            }
-
-            return objectContainer;
-        }
-    }
 }
