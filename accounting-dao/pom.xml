@@ -18,5 +18,16 @@
              <artifactId>accounting-model</artifactId>
              <version>1.0</version>
          </dependency>
+         <dependency>
+             <groupId>db4o</groupId>
+             <artifactId>db4o-all-java5</artifactId>
+         </dependency>
+
+         <!-- Test Dependencies-->
+         <dependency>
+             <groupId>junit</groupId>
+             <artifactId>junit</artifactId>
+             <scope>test</scope>
+         </dependency>
      </dependencies>
 </project>

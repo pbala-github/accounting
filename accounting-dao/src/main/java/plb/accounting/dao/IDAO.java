@@ -1,10 +1,12 @@
 package plb.accounting.dao;
 
+import plb.accounting.model.BaseEntity;
+
 /**
  * User: pbala
  * Date: 10/30/12 3:28 PM
  */
-public interface IDAO<T> {
+public interface IDAO<T extends BaseEntity> {
 
     T findById(long id);
     
