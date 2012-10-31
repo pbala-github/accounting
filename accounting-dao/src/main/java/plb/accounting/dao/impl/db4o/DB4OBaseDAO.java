@@ -3,6 +3,7 @@ package plb.accounting.dao.impl.db4o;
 import EDU.purdue.cs.bloat.util.Assert;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
 import plb.accounting.dao.IDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.BaseEntity;
@@ -17,6 +18,17 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
     protected DB4OBaseDAO() {
         db = AccountingObjectContainer.get();
+    }
+
+    @Override
+    public T findById(final long id) {
+
+      return getUnique(new Predicate<T>() {
+                @Override
+                public boolean match(T o) {
+                    return o.getId() == id;
+                }
+              });
     }
 
     public void persist(T obj) {
@@ -47,8 +59,12 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
         getDb().delete(entity);
     }
 
-    protected T getUnique(T template){
-        ObjectSet<T> results = getDb().queryByExample(template);
+    protected T getUnique(Predicate<T> predicate){
+
+        ObjectSet<T> results = getDb().query(predicate);
+
+        if(results.size() > 1)
+            throw new RuntimeException("A single object expected, but many were found.");
 
         return results.next();
     }

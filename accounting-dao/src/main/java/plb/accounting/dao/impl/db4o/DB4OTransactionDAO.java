@@ -12,12 +12,4 @@ import java.beans.Beans;
  */
 public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITransactionDAO{
 
-    @Override
-    public Transaction findById(long id) {
-        Transaction transaction = new Transaction();
-        transaction.setId(id);
-
-        return getUnique(transaction);
-    }
-
 }

@@ -9,12 +9,5 @@ import plb.accounting.model.ExternalOrganization;
  */
 public class DB4OExternalOrganizationDAO extends DB4OBaseDAO<ExternalOrganization> implements IExternalOrganizationDAO{
 
-    @Override
-    public ExternalOrganization findById(long id) {
-        ExternalOrganization organization = new ExternalOrganization();
-        organization.setId(id);
-
-        return getUnique(organization);
-    }
 
 }

@@ -12,9 +12,8 @@
 
     <modules>
         <module>../accounting-model</module>
-        <module>../accounting-services</module>
         <module>../accounting-dao</module>
-        <module>../accounting-common</module>
+        <module>../accounting-services</module>
     </modules>
 
     <dependencyManagement>

@@ -9,13 +9,4 @@ import plb.accounting.model.Account;
  */
 public class DB4OAccountDAO extends DB4OBaseDAO<Account> implements IAccountDAO{
 
-
-    @Override
-    public Account findById(long id) {
-        Account account = new Account();
-        account.setId(id);
-
-        return getUnique(account);
-    }
-
 }
