@@ -14,4 +14,17 @@ public abstract class AbstractDAOTest<D extends IDAO> {
     public static void setup(){
         System.setProperty(AccountingObjectContainer.FILE_PATH_PROPERTY,"/home/pbala/myProjects/accounting/testDB");
     }
+
+
+    public abstract void persist();
+
+    public abstract void findById();
+
+    public abstract void delete();
+
+    public abstract void update();
+
+    public abstract void getAll();
+
+    public abstract void searchByCriteria();
 }

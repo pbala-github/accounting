@@ -1,10 +1,14 @@
 package plb.accounting.dao.impl.db4o;
 
+import com.db4o.query.Predicate;
+import org.apache.commons.lang.StringUtils;
+import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.ITransactionDAO;
 import plb.accounting.model.BaseEntity;
 import plb.accounting.model.Transaction;
 
 import java.beans.Beans;
+import java.util.List;
 
 /**
  * User: pbala
@@ -12,4 +16,41 @@ import java.beans.Beans;
  */
 public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITransactionDAO{
 
+    @Override
+    public List<Transaction> searchTransactions(final TransactionSearchCriteria searchCriteria) {
+
+        Predicate predicate = new Predicate<Transaction>() {
+            @Override
+            public boolean match(Transaction candidate) {
+                return (StringUtils.isEmpty(searchCriteria.getDescription()) ||
+                        candidate.getDescription().equals(searchCriteria.getDescription())) &&
+                        (searchCriteria.getAmountFrom() == null ||
+                                searchCriteria.getAmountFrom().compareTo(candidate.getAmount()) <= 0) &&
+                        (searchCriteria.getAmountTo() == null ||
+                                searchCriteria.getAmountTo().compareTo(candidate.getAmount()) >= 0) &&
+                        (searchCriteria.getOriginAccountId() == 0 ||
+                                searchCriteria.getOriginAccountId() == candidate.getOriginAccount().getId()) &&
+                        (searchCriteria.getDestinationAccountId() == 0 ||
+                                searchCriteria.getDestinationAccountId() == candidate.getDestinationAccount().getId()) &&
+                        (searchCriteria.getExecutionDateFrom() == null ||
+                                searchCriteria.getExecutionDateFrom().compareTo(candidate.getExecutionDate()) <= 0) &&
+                        (searchCriteria.getExecutionDateTo() == null ||
+                                searchCriteria.getExecutionDateTo().compareTo(candidate.getExecutionDate()) >= 0) &&
+                        (StringUtils.isEmpty(searchCriteria.getOrgName()) ||
+                                (candidate.getRelatedOrganization() != null &&
+                                        candidate.getRelatedOrganization().getName().contains(searchCriteria.getOrgName()))) &&
+                        (StringUtils.isEmpty(searchCriteria.getOrgVat()) ||
+                                (candidate.getRelatedOrganization() != null &&
+                                        candidate.getRelatedOrganization().getVat().equals(searchCriteria.getOrgVat())));
+            }
+        } ;
+
+        return executeQuery(predicate);
+    }
+
+
+    @Override
+    protected Class<Transaction> getObjectClass() {
+        return Transaction.class;
+    }
 }

@@ -8,6 +8,8 @@ import plb.accounting.dao.IDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.BaseEntity;
 
+import java.util.List;
+
 /**
  * User: pbala
  * Date: 10/31/12 1:14 PM
@@ -59,6 +61,16 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
         getDb().delete(entity);
     }
 
+    @Override
+    public List<T> getAll() {
+
+        ObjectSet<T> results = getDb().query(getObjectClass());
+
+        return results.subList(0,results.size());
+    }
+
+    protected abstract Class<T> getObjectClass();
+
     protected T getUnique(Predicate<T> predicate){
 
         ObjectSet<T> results = getDb().query(predicate);
@@ -68,6 +80,14 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
         return results.next();
     }
+
+    protected List<T> executeQuery(Predicate<T> predicate){
+
+        ObjectSet<T> accounts = getDb().query(predicate);
+
+        return accounts.subList(0,accounts.size());
+    }
+
 
 
     public ObjectContainer getDb() {

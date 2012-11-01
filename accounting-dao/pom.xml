@@ -15,12 +15,21 @@
      <dependencies>
          <dependency>
              <groupId>accounting</groupId>
+             <artifactId>accounting-common</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>accounting</groupId>
              <artifactId>accounting-model</artifactId>
              <version>1.0</version>
          </dependency>
          <dependency>
              <groupId>db4o</groupId>
              <artifactId>db4o-all-java5</artifactId>
+         </dependency>
+
+         <dependency>
+             <groupId>commons-lang</groupId>
+             <artifactId>commons-lang</artifactId>
          </dependency>
 
          <!-- Test Dependencies-->
