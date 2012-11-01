@@ -48,6 +48,8 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
             throw new RuntimeException("The object does not exist in DB.");
 
 
+        obj.setId(found.getId());
+        getDb().delete(found);
         getDb().store(obj);
     }
 
