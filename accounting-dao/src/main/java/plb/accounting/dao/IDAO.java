@@ -12,11 +12,11 @@ public interface IDAO<T extends BaseEntity> {
 
     T findById(long id);
     
-    void persist(T obj);
+    T persist(T obj);
     
     void delete(long  id);
     
-    void update(T obj);
+    T update(T obj);
 
     List<T> getAll();
 

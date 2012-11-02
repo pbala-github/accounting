@@ -3,11 +3,15 @@ package plb.accounting.dao.test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.IAccountDAO;
+import plb.accounting.dao.ITransactionDAO;
+import plb.accounting.dao.impl.db4o.DB4OTransactionDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * User: pbala
@@ -15,7 +19,33 @@ import java.math.BigDecimal;
  */
 public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
-    @Test
+    @Override
+//    @Test
+    public void searchByCriteria() {
+        AccountSearchCriteria criteria = new AccountSearchCriteria();
+        criteria.setAccountName("Account name 102");
+
+        List<Account> accounts = getDAO().searchAccounts(criteria);
+
+
+        assertNotNull(accounts);
+
+        assertEquals(1, accounts.size());
+        assertEquals("Account name 102", accounts.get(0).getName());
+    }
+
+    @Override
+//    @Test
+    public void getAll() {
+        List<Account> accounts = getDAO().getAll();
+
+        assertNotNull(accounts);
+        assertSame(9,accounts.size());
+
+    }
+
+
+//    @Test
     @Override
     public void persist() {
         Account account = new Account();
@@ -24,46 +54,72 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
         account.setInitialBalance(BigDecimal.ONE);
         account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
-        account.setId(1);
 
-        getDAO().persist(account);
+        Account stored = getDAO().persist(account);
 
-        Account found = getDAO().findById(1);
+        assertNotSame(0, stored.getId());
+
+        Account found = getDAO().findById(stored.getId());
 
         assertNotNull(found);
 
         assertEquals(found.getName(),account.getName());
     }
 
-
-
+//    @Test
     @Override
     public void findById() {
-        Account account = getDAO().findById(1);
+        Account account = getDAO().findById(56);
 
         assertNotNull(account);
-        assertEquals(account.getId(),1l);
+        assertEquals(account.getId(),56l);
     }
 
+     @Test
     @Override
     public void delete() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        AccountSearchCriteria criteria = new AccountSearchCriteria();
+        criteria.setAccountName("Account name 103");
+        List<Account> accounts = getDAO().searchAccounts(criteria);
+
+        assertNotNull(accounts);
+        assertEquals(1,accounts.size());
+
+         int transacitons = accounts.get(0).getTransactions().size();
+         ITransactionDAO transactionDAO = new DB4OTransactionDAO();
+         int totalTransactions = transactionDAO.getAll().size();
+
+        getDAO().delete(accounts.get(0).getId());
+
+        accounts = getDAO().searchAccounts(criteria);
+
+        assertEquals(0,accounts.size());
+         int finalTransactionsTotal = transactionDAO.getAll().size();
+
+         assertEquals(totalTransactions-transacitons,finalTransactionsTotal);
+
     }
 
+//    @Test
     @Override
     public void update() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        
+        Account account = getDAO().findById(56l);
+
+        assertNotNull(account);
+
+        account.setName("Updated Account name");
+
+        getDAO().update(account);
+
+        Account found = getDAO().findById(56l);
+
+        assertNotNull(found);
+
+        assertEquals("Updated Account name",found.getName());
+
     }
 
-    @Override
-    public void getAll() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void searchByCriteria() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 
 
 }

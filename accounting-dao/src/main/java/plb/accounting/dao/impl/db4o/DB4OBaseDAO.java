@@ -25,20 +25,24 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
     @Override
     public T findById(final long id) {
 
-      return getUnique(new Predicate<T>() {
-                @Override
-                public boolean match(T o) {
-                    return o.getId() == id;
-                }
-              });
+        T obj = getDb().ext().getByID(id);
+        getDb().ext().activate(obj,10);
+       return obj;
+
     }
 
-    public void persist(T obj) {
+    public T persist(T obj) {
         getDb().store(obj);
+        long id = getDb().ext().getID(obj);
+
+        obj.setId(id);
+        getDb().store(obj);
+
+        return obj;
     }
 
     @Override
-    public void update(T obj) {
+    public T update(T obj) {
 
         Assert.isNotNull(obj, "Cannot update a null object");
 
@@ -47,10 +51,9 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
         if(found == null)
             throw new RuntimeException("The object does not exist in DB.");
 
-
-        obj.setId(found.getId());
-        getDb().delete(found);
         getDb().store(obj);
+
+        return obj;
     }
 
     @Override

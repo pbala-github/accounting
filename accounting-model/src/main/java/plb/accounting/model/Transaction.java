@@ -85,4 +85,14 @@ public class Transaction extends BaseEntity{
     public void setRelatedOrganization(ExternalOrganization relatedOrganization) {
         this.relatedOrganization = relatedOrganization;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "executionDate=" + executionDate +
+                ", originAccount=" + originAccount +
+                ", description='" + description + '\'' +
+                ", destinationAccount=" + destinationAccount +
+                "} " + super.toString();
+    }
 }

@@ -19,8 +19,9 @@ public class FileAccountDAO implements IAccountDAO {
     }
 
     @Override
-    public void persist(Account obj) {
+    public Account persist(Account obj) {
         //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
@@ -29,8 +30,9 @@ public class FileAccountDAO implements IAccountDAO {
     }
 
     @Override
-    public void update(Account obj) {
+    public Account update(Account obj) {
         //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override

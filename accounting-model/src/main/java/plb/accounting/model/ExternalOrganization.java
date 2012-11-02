@@ -59,4 +59,13 @@ public class ExternalOrganization extends BaseEntity{
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    @Override
+    public String toString() {
+        return "ExternalOrganization{" +
+                "name='" + name + '\'' +
+                ", vat='" + vat + '\'' +
+                ", description='" + description + '\'' +
+                "} " + super.toString();
+    }
 }

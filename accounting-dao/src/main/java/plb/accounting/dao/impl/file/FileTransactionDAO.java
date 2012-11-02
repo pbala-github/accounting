@@ -17,8 +17,9 @@ public class FileTransactionDAO implements ITransactionDAO {
     }
 
     @Override
-    public void persist(Transaction obj) {
+    public Transaction persist(Transaction obj) {
         //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
@@ -27,8 +28,9 @@ public class FileTransactionDAO implements ITransactionDAO {
     }
 
     @Override
-    public void update(Transaction obj) {
+    public Transaction update(Transaction obj) {
         //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override

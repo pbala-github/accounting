@@ -111,4 +111,14 @@ public class Account extends BaseEntity{
     public void setType(AccountTypeEnum type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                "} " + super.toString();
+    }
 }
+

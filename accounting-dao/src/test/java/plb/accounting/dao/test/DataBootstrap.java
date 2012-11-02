@@ -45,10 +45,9 @@ public abstract class DataBootstrap {
         account.setCurrentBalance(BigDecimal.ZERO);
         account.setDescription("Description");
         account.setInitialBalance(BigDecimal.ONE);
-        account.setName("Account name");
+        account.setName("Account name " + a);
         account.setType(AccountTypeEnum.OUTCOME);
-        account.setId(a);
-        
+
         return account;
     }
 
@@ -59,6 +58,16 @@ public abstract class DataBootstrap {
         ExternalOrganization organization = createOrganization(t);
         Account originAccount = createAccount(t);
         Account destinationAccount = createAccount(t+100);
+
+        db.store(originAccount);
+        originAccount.setId(db.ext().getID(originAccount));
+        System.out.println(originAccount);
+        db.store(destinationAccount);
+        destinationAccount.setId(db.ext().getID(destinationAccount));
+        System.out.println(destinationAccount);
+        db.store(organization);
+        organization.setId(db.ext().getID(organization));
+        System.out.println(organization);
 
         db.store(originAccount);
         db.store(destinationAccount);
@@ -75,6 +84,11 @@ public abstract class DataBootstrap {
 
         originAccount.setTransactions(Arrays.asList(transaction));
         destinationAccount.setTransactions(Arrays.asList(transaction));
+        organization.setTransactions(Arrays.asList(transaction));
+
+        db.store(originAccount);
+        db.store(destinationAccount);
+        db.store(organization);
 
         return transaction;
     }

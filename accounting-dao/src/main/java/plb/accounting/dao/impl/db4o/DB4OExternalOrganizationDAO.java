@@ -6,6 +6,7 @@ import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.dao.IExternalOrganizationDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
+import plb.accounting.model.Transaction;
 
 import java.util.List;
 
@@ -22,13 +23,29 @@ public class DB4OExternalOrganizationDAO extends DB4OBaseDAO<ExternalOrganizatio
             @Override
             public boolean match(ExternalOrganization candidate) {
                 return (StringUtils.isEmpty(searchCriteria.getName()) ||
-                        candidate.getName().equals(searchCriteria.getName())) &&
+                        candidate.getName().toLowerCase().contains(searchCriteria.getName().toLowerCase())) &&
                         (StringUtils.isEmpty(searchCriteria.getVat()) ||
                                 searchCriteria.getVat().equals(candidate.getVat())) ;
             }
         };
 
         return executeQuery(predicate);
+    }
+
+    @Override
+    public void delete(long id) {
+        ExternalOrganization organization = findById(id);
+
+        if(organization == null)
+            throw new RuntimeException("Entity not found in DB.");
+
+        if(organization.getTransactions() != null)
+            for(Transaction transaction : organization.getTransactions()){
+                transaction.setRelatedOrganization(null);
+                getDb().store(transaction);
+            }
+
+        getDb().delete(organization);
     }
 
     @Override
