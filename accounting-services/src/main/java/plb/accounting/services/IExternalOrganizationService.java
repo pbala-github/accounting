@@ -10,44 +10,18 @@ import plb.accounting.model.Transaction;
 import java.util.List;
 
 /**
- * This is the entry point interface for the service components
- *
  * User: pbala
- * Date: 10/30/12 9:38 AM
+ * Date: 11/5/12 3:57 PM
  */
-public interface IAccountingService {
-
-    List<Account> getAccounts();
-    
-    List<Transaction> getTransactions();
+public interface IExternalOrganizationService {
 
     List<ExternalOrganization> getExternalOrganizations();
-    
 
-    Account findAccountById(long accountId);
-
-    Transaction findTransactionById(long transactionId);
-    
     ExternalOrganization findExternalOrganizationById(long organizationId);
-    
 
-    Account saveAccount(Account account);
-    
-    Transaction saveTransaction(Transaction transaction);
-    
     ExternalOrganization saveExternalOrganization(ExternalOrganization organization);
-    
 
-    void deleteAccount(long accountId);
-    
-    void deleteTransaction(long transactionId);
-    
     void deleteExternalOrganization(long organizationId);
-
-
-    List<Account> searchAccounts(AccountSearchCriteria criteria);
-
-    List<Transaction> searchTransactions(TransactionSearchCriteria criteria);
 
     List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria);
 

@@ -31,6 +31,24 @@
             </dependency>
 
             <dependency>
+                <groupId>accounting</groupId>
+                <artifactId>accounting-model</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>accounting</groupId>
+                <artifactId>accounting-dao</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>accounting</groupId>
+                <artifactId>accounting-services</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>db4o</groupId>
                 <artifactId>db4o-all-java5</artifactId>
                 <version>8.0</version>

@@ -12,5 +12,31 @@
 
     <artifactId>accounting-services</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>accounting</groupId>
+            <artifactId>accounting-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>accounting</groupId>
+            <artifactId>accounting-model</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>accounting</groupId>
+            <artifactId>accounting-dao</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+
+        <!-- Test Dependencies-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

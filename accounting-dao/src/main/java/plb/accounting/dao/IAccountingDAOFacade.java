@@ -1,4 +1,4 @@
-package plb.accounting.services;
+package plb.accounting.dao;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
@@ -10,38 +10,43 @@ import plb.accounting.model.Transaction;
 import java.util.List;
 
 /**
- * This is the entry point interface for the service components
- *
  * User: pbala
- * Date: 10/30/12 9:38 AM
+ * Date: 11/5/12 3:42 PM
  */
-public interface IAccountingService {
+public interface IAccountingDAOFacade {
 
     List<Account> getAccounts();
-    
+
     List<Transaction> getTransactions();
 
     List<ExternalOrganization> getExternalOrganizations();
-    
+
 
     Account findAccountById(long accountId);
 
     Transaction findTransactionById(long transactionId);
-    
-    ExternalOrganization findExternalOrganizationById(long organizationId);
-    
 
-    Account saveAccount(Account account);
-    
-    Transaction saveTransaction(Transaction transaction);
-    
-    ExternalOrganization saveExternalOrganization(ExternalOrganization organization);
-    
+    ExternalOrganization findExternalOrganizationById(long organizationId);
+
+
+    Account persistAccount(Account account);
+
+    Transaction persistTransaction(Transaction transaction);
+
+    ExternalOrganization persistExternalOrganization(ExternalOrganization organization);
+
+
+    Account updateAccount(Account account);
+
+    Transaction updateTransaction(Transaction transaction);
+
+    ExternalOrganization updateExternalOrganization(ExternalOrganization organization);
+
 
     void deleteAccount(long accountId);
-    
+
     void deleteTransaction(long transactionId);
-    
+
     void deleteExternalOrganization(long organizationId);
 
 
@@ -50,5 +55,4 @@ public interface IAccountingService {
     List<Transaction> searchTransactions(TransactionSearchCriteria criteria);
 
     List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria);
-
 }
