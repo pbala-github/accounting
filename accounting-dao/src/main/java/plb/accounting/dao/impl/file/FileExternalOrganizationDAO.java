@@ -18,21 +18,18 @@ public class FileExternalOrganizationDAO implements IExternalOrganizationDAO {
     }
 
     @Override
-    public ExternalOrganization persist(ExternalOrganization obj) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        return null;
+    public ExternalOrganization saveOrUpdate(ExternalOrganization obj) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 
     @Override
     public void delete(long id) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public ExternalOrganization update(ExternalOrganization obj) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        return null;
-    }
+
 
     @Override
     public List<ExternalOrganization> getAll() {

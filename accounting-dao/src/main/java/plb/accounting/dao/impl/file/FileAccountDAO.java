@@ -19,21 +19,18 @@ public class FileAccountDAO implements IAccountDAO {
     }
 
     @Override
-    public Account persist(Account obj) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        return null;
+    public Account saveOrUpdate(Account obj) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 
     @Override
     public void delete(long id) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public Account update(Account obj) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        return null;
-    }
+
 
     @Override
     public List<Account> getAll() {

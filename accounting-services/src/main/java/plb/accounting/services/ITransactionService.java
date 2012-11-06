@@ -3,6 +3,7 @@ package plb.accounting.services;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
@@ -15,14 +16,14 @@ import java.util.List;
  */
 public interface ITransactionService {
 
-    List<Transaction> getTransactions();
+    List<TransactionDTO> getTransactions();
 
-    Transaction findTransactionById(long transactionId);
+    TransactionDTO findTransactionById(long transactionId);
 
-    Transaction saveTransaction(Transaction transaction);
+    TransactionDTO saveTransaction(TransactionDTO transaction);
 
     void deleteTransaction(long transactionId);
 
-    List<Transaction> searchTransactions(TransactionSearchCriteria criteria);
+    List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria);
 
 }

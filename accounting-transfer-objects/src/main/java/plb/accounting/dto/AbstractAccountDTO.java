@@ -1,13 +1,50 @@
-package plb.accounting.model;
+package plb.accounting.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * User: pbala
- * Date: 10/29/12 9:28 PM
+ * Date: 11/6/12 9:31 AM
  */
-public class Account extends BaseEntity{
+public abstract class AbstractAccountDTO<T> extends BaseDTO{
+
+    /**
+     *
+     */
+    private String name;
+
+    /**
+     *
+     */
+    private BigDecimal initialBalance;
+
+    /**
+     *
+     */
+    private BigDecimal currentBalance;
+
+    /**
+     *
+     */
+    private T parentAccount;
+
+    /**
+     *
+     */
+    private List<T> childrenAccounts;
+
+    /**
+     *
+     */
+    private String description;
+
+    /**
+     *
+     */
+    private AccountTypeEnum type;
+
+
     public String getName() {
         return name;
     }
@@ -32,19 +69,19 @@ public class Account extends BaseEntity{
         this.currentBalance = currentBalance;
     }
 
-    public Account getParentAccount() {
+    public T getParentAccount() {
         return parentAccount;
     }
 
-    public void setParentAccount(Account parentAccount) {
+    public void setParentAccount(T parentAccount) {
         this.parentAccount = parentAccount;
     }
 
-    public List<Account> getChildrenAccounts() {
+    public List<T> getChildrenAccounts() {
         return childrenAccounts;
     }
 
-    public void setChildrenAccounts(List<Account> childrenAccounts) {
+    public void setChildrenAccounts(List<T> childrenAccounts) {
         this.childrenAccounts = childrenAccounts;
     }
 
@@ -56,13 +93,6 @@ public class Account extends BaseEntity{
         this.description = description;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
 
     public AccountTypeEnum getType() {
         return type;
@@ -80,45 +110,4 @@ public class Account extends BaseEntity{
                 ", type=" + type +
                 "} " + super.toString();
     }
-
-    /**
-     *
-     */
-    private String name;
-
-    /**
-     *
-     */
-    private BigDecimal initialBalance;
-
-    /**
-     *
-     */
-    private BigDecimal currentBalance;
-
-    /**
-     *
-     */
-    private Account parentAccount;
-
-    /**
-     *
-     */
-    private List<Account> childrenAccounts;
-
-    /**
-     *
-     */
-    private String description;
-
-    /**
-     *
-     */
-    private List<Transaction> transactions;
-
-    /**
-     *
-     */
-    private AccountTypeEnum type;
 }
-

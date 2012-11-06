@@ -2,6 +2,8 @@ package plb.accounting.services;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.IAccountingDAOFacade;
+import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.model.Account;
 
 import java.util.List;
@@ -10,29 +12,25 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:08 PM
  */
-public class AccountService implements IAccountService{
+public class AccountService extends BaseService implements IAccountService{
 
-    /**
-     *
-     */
-    private IAccountingDAOFacade accountingDAOFacade;
 
     @Override
-    public List<Account> getAccounts() {
-        return accountingDAOFacade.getAccounts();
+    public List<BaseAccountDTO> getAccounts() {
+        return transformationService.transform(accountingDAOFacade.getAccounts(),BaseAccountDTO.class);
     }
 
     @Override
-    public Account findAccountById(long accountId) {
-        return accountingDAOFacade.findAccountById(accountId);
+    public AccountDTO loadAccountById(long accountId) {
+        return transformationService.transform(accountingDAOFacade.findAccountById(accountId),AccountDTO.class);
     }
 
     @Override
-    public Account saveAccount(Account account) {
-        if(account.getId() == 0)
-            return accountingDAOFacade.persistAccount(account);
-        else
-            return accountingDAOFacade.updateAccount(account);
+    public AccountDTO saveAccount(AccountDTO accountDTO) {
+
+          Account account = accountingDAOFacade.saveOrUpdateAccount(transformationService.transform(accountDTO,Account.class));
+
+          return transformationService.transform(account,AccountDTO.class);
     }
 
     @Override
@@ -41,7 +39,8 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public List<Account> searchAccounts(AccountSearchCriteria criteria) {
-        return accountingDAOFacade.searchAccounts(criteria);
+    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+        return transformationService.transform(accountingDAOFacade.searchAccounts(criteria),BaseAccountDTO.class);
     }
+
 }

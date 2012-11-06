@@ -31,30 +31,28 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
     }
 
-    public T persist(T obj) {
-        getDb().store(obj);
-        long id = getDb().ext().getID(obj);
-
-        obj.setId(id);
-        getDb().store(obj);
-
-        return obj;
-    }
-
     @Override
-    public T update(T obj) {
+    public T saveOrUpdate(T obj) {
 
-        Assert.isNotNull(obj, "Cannot update a null object");
+        if(obj.getId() == 0){
+            getDb().store(obj);
+            long id = getDb().ext().getID(obj);
 
-        T found = findById(obj.getId());
+            obj.setId(id);
+            getDb().store(obj);
+        } else{
+            T found = findById(obj.getId());
 
-        if(found == null)
-            throw new RuntimeException("The object does not exist in DB.");
+            if(found == null)
+                throw new RuntimeException("The object does not exist in DB.");
 
-        getDb().store(obj);
+            getDb().store(obj);
+
+        }
 
         return obj;
     }
+
 
     @Override
     public void delete(long id) {

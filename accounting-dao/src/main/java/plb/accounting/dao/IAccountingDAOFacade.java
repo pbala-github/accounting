@@ -29,18 +29,11 @@ public interface IAccountingDAOFacade {
     ExternalOrganization findExternalOrganizationById(long organizationId);
 
 
-    Account persistAccount(Account account);
+    Account saveOrUpdateAccount(Account account);
 
-    Transaction persistTransaction(Transaction transaction);
+    Transaction saveOrUpdateTransaction(Transaction transaction);
 
-    ExternalOrganization persistExternalOrganization(ExternalOrganization organization);
-
-
-    Account updateAccount(Account account);
-
-    Transaction updateTransaction(Transaction transaction);
-
-    ExternalOrganization updateExternalOrganization(ExternalOrganization organization);
+    ExternalOrganization saveOrUpdateExternalOrganization(ExternalOrganization organization);
 
 
     void deleteAccount(long accountId);

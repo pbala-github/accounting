@@ -27,7 +27,7 @@ public abstract class DataBootstrap {
 
         for(int t = 1 ; t <= MAX_TRANSACTIONS; t++){
 
-            db.store(createTransaction(t));
+            createTransaction(t);
         }
     }
 
@@ -81,6 +81,8 @@ public abstract class DataBootstrap {
         transaction.setRelatedOrganization(organization);
         transaction.setOriginAccount(originAccount);
         transaction.setDestinationAccount(destinationAccount);
+
+        db.store(transaction);
 
         originAccount.setTransactions(Arrays.asList(transaction));
         destinationAccount.setTransactions(Arrays.asList(transaction));

@@ -49,7 +49,7 @@ public abstract class ExternalOrganizationDAOTest extends AbstractDAOTest<IExter
         ExternalOrganization organization = getDAO().findById(65l);
 
         organization.setName("hhhhhhhhhhh");
-        getDAO().update(organization);
+        getDAO().saveOrUpdate(organization);
 
         organization = getDAO().findById(65l);
 

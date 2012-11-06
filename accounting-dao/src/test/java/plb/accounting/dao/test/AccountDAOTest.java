@@ -20,7 +20,7 @@ import java.util.List;
 public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
     @Override
-//    @Test
+    @Test
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
@@ -35,17 +35,17 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
     }
 
     @Override
-//    @Test
+    @Test
     public void getAll() {
         List<Account> accounts = getDAO().getAll();
 
         assertNotNull(accounts);
-        assertSame(9,accounts.size());
+        assertSame(10,accounts.size());
 
     }
 
 
-//    @Test
+    @Test
     @Override
     public void persist() {
         Account account = new Account();
@@ -55,7 +55,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
         account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
 
-        Account stored = getDAO().persist(account);
+        Account stored = getDAO().saveOrUpdate(account);
 
         assertNotSame(0, stored.getId());
 
@@ -66,7 +66,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
         assertEquals(found.getName(),account.getName());
     }
 
-//    @Test
+    @Test
     @Override
     public void findById() {
         Account account = getDAO().findById(56);
@@ -79,7 +79,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
     @Override
     public void delete() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
-        criteria.setAccountName("Account name 103");
+        criteria.setAccountName("Account name 101");
         List<Account> accounts = getDAO().searchAccounts(criteria);
 
         assertNotNull(accounts);
@@ -100,7 +100,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
     }
 
-//    @Test
+    @Test
     @Override
     public void update() {
         
@@ -110,7 +110,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
         account.setName("Updated Account name");
 
-        getDAO().update(account);
+        getDAO().saveOrUpdate(account);
 
         Account found = getDAO().findById(56l);
 

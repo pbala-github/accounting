@@ -3,6 +3,8 @@ package plb.accounting.services;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
@@ -15,14 +17,14 @@ import java.util.List;
  */
 public interface IAccountService {
 
-    List<Account> getAccounts();
+    List<BaseAccountDTO> getAccounts();
 
-    Account findAccountById(long accountId);
+    AccountDTO loadAccountById(long accountId);
 
-    Account saveAccount(Account account);
+    AccountDTO saveAccount(AccountDTO account);
 
     void deleteAccount(long accountId);
 
-    List<Account> searchAccounts(AccountSearchCriteria criteria);
+    List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);
 
 }

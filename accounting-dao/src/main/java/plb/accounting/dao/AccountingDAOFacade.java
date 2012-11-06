@@ -64,33 +64,18 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public Account persistAccount(Account account) {
-        return accountDAO.persist(account);
+    public Account saveOrUpdateAccount(Account account) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public Transaction persistTransaction(Transaction transaction) {
-        return transactionDAO.persist(transaction);
+    public Transaction saveOrUpdateTransaction(Transaction transaction) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ExternalOrganization persistExternalOrganization(ExternalOrganization organization) {
-        return externalOrganizationDAO.persist(organization);
-    }
-
-    @Override
-    public Account updateAccount(Account account) {
-        return accountDAO.update(account);
-    }
-
-    @Override
-    public Transaction updateTransaction(Transaction transaction) {
-        return transactionDAO.update(transaction);
-    }
-
-    @Override
-    public ExternalOrganization updateExternalOrganization(ExternalOrganization organization) {
-        return externalOrganizationDAO.update(organization);
+    public ExternalOrganization saveOrUpdateExternalOrganization(ExternalOrganization organization) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

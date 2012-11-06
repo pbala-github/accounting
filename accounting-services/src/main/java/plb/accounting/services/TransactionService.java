@@ -2,6 +2,7 @@ package plb.accounting.services;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.IAccountingDAOFacade;
+import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Transaction;
 
 import java.util.List;
@@ -10,29 +11,24 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:13 PM
  */
-public class TransactionService implements ITransactionService{
+public class TransactionService extends BaseService implements ITransactionService{
 
-    /**
-     *
-     */
-    private IAccountingDAOFacade accountingDAOFacade;
 
     @Override
-    public List<Transaction> getTransactions() {
-        return accountingDAOFacade.getTransactions();
+    public List<TransactionDTO> getTransactions() {
+        return transformationService.transform(accountingDAOFacade.getTransactions(),TransactionDTO.class);
     }
 
     @Override
-    public Transaction findTransactionById(long transactionId) {
-        return accountingDAOFacade.findTransactionById(transactionId);
+    public TransactionDTO findTransactionById(long transactionId) {
+
+        return transformationService.transform(accountingDAOFacade.findTransactionById(transactionId),TransactionDTO.class);
     }
 
     @Override
-    public Transaction saveTransaction(Transaction transaction) {
-        if(transaction.getId() == 0)
-            return accountingDAOFacade.persistTransaction(transaction);
-        else
-            return accountingDAOFacade.updateTransaction(transaction);
+    public TransactionDTO saveTransaction(TransactionDTO transaction) {
+        Transaction t = accountingDAOFacade.saveOrUpdateTransaction(transformationService.transform(transaction,Transaction.class));
+        return transformationService.transform(t,TransactionDTO.class);
     }
 
     @Override
@@ -41,7 +37,7 @@ public class TransactionService implements ITransactionService{
     }
 
     @Override
-    public List<Transaction> searchTransactions(TransactionSearchCriteria criteria) {
-        return accountingDAOFacade.searchTransactions(criteria);
+    public List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria) {
+        return transformationService.transform(accountingDAOFacade.searchTransactions(criteria),TransactionDTO.class);
     }
 }

@@ -3,6 +3,8 @@ package plb.accounting.services;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dto.BaseExternalOrganizationDTO;
+import plb.accounting.dto.ExternalOrganizationDTO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
@@ -15,14 +17,14 @@ import java.util.List;
  */
 public interface IExternalOrganizationService {
 
-    List<ExternalOrganization> getExternalOrganizations();
+    List<BaseExternalOrganizationDTO> getExternalOrganizations();
 
-    ExternalOrganization findExternalOrganizationById(long organizationId);
+    ExternalOrganizationDTO findExternalOrganizationById(long organizationId);
 
-    ExternalOrganization saveExternalOrganization(ExternalOrganization organization);
+    ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization);
 
     void deleteExternalOrganization(long organizationId);
 
-    List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria);
+    List<BaseExternalOrganizationDTO> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria);
 
 }
