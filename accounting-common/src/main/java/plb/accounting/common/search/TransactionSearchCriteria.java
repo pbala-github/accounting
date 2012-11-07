@@ -1,7 +1,7 @@
 package plb.accounting.common.search;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.*;
 
 /**
  * User: pbala
@@ -21,12 +21,12 @@ public class TransactionSearchCriteria {
     /**
      *
      */
-    private long originAccountId;
+    private Set<Long> originAccountIds = new HashSet<Long> ();
 
     /**
      *
      */
-    private long destinationAccountId;
+    private Set<Long> destinationAccountIds = new HashSet<Long>();
 
     /**
      *
@@ -53,6 +53,65 @@ public class TransactionSearchCriteria {
       */
     private String orgVat;
 
+    /**
+     *
+      * @param id
+     * @return
+     */
+    public TransactionSearchCriteria addOriginAccountId(long id){
+        originAccountIds.add(id);
+        return this;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public TransactionSearchCriteria addDestinationAccountId(long id){
+        destinationAccountIds.add(id);
+        return this;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public TransactionSearchCriteria removeOriginAccountId(long id){
+        originAccountIds.remove(id);
+        return this;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public TransactionSearchCriteria removeDestinationAccountId(long id){
+        destinationAccountIds.remove(id);
+        return this;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean hasOriginAccountId(long id){
+        return originAccountIds.contains(id);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean hasDestinationAccountId(long id){
+        return destinationAccountIds.contains(id);
+    }
+
+
     public Date getExecutionDateFrom() {
         return executionDateFrom;
     }
@@ -67,22 +126,6 @@ public class TransactionSearchCriteria {
 
     public void setExecutionDateTo(Date executionDateTo) {
         this.executionDateTo = executionDateTo;
-    }
-
-    public long getOriginAccountId() {
-        return originAccountId;
-    }
-
-    public void setOriginAccountId(long originAccountId) {
-        this.originAccountId = originAccountId;
-    }
-
-    public long getDestinationAccountId() {
-        return destinationAccountId;
-    }
-
-    public void setDestinationAccountId(long destinationAccountId) {
-        this.destinationAccountId = destinationAccountId;
     }
 
     public BigDecimal getAmountFrom() {
@@ -124,5 +167,21 @@ public class TransactionSearchCriteria {
 
     public void setOrgVat(String orgVat) {
         this.orgVat = orgVat;
+    }
+
+    public Set<Long> getOriginAccountIds() {
+        return originAccountIds;
+    }
+
+    public void setOriginAccountIds(Set<Long> originAccountIds) {
+        this.originAccountIds = originAccountIds;
+    }
+
+    public Set<Long> getDestinationAccountIds() {
+        return destinationAccountIds;
+    }
+
+    public void setDestinationAccountIds(Set<Long> destinationAccountIds) {
+        this.destinationAccountIds = destinationAccountIds;
     }
 }

@@ -28,10 +28,10 @@ public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITra
                                 searchCriteria.getAmountFrom().compareTo(candidate.getAmount()) <= 0) &&
                         (searchCriteria.getAmountTo() == null ||
                                 searchCriteria.getAmountTo().compareTo(candidate.getAmount()) >= 0) &&
-                        (searchCriteria.getOriginAccountId() == 0 ||
-                                searchCriteria.getOriginAccountId() == candidate.getOriginAccount().getId()) &&
-                        (searchCriteria.getDestinationAccountId() == 0 ||
-                                searchCriteria.getDestinationAccountId() == candidate.getDestinationAccount().getId()) &&
+                        (searchCriteria.getOriginAccountIds().isEmpty() ||
+                                searchCriteria.hasOriginAccountId(candidate.getOriginAccount().getId())) &&
+                        (searchCriteria.getDestinationAccountIds().isEmpty() ||
+                                searchCriteria.hasDestinationAccountId(candidate.getDestinationAccount().getId())) &&
                         (searchCriteria.getExecutionDateFrom() == null ||
                                 searchCriteria.getExecutionDateFrom().compareTo(candidate.getExecutionDate()) <= 0) &&
                         (searchCriteria.getExecutionDateTo() == null ||

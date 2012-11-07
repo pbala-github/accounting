@@ -13,16 +13,19 @@
     <modules>
         <module>../accounting-model</module>
         <module>../accounting-dao</module>
-        <module>../accounting-services</module>
+        <module>../accounting-services-spec</module>
         <module>../accounting-common</module>
         <module>../accounting-transfer-objects</module>
+        <module>../accounting-services</module>
     </modules>
 
 	<properties>
-	 <commons-lang.version>2.3</commons-lang.version>
+	    <commons-lang.version>2.3</commons-lang.version>
         <springframework.version>3.1.1.RELEASE</springframework.version>
         <slf4j.version>1.7.1</slf4j.version>
         <logback-classic.version>1.0.7</logback-classic.version>
+        <powermock.version>1.4.12</powermock.version>
+        <junit.version>4.7</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +58,12 @@
             <dependency>
                 <groupId>accounting</groupId>
                 <artifactId>accounting-transfer-objects</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>accounting</groupId>
+                <artifactId>accounting-services-spec</artifactId>
                 <version>${version}</version>
             </dependency>
 
@@ -95,10 +104,25 @@
                 <version>${springframework.version}</version>
             </dependency>
 
+            <!--Test dependencies -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.7</version>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-easymock</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,9 +1,9 @@
-package plb.accounting.services;
+package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
-import plb.accounting.dao.IAccountingDAOFacade;
 import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Transaction;
+import plb.accounting.services.ITransactionService;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:13 PM
  */
-public class TransactionService extends BaseService implements ITransactionService{
+public class TransactionService extends BaseService implements ITransactionService {
 
 
     @Override

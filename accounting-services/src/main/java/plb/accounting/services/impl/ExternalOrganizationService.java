@@ -1,10 +1,10 @@
-package plb.accounting.services;
+package plb.accounting.services.impl;
 
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
-import plb.accounting.dao.IAccountingDAOFacade;
 import plb.accounting.dto.BaseExternalOrganizationDTO;
 import plb.accounting.dto.ExternalOrganizationDTO;
 import plb.accounting.model.ExternalOrganization;
+import plb.accounting.services.IExternalOrganizationService;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:24 PM
  */
-public class ExternalOrganizationService extends  BaseService implements IExternalOrganizationService{
+public class ExternalOrganizationService extends  BaseService implements IExternalOrganizationService {
 
 
     @Override

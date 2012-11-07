@@ -1,10 +1,10 @@
-package plb.accounting.services;
+package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.dao.IAccountingDAOFacade;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.model.Account;
+import plb.accounting.services.IAccountService;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:08 PM
  */
-public class AccountService extends BaseService implements IAccountService{
+public class AccountService extends BaseService implements IAccountService {
 
 
     @Override
