@@ -10,7 +10,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/7/12 9:32 AM
  */
-public class BalanceReportResult {
+public class BalanceReportResult implements IReportResult{
 
     /**
      * 

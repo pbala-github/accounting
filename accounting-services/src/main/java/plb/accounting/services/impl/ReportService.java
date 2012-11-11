@@ -5,6 +5,8 @@ import plb.accounting.dto.reporting.BalanceReportCriteria;
 import plb.accounting.dto.reporting.BalanceReportResult;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.IReportService;
+import plb.accounting.services.impl.reporting.IReportManager;
+import plb.accounting.services.impl.reporting.IReportStrategy;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  * Date: 11/7/12 12:31 PM
  */
 public class ReportService extends BaseService implements IReportService{
+
+    private IReportManager reportManager;
 
     @Override
     public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
@@ -25,7 +29,11 @@ public class ReportService extends BaseService implements IReportService{
 
         List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
 
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        IReportStrategy<BalanceReportResult,BalanceReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
+        return reportStrategy.createReport(criteria, transactions);
     }
 
+    public void setReportManager(IReportManager reportManager) {
+        this.reportManager = reportManager;
+    }
 }

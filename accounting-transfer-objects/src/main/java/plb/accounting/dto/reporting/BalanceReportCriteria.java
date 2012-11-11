@@ -11,7 +11,7 @@ import java.util.Set;
  * User: pbala
  * Date: 11/7/12 9:03 AM
  */
-public class BalanceReportCriteria {
+public class BalanceReportCriteria implements IReportCriteria{
 
     public enum GroupType{
         ACCOUNT,PERIOD
