@@ -22,40 +22,33 @@ public class PeriodBalanceReportStrategy implements IReportStrategy<BalanceRepor
 
         BalanceReportResult result = new BalanceReportResult();
         List<Transaction> transactions = (List<Transaction>) data;
-        Map<String,List<Transaction>> groupedData = new HashMap<String, List<Transaction>>();
 
-        //TODO implement data aggregation
-
-        
+         GroupContainer<String,Transaction> groupContainer = new GroupContainer<String, Transaction>();
         //group data
         for(Transaction t : transactions){
-            
-           String periodIdentifier = getPeriodIdentifier(t.getExecutionDate());
-            
-           if(groupedData.get(periodIdentifier) == null){
-               List<Transaction> lst = new ArrayList<Transaction>();
-               groupedData.put(periodIdentifier,lst);
-           }
-           groupedData.get(periodIdentifier).add(t);
+
+            String periodIdentifier = getPeriodIdentifier(t.getExecutionDate());
+            Group<String, Transaction> group = groupContainer.getGroupWithKey(periodIdentifier, true);
+
+            group.addItem(t);
 
         }
-        
-        //aggregate total amounts  
-        for(String p: groupedData.keySet()){
-            List<Transaction> lst = groupedData.get(p);
+
+        //aggregate total amounts
+        for(Group<String, Transaction> group : groupContainer.getGroupList()){
             BigDecimal income =BigDecimal.ZERO, outcome = BigDecimal.ZERO;
-            
-            for(Transaction t : lst){
+
+            for(Transaction t : group.getItems()){
                 if(t.getDestinationAccount().getType().equals(AccountTypeEnum.OUTCOME))
                     outcome = outcome.add(t.getAmount());
-                else 
+                else
                     income = income.add(t.getAmount());
             }
 
-            Date period = getPeriod(p);
+            Date period = getPeriod(group.getKey());
             result.addResultEntry(income.doubleValue(),outcome.doubleValue(),period,period);
         }
-        
+
         return result;  
     }
 
