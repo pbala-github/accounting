@@ -1,7 +1,6 @@
 package plb.accounting.services;
 
-import plb.accounting.dto.reporting.BalanceReportCriteria;
-import plb.accounting.dto.reporting.BalanceReportResult;
+import plb.accounting.dto.reporting.*;
 
 /**
  * User: pbala
@@ -10,5 +9,9 @@ import plb.accounting.dto.reporting.BalanceReportResult;
 public interface IReportService {
 
     BalanceReportResult createBalanceReport(BalanceReportCriteria criteria);
+
+    OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria);
+
+    IncomeReportResult createIncomeReport(IncomeReportCriteria criteria);
 
 }

@@ -1,8 +1,7 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
-import plb.accounting.dto.reporting.BalanceReportCriteria;
-import plb.accounting.dto.reporting.BalanceReportResult;
+import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.IReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
@@ -30,6 +29,33 @@ public class ReportService extends BaseService implements IReportService{
         List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
 
         IReportStrategy<BalanceReportResult,BalanceReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
+        return reportStrategy.createReport(criteria, transactions);
+    }
+
+    @Override
+    public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
+
+        TransactionSearchCriteria transactionCriteria = new TransactionSearchCriteria();
+        transactionCriteria.setExecutionDateFrom(criteria.getStartDate());
+        transactionCriteria.setExecutionDateTo(criteria.getEndDate());
+        transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
+
+        List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
+
+        IReportStrategy<OutcomeReportResult,OutcomeReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
+        return reportStrategy.createReport(criteria, transactions);
+    }
+
+    @Override
+    public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
+        TransactionSearchCriteria transactionCriteria = new TransactionSearchCriteria();
+        transactionCriteria.setExecutionDateFrom(criteria.getStartDate());
+        transactionCriteria.setExecutionDateTo(criteria.getEndDate());
+        transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
+
+        List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
+
+        IReportStrategy<IncomeReportResult,IncomeReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
         return reportStrategy.createReport(criteria, transactions);
     }
 
