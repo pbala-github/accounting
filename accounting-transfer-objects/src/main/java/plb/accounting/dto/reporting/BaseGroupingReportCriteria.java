@@ -8,11 +8,9 @@ import java.util.Set;
  * User: pbala
  * Date: 11/7/12 9:03 AM
  */
-public abstract class BaseReportCriteria implements IReportCriteria{
+public abstract class BaseGroupingReportCriteria implements IGroupingReportCriteria{
 
-    public enum GroupType{
-        ACCOUNT,PERIOD
-    }
+
 
     /**
      *

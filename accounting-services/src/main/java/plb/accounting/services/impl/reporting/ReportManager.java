@@ -1,7 +1,6 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.BalanceReportCriteria;
-import plb.accounting.dto.reporting.IReportCriteria;
+import plb.accounting.dto.reporting.*;
 
 /**
  * User: pbala
@@ -20,11 +19,37 @@ public class ReportManager implements IReportManager{
      * @param reportCriteria
      * @return
      */
-    public IReportStrategy getReportStrategy(BalanceReportCriteria reportCriteria) {
+    public IReportStrategy<BalanceReportResult,BalanceReportCriteria> getReportStrategy(BalanceReportCriteria reportCriteria) {
         if(BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
             return new AccountBalanceReportStrategy();
         else
             return new PeriodBalanceReportStrategy();
+
+    }
+
+    /**
+     *
+     * @param reportCriteria
+     * @return
+     */
+    public IReportStrategy<OutcomeReportResult,OutcomeReportCriteria> getReportStrategy(OutcomeReportCriteria reportCriteria) {
+        if(BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
+            return new AccountOutcomeReportStrategy();
+        else
+            return new PeriodOutcomeReportStrategy();
+
+    }
+
+    /**
+     *
+     * @param reportCriteria
+     * @return
+     */
+    public IReportStrategy<IncomeReportResult,IncomeReportCriteria> getReportStrategy(IncomeReportCriteria reportCriteria) {
+        if(BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
+            return new AccountIncomeReportStrategy();
+        else
+            return new PeriodIncomeReportStrategy();
 
     }
 }

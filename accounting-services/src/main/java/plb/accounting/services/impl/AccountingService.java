@@ -4,13 +4,11 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
+import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
-import plb.accounting.services.IAccountService;
-import plb.accounting.services.IAccountingService;
-import plb.accounting.services.IExternalOrganizationService;
-import plb.accounting.services.ITransactionService;
+import plb.accounting.services.*;
 
 import java.util.List;
 
@@ -35,6 +33,11 @@ public class AccountingService implements IAccountingService {
      *
      */
     private IExternalOrganizationService externalOrganizationService;
+
+    /**
+     *
+     */
+    private IReportService reportService;
 
 
     @Override
@@ -110,5 +113,20 @@ public class AccountingService implements IAccountingService {
     @Override
     public List<BaseExternalOrganizationDTO> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
         return externalOrganizationService.searchExternalOrganizations(criteria);
+    }
+
+    @Override
+    public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
+        return reportService.createBalanceReport(criteria);
+    }
+
+    @Override
+    public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
+        return reportService.createOutcomeReport(criteria);
+    }
+
+    @Override
+    public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
+        return reportService.createIncomeReport(criteria);
     }
 }

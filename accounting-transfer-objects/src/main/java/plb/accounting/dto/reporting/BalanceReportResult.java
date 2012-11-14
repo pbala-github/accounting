@@ -1,11 +1,5 @@
 package plb.accounting.dto.reporting;
 
-import plb.accounting.dto.BaseAccountDTO;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * User: pbala
  * Date: 11/7/12 9:32 AM

@@ -8,10 +8,7 @@ import plb.accounting.model.Account;
 import plb.accounting.model.Transaction;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * User: pbala
@@ -26,35 +23,24 @@ public class AccountBalanceReportStrategy implements IReportStrategy<BalanceRepo
 
         BalanceReportResult result = new BalanceReportResult();
         List<Transaction> transactions = (List<Transaction>) data;
-        Map<Account,List<Transaction>> groupedData = new HashMap<Account, List<Transaction>>();
-        //TODO implement data aggregation
-        
-        for(Transaction t : transactions){
-           if(groupedData.get(t.getOriginAccount()) == null){
-               List<Transaction> lst = new ArrayList<Transaction>();
-               groupedData.put(t.getOriginAccount(),lst);
-           }
-           groupedData.get(t.getOriginAccount()).add(t);
+      
 
-            if(groupedData.get(t.getDestinationAccount()) == null){
-                List<Transaction> lst = new ArrayList<Transaction>();
-                groupedData.put(t.getDestinationAccount(),lst);
-            }
-            groupedData.get(t.getDestinationAccount()).add(t); 
-        }
+        IGroupStrategy<Account,Transaction> groupStrategy = new TransactionAccountGroupStrategy();
+
+        GroupContainer<Account,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);
         
-        for(Account a: groupedData.keySet()){
-            List<Transaction> lst = groupedData.get(a);
+        for(Group<Account,Transaction> group : groupContainer.getGroupList()){
+
             BigDecimal income =BigDecimal.ZERO, outcome = BigDecimal.ZERO;
             
-            for(Transaction t : lst){
-                if(a ==  t.getOriginAccount())
+            for(Transaction t : group.getItems()){
+                if(group.getKey() ==  t.getOriginAccount())
                     outcome = outcome.add(t.getAmount());
                 else 
                     income = income.add(t.getAmount());
             }
 
-            result.addResultEntry(income.doubleValue(),outcome.doubleValue(),transformationService.transform(a, BaseAccountDTO.class));
+            result.addResultEntry(income.doubleValue(),outcome.doubleValue(),transformationService.transform(group.getKey(), BaseAccountDTO.class));
         }
         
         return result;  
