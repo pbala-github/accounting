@@ -17,6 +17,7 @@
         <module>../accounting-common</module>
         <module>../accounting-transfer-objects</module>
         <module>../accounting-services</module>
+        <module>../accounting-ui-smvc</module>
     </modules>
 
 	<properties>
