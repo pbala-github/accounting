@@ -17,6 +17,7 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
  */
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = {"plb.accounting.mvc.controller"})
 @ImportResource("classpath:/spring/webflow-config.xml")
 public class ApplicationConfigurationContext {
 
@@ -25,7 +26,7 @@ public class ApplicationConfigurationContext {
     @Autowired
     private FlowDefinitionRegistry flowDefinitionRegistry;
 
-    @Bean
+//    @Bean
     public ViewResolver jsfViewResolver(){
         UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
         viewResolver.setPrefix("WEB-INF/views/");

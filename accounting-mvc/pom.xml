@@ -13,6 +13,10 @@
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
+            <groupId>accounting</groupId>
+            <artifactId>accounting-services-spec</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
@@ -44,6 +48,11 @@
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-faces</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
         </dependency>
     </dependencies>
     <build>
