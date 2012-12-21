@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>#{pageTitle}</title>
+</h:head>
+
+<h:body>
+    <table class="page-body">
+        <tbody>
+            <tr class="page-header">
+                <td>
+                    <table class="page-header-cnt" >
+                        <tbody>
+                        <tr class="appl-menu">
+                            <td>
+                                <ui:insert name="applMenu">
+                                    Insert application menu
+                                </ui:insert>
+                            </td>
+                        </tr>
+                        <tr class="appl-gl-actions">
+                            <td>
+                                <ui:insert name="globalActions">
+                                    Insert global actions
+                                </ui:insert>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="page-content">
+                <td>
+                    <ui:insert name="content">
+                        Insert content here.
+                    </ui:insert>
+                </td>
+            </tr>
+            <tr class="page-footer">
+                <td>
+                    <ui:insert name="footer">
+                        Insert footer
+                    </ui:insert>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</h:body>
+
+</html>

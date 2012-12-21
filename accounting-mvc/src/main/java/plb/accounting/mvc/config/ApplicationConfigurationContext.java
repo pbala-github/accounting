@@ -3,6 +3,7 @@ package plb.accounting.mvc.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.faces.mvc.JsfView;
+import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -18,7 +19,7 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"plb.accounting.mvc.controller"})
-@ImportResource("classpath:/spring/webflow-config.xml")
+@ImportResource({"/WEB-INF/config/faces-context.xml","/WEB-INF/config/webflow-config.xml"})
 public class ApplicationConfigurationContext {
 
     @Autowired
@@ -26,18 +27,9 @@ public class ApplicationConfigurationContext {
     @Autowired
     private FlowDefinitionRegistry flowDefinitionRegistry;
 
-//    @Bean
-    public ViewResolver jsfViewResolver(){
-        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-        viewResolver.setPrefix("WEB-INF/views/");
-        viewResolver.setSuffix(".xhtml");
-        viewResolver.setViewClass(JsfView.class);
-        return viewResolver;
-    }
-
     @Bean
     public FlowHandlerAdapter flowHandlerAdapter(){
-        FlowHandlerAdapter flowHandlerAdapter = new FlowHandlerAdapter();
+        FlowHandlerAdapter flowHandlerAdapter = new JsfFlowHandlerAdapter();
         flowHandlerAdapter.setFlowExecutor(flowExecutor);
         return flowHandlerAdapter;
     }

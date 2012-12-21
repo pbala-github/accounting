@@ -8,7 +8,6 @@ import org.dozer.Mapper;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
-import plb.accounting.common.test.helpers.MockHelper;
 import plb.accounting.common.transformation.DozerTransformationService;
 import plb.accounting.common.transformation.ITransformationService;
 import plb.accounting.dto.BaseAccountDTO;

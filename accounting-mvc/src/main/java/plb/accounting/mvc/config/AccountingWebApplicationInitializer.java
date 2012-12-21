@@ -28,7 +28,7 @@ public class AccountingWebApplicationInitializer implements WebApplicationInitia
         DispatcherServlet dispatcherServlet = new DispatcherServlet(dispatcherContext);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+        dispatcher.addMapping("/app/*");
     }
 
     private WebApplicationContext createContext(final Class<?> ... annotatedClasses){

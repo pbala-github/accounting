@@ -4,29 +4,57 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="true">
 
+
+    <!--
+         JSF 2 IMPLEMENTATION
+     -->
+
+    <!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
 
-    <servlet>
-        <servlet-name>Resource Servlet</servlet-name>
-        <servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
+    <!-- Enables special Facelets debug output during development -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
 
-    <servlet-mapping>
-        <servlet-name>Resource Servlet</servlet-name>
-        <url-pattern>/resources/*</url-pattern>
-    </servlet-mapping>
+    <!-- Causes Facelets to refresh templates during development -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>1</param-value>
+    </context-param>
 
+    <!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+    <!-- Just here so the JSF implementation can initialize -->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.faces</url-pattern>
     </servlet-mapping>
+
+    <!-- Richfaces context parameters -->
+    <context-param>
+        <param-name>org.richfaces.resourceMapping.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.skin</param-name>
+        <param-value>ruby</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.ajax4jsf.skin</param-name>
+        <param-value>DEFAULT</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>
