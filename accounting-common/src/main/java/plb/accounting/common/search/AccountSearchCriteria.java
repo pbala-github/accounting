@@ -1,5 +1,7 @@
 package plb.accounting.common.search;
 
+import plb.accounting.dto.AccountTypeEnum;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,6 +31,10 @@ public class AccountSearchCriteria {
      */
     private long parentAccountId;
 
+    /**
+     *
+     */
+    private AccountTypeEnum accountType;
 
     public String getAccountName() {
         return accountName;
@@ -62,5 +68,13 @@ public class AccountSearchCriteria {
 
     public void setLowestAccountBalance(BigDecimal lowestAccountBalance) {
         this.lowestAccountBalance = lowestAccountBalance;
+    }
+
+    public AccountTypeEnum getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountTypeEnum accountType) {
+        this.accountType = accountType;
     }
 }

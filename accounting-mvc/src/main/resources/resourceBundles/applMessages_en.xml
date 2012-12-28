@@ -4,4 +4,15 @@
 
     <entry key="application_title">Personal Accounting</entry>
     <entry key="total_accounts_title">All Accounts</entry>
+    <entry key="create_account_pageTitle">Create Account</entry>
+    <entry key="account_name">Name</entry>
+    <entry key="account_initialBalance">Initial Balance</entry>
+    <entry key="account_description">Description</entry>
+    <entry key="account_type">Type</entry>
+    <entry key="account_parent">Paren Account</entry>
+
+    <entry key="accountType_INCOME">Income Account</entry>
+    <entry key="accountType_OUTCOME">Outcome Account</entry>
+    <entry key="accountType_STORAGE">Storage Account</entry>
+    <entry key="account_saveBtn">Save</entry>
 </properties>

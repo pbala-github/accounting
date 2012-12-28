@@ -4,11 +4,20 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <on-start>
-        <evaluate expression="accountingController.initNewAccountWM()" result="flowScope.account"/>
+        <evaluate expression="accountingController.initNewAccountWM()" result="flowScope.accountWM"/>
+        <set name="flowScope.account" value="flowScope.accountWM.refAccount"/>
+        <evaluate expression="accountingController.getAccountTypes()" result="flowScope.accountTypes"/>
+        <evaluate expression="accountingController.getAccountsByType(flowScope.account.type)" result="flowScope.accounts"/>
     </on-start>
 
     <view-state id="createAccount" view="/WEB-INF/views/createAccount.xhtml">
-
+          <transition on="save" to="end">
+               <evaluate expression="accountingController.createAccount(flowScope.accountWM)"/>
+          </transition>
     </view-state>
+
+    <end-state id="end">
+
+    </end-state>
 
 </flow>

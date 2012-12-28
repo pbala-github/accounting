@@ -2,11 +2,15 @@ package plb.accounting.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.mvc.model.AccountWM;
+import plb.accounting.mvc.utils.WebUtilHelper;
 import plb.accounting.services.IAccountingService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,5 +40,32 @@ public class AccountingController {
         accountWM.setRefAccount(new AccountDTO());
 
         return accountWM;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<AccountTypeEnum> getAccountTypes(){
+        return  Arrays.asList(AccountTypeEnum.values());
+    }
+
+    /**
+     *
+     * @param accountType
+     * @return
+     */
+    public List<BaseAccountDTO> getAccountsByType(AccountTypeEnum accountType){
+        AccountSearchCriteria criteria = new AccountSearchCriteria();
+        criteria.setAccountType(accountType);
+        return WebUtilHelper.serializeAccounts(accountingService.searchAccounts(criteria).toArray(new BaseAccountDTO[0]));
+    }
+
+    /**
+     *
+     * @param accountWM
+     */
+    public void createAccount(AccountWM accountWM){
+        accountingService.saveAccount(accountWM.getRefAccount());
     }
 }

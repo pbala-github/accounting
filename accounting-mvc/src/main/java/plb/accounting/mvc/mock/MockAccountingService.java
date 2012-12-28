@@ -1,5 +1,6 @@
 package plb.accounting.mvc.mock;
 
+import org.dummycreator.DummyCreator;
 import org.springframework.stereotype.Service;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
@@ -9,6 +10,7 @@ import plb.accounting.dto.reporting.*;
 import plb.accounting.services.IAccountingService;
 import plb.accounting.common.test.helpers.*;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +22,30 @@ import java.util.List;
 public class MockAccountingService implements IAccountingService{
     @Override
     public List<BaseAccountDTO> getAccounts() {
-        return Arrays.asList(new BaseAccountDTO());  //To change body of implemented methods use File | Settings | File Templates.
+
+        return createAccounts();
+    }
+
+    private List<BaseAccountDTO> createAccounts(){
+        BaseAccountDTO baseAccountDTO = new BaseAccountDTO();
+        baseAccountDTO.setCurrentBalance(BigDecimal.ONE);
+        baseAccountDTO.setDescription("description 1");
+        baseAccountDTO.setId(1l);
+        baseAccountDTO.setInitialBalance(BigDecimal.TEN);
+        baseAccountDTO.setName("name 1");
+        baseAccountDTO.setType(AccountTypeEnum.INCOME);
+
+        BaseAccountDTO baseAccountDTO2 = new BaseAccountDTO();
+        baseAccountDTO2.setCurrentBalance(BigDecimal.ONE);
+        baseAccountDTO2.setDescription("description 2");
+        baseAccountDTO2.setId(2l);
+        baseAccountDTO2.setInitialBalance(BigDecimal.TEN);
+        baseAccountDTO2.setName("name 2");
+        baseAccountDTO2.setType(AccountTypeEnum.INCOME);
+
+        baseAccountDTO.setChildrenAccounts(Arrays.asList(baseAccountDTO2));
+
+        return Arrays.asList(baseAccountDTO);
     }
 
     @Override
@@ -80,7 +105,7 @@ public class MockAccountingService implements IAccountingService{
 
     @Override
     public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return createAccounts();
     }
 
     @Override
