@@ -10,19 +10,22 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <title>Simple JSF Facelets page</title>
+    <title>Not Used</title>
 </h:head>
 
 <h:body>
-    <ui:composition template="/WEB-INF/templates/standard.xhtml">
+    <ui:composition template="/WEB-INF/templates/standardForm.xhtml">
         <ui:param name="pageTitle" value="#{resourceBundle.total_accounts_title}"/>
-        <ui:define name="content">
-            <rich:panel header="Test Panel">
-                <h:outputLabel value="No Comment!" />
-            </rich:panel>
+        <ui:define name="insideForm">
 
-            <h:outputLabel value="Total Accounts"/>
-            <h:outputText value="#{accounts}"/>
+            <rich:tree var="item" toggleType="client" selectionType="ajax">
+                <rich:treeModelRecursiveAdaptor roots="#{accounts}" nodes="#{item.childrenAccounts}">
+                    <rich:treeNode expanded="true" selectionType="ajax">
+                        #{item.name}
+                    </rich:treeNode>
+                </rich:treeModelRecursiveAdaptor>
+            </rich:tree>
+
         </ui:define>
     </ui:composition>
 </h:body>

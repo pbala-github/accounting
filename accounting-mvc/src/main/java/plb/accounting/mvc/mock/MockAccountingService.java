@@ -43,6 +43,15 @@ public class MockAccountingService implements IAccountingService{
         baseAccountDTO2.setName("name 2");
         baseAccountDTO2.setType(AccountTypeEnum.INCOME);
 
+        BaseAccountDTO baseAccountDTO3 = new BaseAccountDTO();
+        baseAccountDTO3.setCurrentBalance(BigDecimal.ONE);
+        baseAccountDTO3.setDescription("description 3");
+        baseAccountDTO3.setId(3l);
+        baseAccountDTO3.setInitialBalance(BigDecimal.TEN);
+        baseAccountDTO3.setName("name 3");
+        baseAccountDTO3.setType(AccountTypeEnum.INCOME);
+
+        baseAccountDTO2.setChildrenAccounts(Arrays.asList(baseAccountDTO3));
         baseAccountDTO.setChildrenAccounts(Arrays.asList(baseAccountDTO2));
 
         return Arrays.asList(baseAccountDTO);
