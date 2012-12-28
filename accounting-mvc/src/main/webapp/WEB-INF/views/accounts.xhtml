@@ -6,19 +6,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
     <title>Simple JSF Facelets page</title>
 </h:head>
 
 <h:body>
-    <rich:panel header="Test Panel">
-        <h:outputLabel value="No Comment!" />
-    </rich:panel>
+    <ui:composition template="/WEB-INF/templates/standard.xhtml">
+        <ui:param name="pageTitle" value="#{resourceBundle.total_accounts_title}"/>
+        <ui:define name="content">
+            <rich:panel header="Test Panel">
+                <h:outputLabel value="No Comment!" />
+            </rich:panel>
 
-    <h:outputLabel value="Total Accounts"/>
-    <h:outputText value="#{accounts}"/>
+            <h:outputLabel value="Total Accounts"/>
+            <h:outputText value="#{accounts}"/>
+        </ui:define>
+    </ui:composition>
 </h:body>
 
 </html>

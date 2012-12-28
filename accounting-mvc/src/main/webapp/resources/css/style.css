@@ -1,0 +1,33 @@
+
+body {
+    margin: 0px;
+    height: 100%;
+    background-image: url("#{resource["images:background.png"]}");
+}
+
+div.page-header {
+    background-color:#FAF8CE;
+    border-radius:0 0 4px 4px;
+    height:70px;
+    margin-bottom:10px;
+    border:1px solid #d2ae6d;
+    box-shadow:0 3px 2px #666;
+    position:relative;
+}
+
+div.page-content {
+    border:1px solid #d2ae6d;
+    border-top:none;
+    background-color:#F3F2F2;
+    position:relative;
+    border-radius:0 0 4px 4px;
+    box-shadow:none;
+    min-height: 300px;
+}
+
+div.page-footer{
+    background-color: #F3F2F2;
+    margin-top: 5px;
+    opacity: 0.2;
+    border-radius: 4px;
+}

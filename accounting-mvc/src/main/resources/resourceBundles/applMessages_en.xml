@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+    <entry key="application_title">Personal Accounting</entry>
+    <entry key="total_accounts_title">All Accounts</entry>
+</properties>
