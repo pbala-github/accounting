@@ -1,5 +1,10 @@
 package plb.accounting.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -8,6 +13,53 @@ import java.util.List;
  * Date: 10/29/12 9:28 PM
  */
 public class Account extends BaseEntity{
+    /**
+     *
+     */
+    @NotEmpty
+    private String name;
+
+    /**
+     *
+     */
+    @Min(0)
+    private BigDecimal initialBalance;
+
+    /**
+     *
+     */
+    @Min(0)
+    private BigDecimal currentBalance;
+
+    /**
+     *
+     */
+    @Valid
+    private Account parentAccount;
+
+    /**
+     *
+     */
+    @Valid
+    private List<Account> childrenAccounts;
+
+    /**
+     *
+     */
+    private String description;
+
+    /**
+     *
+     */
+    @Valid
+    private List<Transaction> transactions;
+
+    /**
+     *
+     */
+    @NotNull
+    private AccountTypeEnum type;
+
     public String getName() {
         return name;
     }
@@ -80,45 +132,5 @@ public class Account extends BaseEntity{
                 ", type=" + type +
                 "} " + super.toString();
     }
-
-    /**
-     *
-     */
-    private String name;
-
-    /**
-     *
-     */
-    private BigDecimal initialBalance;
-
-    /**
-     *
-     */
-    private BigDecimal currentBalance;
-
-    /**
-     *
-     */
-    private Account parentAccount;
-
-    /**
-     *
-     */
-    private List<Account> childrenAccounts;
-
-    /**
-     *
-     */
-    private String description;
-
-    /**
-     *
-     */
-    private List<Transaction> transactions;
-
-    /**
-     *
-     */
-    private AccountTypeEnum type;
 }
 

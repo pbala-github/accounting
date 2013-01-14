@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * User: pbala
- * Date: 11/6/12 9:11 AM
+ * Date: 11/6/12 9:10 AM
  */
-public class ExternalOrganizationDTO extends BaseExternalOrganizationDTO{
+public class DetailedAccountDTO extends AccountDTO {
 
     /**
      *

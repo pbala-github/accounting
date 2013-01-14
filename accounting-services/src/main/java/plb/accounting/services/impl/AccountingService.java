@@ -5,9 +5,6 @@ import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
-import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
-import plb.accounting.model.Transaction;
 import plb.accounting.services.*;
 
 import java.util.List;
@@ -41,7 +38,7 @@ public class AccountingService implements IAccountingService {
 
 
     @Override
-    public List<BaseAccountDTO> getAccounts() {
+    public List<AccountDTO> getAccounts() {
         return accountService.getAccounts();
     }
 
@@ -56,7 +53,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public AccountDTO findAccountById(long accountId) {
+    public DetailedAccountDTO findAccountById(long accountId) {
         return accountService.loadAccountById(accountId);
     }
 
@@ -71,7 +68,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public AccountDTO saveAccount(AccountDTO account) {
+    public DetailedAccountDTO saveAccount(DetailedAccountDTO account) {
         return accountService.saveAccount(account);
     }
 
@@ -101,7 +98,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+    public List<AccountDTO> searchAccounts(AccountSearchCriteria criteria) {
         return accountService.searchAccounts(criteria);
     }
 

@@ -1,5 +1,8 @@
 package plb.accounting.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -11,6 +14,7 @@ public class ExternalOrganization extends BaseEntity{
     /**
      *
      */
+    @NotEmpty
     private String name;
 
     /**
@@ -26,6 +30,7 @@ public class ExternalOrganization extends BaseEntity{
     /**
      *
      */
+    @Valid
     private List<Transaction> transactions;
 
     public String getName() {

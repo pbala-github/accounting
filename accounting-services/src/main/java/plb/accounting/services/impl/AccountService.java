@@ -1,8 +1,8 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
+import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.model.Account;
 import plb.accounting.services.IAccountService;
 
@@ -16,21 +16,21 @@ public class AccountService extends BaseService implements IAccountService {
 
 
     @Override
-    public List<BaseAccountDTO> getAccounts() {
-        return transformationService.transform(accountingDAOFacade.getAccounts(),BaseAccountDTO.class);
+    public List<AccountDTO> getAccounts() {
+        return transformationService.transform(accountingDAOFacade.getAccounts(),AccountDTO.class);
     }
 
     @Override
-    public AccountDTO loadAccountById(long accountId) {
-        return transformationService.transform(accountingDAOFacade.findAccountById(accountId),AccountDTO.class);
+    public DetailedAccountDTO loadAccountById(long accountId) {
+        return transformationService.transform(accountingDAOFacade.findAccountById(accountId),DetailedAccountDTO.class);
     }
 
     @Override
-    public AccountDTO saveAccount(AccountDTO accountDTO) {
+    public DetailedAccountDTO saveAccount(DetailedAccountDTO accountDTO) {
 
           Account account = accountingDAOFacade.saveOrUpdateAccount(transformationService.transform(accountDTO,Account.class));
 
-          return transformationService.transform(account,AccountDTO.class);
+          return transformationService.transform(account,DetailedAccountDTO.class);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class AccountService extends BaseService implements IAccountService {
     }
 
     @Override
-    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
-        return transformationService.transform(accountingDAOFacade.searchAccounts(criteria),BaseAccountDTO.class);
+    public List<AccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+        return transformationService.transform(accountingDAOFacade.searchAccounts(criteria),AccountDTO.class);
     }
 
 }

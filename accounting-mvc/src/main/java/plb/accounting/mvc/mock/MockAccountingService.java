@@ -1,6 +1,5 @@
 package plb.accounting.mvc.mock;
 
-import org.dummycreator.DummyCreator;
 import org.springframework.stereotype.Service;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
@@ -8,7 +7,6 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.IAccountingService;
-import plb.accounting.common.test.helpers.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -21,13 +19,13 @@ import java.util.List;
 @Service
 public class MockAccountingService implements IAccountingService{
     @Override
-    public List<BaseAccountDTO> getAccounts() {
+    public List<AccountDTO> getAccounts() {
 
         return createAccounts();
     }
 
-    private List<BaseAccountDTO> createAccounts(){
-        BaseAccountDTO baseAccountDTO = new BaseAccountDTO();
+    private List<AccountDTO> createAccounts(){
+        AccountDTO baseAccountDTO = new AccountDTO();
         baseAccountDTO.setCurrentBalance(BigDecimal.ONE);
         baseAccountDTO.setDescription("description 1");
         baseAccountDTO.setId(1l);
@@ -35,7 +33,7 @@ public class MockAccountingService implements IAccountingService{
         baseAccountDTO.setName("name 1");
         baseAccountDTO.setType(AccountTypeEnum.INCOME);
 
-        BaseAccountDTO baseAccountDTO2 = new BaseAccountDTO();
+        AccountDTO baseAccountDTO2 = new AccountDTO();
         baseAccountDTO2.setCurrentBalance(BigDecimal.ONE);
         baseAccountDTO2.setDescription("description 2");
         baseAccountDTO2.setId(2l);
@@ -43,7 +41,7 @@ public class MockAccountingService implements IAccountingService{
         baseAccountDTO2.setName("name 2");
         baseAccountDTO2.setType(AccountTypeEnum.INCOME);
 
-        BaseAccountDTO baseAccountDTO3 = new BaseAccountDTO();
+        AccountDTO baseAccountDTO3 = new AccountDTO();
         baseAccountDTO3.setCurrentBalance(BigDecimal.ONE);
         baseAccountDTO3.setDescription("description 3");
         baseAccountDTO3.setId(3l);
@@ -68,7 +66,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public AccountDTO findAccountById(long accountId) {
+    public DetailedAccountDTO findAccountById(long accountId) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -83,7 +81,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public AccountDTO saveAccount(AccountDTO account) {
+    public DetailedAccountDTO saveAccount(DetailedAccountDTO account) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -113,7 +111,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+    public List<AccountDTO> searchAccounts(AccountSearchCriteria criteria) {
         return createAccounts();
     }
 

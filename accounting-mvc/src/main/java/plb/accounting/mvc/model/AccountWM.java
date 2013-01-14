@@ -1,6 +1,6 @@
 package plb.accounting.mvc.model;
 
-import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.DetailedAccountDTO;
 
 /**
  * User: pbala
@@ -11,13 +11,13 @@ public class AccountWM extends AbstractWM{
     /**
      * Referenced Account
      */
-    private AccountDTO refAccount;
+    private DetailedAccountDTO refAccount;
 
-    public AccountDTO getRefAccount() {
+    public DetailedAccountDTO getRefAccount() {
         return refAccount;
     }
 
-    public void setRefAccount(AccountDTO refAccount) {
+    public void setRefAccount(DetailedAccountDTO refAccount) {
         this.refAccount = refAccount;
     }
 }

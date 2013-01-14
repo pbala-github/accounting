@@ -1,5 +1,10 @@
 package plb.accounting.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,31 +16,40 @@ public class Transaction extends BaseEntity{
     /**
      *
      */
+    @NotNull
     private Date executionDate;
 
     /**
      *
      */
+    @NotNull
+    @Valid
     private Account originAccount;
 
     /**
      *
      */
+    @NotNull
+    @Valid
     private Account destinationAccount;
 
     /**
      *
      */
+    @NotNull
+    @Min(0)
     private BigDecimal amount;
 
     /**
      *
      */
+    @NotEmpty
     private String description;
 
     /**
      *
      */
+    @Valid
     private ExternalOrganization relatedOrganization;
 
     public Date getExecutionDate() {

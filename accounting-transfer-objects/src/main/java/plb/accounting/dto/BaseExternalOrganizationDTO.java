@@ -1,6 +1,7 @@
 package plb.accounting.dto;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * User: pbala
@@ -10,6 +11,8 @@ public class BaseExternalOrganizationDTO extends BaseDTO{
     /**
      *
      */
+    @NotNull
+    @Size(min = 2)
     private String name;
 
     /**

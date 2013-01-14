@@ -1,6 +1,6 @@
 package plb.accounting.dto.reporting;
 
-import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.AccountDTO;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,7 +54,7 @@ public abstract class BaseReportResult<T extends IReportCriteria> implements IRe
      * @param account
      * @return
      */
-    public BaseReportResultEntry addResultEntry(double income, double outcome,BaseAccountDTO account){
+    public BaseReportResultEntry addResultEntry(double income, double outcome,AccountDTO account){
         BaseReportResultEntry resultEntry = new BaseReportResultEntry(income,outcome,account);
         resultEntries.add(resultEntry);
         return resultEntry;
@@ -81,7 +81,7 @@ public abstract class BaseReportResult<T extends IReportCriteria> implements IRe
         /**
          *
          */
-        private BaseAccountDTO account;
+        private AccountDTO account;
 
         /**
          *
@@ -101,13 +101,13 @@ public abstract class BaseReportResult<T extends IReportCriteria> implements IRe
             this.endDate = endDate;
         }
 
-        public BaseReportResultEntry(Double income, double outcome, BaseAccountDTO account) {
+        public BaseReportResultEntry(Double income, double outcome, AccountDTO account) {
             this.income = income;
             this.outcome = outcome;
             this.account = account;
         }
 
-        public BaseReportResultEntry(Double income, double outcome, BaseAccountDTO account, Date startDate, Date endDate) {
+        public BaseReportResultEntry(Double income, double outcome, AccountDTO account, Date startDate, Date endDate) {
             this.income = income;
             this.outcome = outcome;
             this.account = account;
@@ -123,7 +123,7 @@ public abstract class BaseReportResult<T extends IReportCriteria> implements IRe
             return outcome;
         }
 
-        public BaseAccountDTO getAccount() {
+        public AccountDTO getAccount() {
             return account;
         }
 

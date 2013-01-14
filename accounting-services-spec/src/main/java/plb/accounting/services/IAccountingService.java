@@ -4,9 +4,6 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
-import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
-import plb.accounting.model.Transaction;
 
 import java.util.List;
 
@@ -18,21 +15,21 @@ import java.util.List;
  */
 public interface IAccountingService extends IReportService{
 
-    List<BaseAccountDTO> getAccounts();
+    List<AccountDTO> getAccounts();
 
     List<TransactionDTO> getTransactions();
 
     List<BaseExternalOrganizationDTO> getExternalOrganizations();
 
 
-    AccountDTO findAccountById(long accountId);
+    DetailedAccountDTO findAccountById(long accountId);
 
     TransactionDTO findTransactionById(long transactionId);
 
     ExternalOrganizationDTO findExternalOrganizationById(long organizationId);
 
 
-    AccountDTO saveAccount(AccountDTO account);
+    DetailedAccountDTO saveAccount(DetailedAccountDTO account);
 
     TransactionDTO saveTransaction(TransactionDTO transaction);
 
@@ -46,7 +43,7 @@ public interface IAccountingService extends IReportService{
     void deleteExternalOrganization(long organizationId);
 
 
-    List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);
+    List<AccountDTO> searchAccounts(AccountSearchCriteria criteria);
 
     List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria);
 

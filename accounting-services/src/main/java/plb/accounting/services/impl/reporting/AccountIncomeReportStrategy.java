@@ -1,11 +1,9 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.common.transformation.ITransformationService;
-import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.reporting.IncomeReportCriteria;
 import plb.accounting.dto.reporting.IncomeReportResult;
-import plb.accounting.dto.reporting.OutcomeReportCriteria;
-import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
@@ -42,7 +40,7 @@ public class AccountIncomeReportStrategy implements IReportStrategy<IncomeReport
             }
 
             totalIncome = totalIncome.add(income);
-            result.addResultEntry(income.doubleValue(),0,transformationService.transform(group.getKey(), BaseAccountDTO.class));
+            result.addResultEntry(income.doubleValue(),0,transformationService.transform(group.getKey(), AccountDTO.class));
         }
 
         result.setTotalIncome(totalIncome.doubleValue());
