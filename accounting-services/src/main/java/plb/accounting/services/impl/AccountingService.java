@@ -31,14 +31,8 @@ public class AccountingService implements IAccountingService {
      */
     private IExternalOrganizationService externalOrganizationService;
 
-    /**
-     *
-     */
-    private IReportService reportService;
-
-
     @Override
-    public List<AccountDTO> getAccounts() {
+    public List<BaseAccountDTO> getAccounts() {
         return accountService.getAccounts();
     }
 
@@ -68,7 +62,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public DetailedAccountDTO saveAccount(DetailedAccountDTO account) {
+    public BaseAccountDTO saveAccount(BaseAccountDTO account) {
         return accountService.saveAccount(account);
     }
 
@@ -78,7 +72,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization) {
+    public BaseExternalOrganizationDTO saveExternalOrganization(BaseExternalOrganizationDTO organization) {
         return externalOrganizationService.saveExternalOrganization(organization);
     }
 
@@ -98,7 +92,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public List<AccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
         return accountService.searchAccounts(criteria);
     }
 
@@ -112,18 +106,4 @@ public class AccountingService implements IAccountingService {
         return externalOrganizationService.searchExternalOrganizations(criteria);
     }
 
-    @Override
-    public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
-        return reportService.createBalanceReport(criteria);
-    }
-
-    @Override
-    public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
-        return reportService.createOutcomeReport(criteria);
-    }
-
-    @Override
-    public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
-        return reportService.createIncomeReport(criteria);
-    }
 }

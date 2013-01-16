@@ -28,8 +28,7 @@ public class ReportService extends BaseService implements IReportService{
 
         List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
 
-        IReportStrategy<BalanceReportResult,BalanceReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
-        return reportStrategy.createReport(criteria, transactions);
+        return reportManager.createReport(criteria, transactions);
     }
 
     @Override
@@ -42,8 +41,7 @@ public class ReportService extends BaseService implements IReportService{
 
         List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
 
-        IReportStrategy<OutcomeReportResult,OutcomeReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
-        return reportStrategy.createReport(criteria, transactions);
+        return reportManager.createReport(criteria, transactions);
     }
 
     @Override
@@ -55,8 +53,7 @@ public class ReportService extends BaseService implements IReportService{
 
         List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
 
-        IReportStrategy<IncomeReportResult,IncomeReportCriteria> reportStrategy = reportManager.getReportStrategy(criteria);
-        return reportStrategy.createReport(criteria, transactions);
+        return reportManager.createReport(criteria, transactions);
     }
 
     public void setReportManager(IReportManager reportManager) {

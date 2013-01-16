@@ -10,4 +10,6 @@ import plb.accounting.dto.reporting.IReportResult;
 public interface IReportManager {
 
     <T extends IReportResult,E extends IReportCriteria> IReportStrategy<T,E> getReportStrategy(IReportCriteria reportCriteria);
+
+    <T extends IReportResult,E extends IReportCriteria> T createReport(E criteria, Object data);
 }

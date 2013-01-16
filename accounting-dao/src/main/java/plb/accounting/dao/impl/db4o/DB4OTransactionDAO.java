@@ -4,10 +4,8 @@ import com.db4o.query.Predicate;
 import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.ITransactionDAO;
-import plb.accounting.model.BaseEntity;
 import plb.accounting.model.Transaction;
 
-import java.beans.Beans;
 import java.util.List;
 
 /**

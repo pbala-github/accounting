@@ -8,6 +8,7 @@ import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,12 +85,12 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
 
     @Override
     public List<Transaction> searchTransactions(TransactionSearchCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return new ArrayList<Transaction>();
     }
 
     @Override
     public List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return new ArrayList<ExternalOrganization>();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 

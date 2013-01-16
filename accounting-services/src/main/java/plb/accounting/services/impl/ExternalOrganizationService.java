@@ -26,10 +26,10 @@ public class ExternalOrganizationService extends  BaseService implements IExtern
     }
 
     @Override
-    public ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization) {
+    public BaseExternalOrganizationDTO saveExternalOrganization(BaseExternalOrganizationDTO organization) {
         ExternalOrganization externalOrganization = accountingDAOFacade.saveOrUpdateExternalOrganization(transformationService.transform(organization,ExternalOrganization.class));
 
-        return transformationService.transform(externalOrganization,ExternalOrganizationDTO.class);
+        return transformationService.transform(externalOrganization,BaseExternalOrganizationDTO.class);
     }
 
     @Override

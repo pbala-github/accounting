@@ -2,8 +2,6 @@ package plb.accounting.services.impl.reporting;
 
 import plb.accounting.dto.reporting.IncomeReportCriteria;
 import plb.accounting.dto.reporting.IncomeReportResult;
-import plb.accounting.dto.reporting.OutcomeReportCriteria;
-import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
 

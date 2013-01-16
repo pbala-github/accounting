@@ -49,9 +49,9 @@ public class AccountValidationTest extends BaseValidationTest{
         
         account.setType(null);
         BaseAccountDTO parentAccount = new BaseAccountDTO();
-        parentAccount.setType(AccountTypeEnum.INCOME);
-        parentAccount.setDescription("description");
-        parentAccount.setName("name");
+//        parentAccount.setType(AccountTypeEnum.INCOME);
+//        parentAccount.setDescription("description");
+//        parentAccount.setName("name");
 
         account.setParentAccount(parentAccount);
         errorList = getValidator().validate(account, AccountCreation.class);

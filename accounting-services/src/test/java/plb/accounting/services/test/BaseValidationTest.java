@@ -30,7 +30,7 @@ public abstract class BaseValidationTest {
         System.out.println("**********************************************");
         System.out.println("TOTAL ERRORS: " + errorList.getErrors().size());
         for(ValidationError error : errorList.getErrors()){
-            System.out.println("Error: " + error.getFieldName() + ": " + error.getValidationId());
+            System.out.println("Error: " + error.getFieldPointer() + ": " + error.getMessageKey());
                     
         }
         System.out.println("**********************************************");

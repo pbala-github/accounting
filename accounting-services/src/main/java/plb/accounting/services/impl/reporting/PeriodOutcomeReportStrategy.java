@@ -1,6 +1,5 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.BalanceReportResult;
 import plb.accounting.dto.reporting.OutcomeReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.AccountTypeEnum;

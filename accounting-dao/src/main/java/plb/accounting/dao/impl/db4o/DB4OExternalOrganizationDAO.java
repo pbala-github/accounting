@@ -4,7 +4,6 @@ import com.db4o.query.Predicate;
 import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
 import plb.accounting.dao.IExternalOrganizationDAO;
-import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;
 

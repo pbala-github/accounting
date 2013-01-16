@@ -1,8 +1,9 @@
 package plb.accounting.common.validation;
 
-import javax.validation.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 /**
@@ -32,22 +33,7 @@ public class AccountingValidator implements IAccountingValidator{
     public <T> ValidationErrorList validate(T obj, Class<?>...groups) {
         Set<ConstraintViolation<T>> violations = validator.validate(obj,groups);
         
-        return new ValidationErrorList(transformToValidationErrors(violations));
+        return ValidationErrorConverter.toValidationErrorList(violations);
     }
 
-    private <T> List<ValidationError> transformToValidationErrors(Set<ConstraintViolation<T>> violations) {
-        List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-        
-        for(ConstraintViolation violation : violations){
-            for(Path.Node node : violation.getPropertyPath()){
-                validationErrors.add(new ValidationError(node.getName(),
-                        node.getIndex(),
-                        violation.getConstraintDescriptor().getAnnotation().annotationType().getCanonicalName(),
-                        violation.getInvalidValue(),
-                        violation.getMessage()));
-            }
-        }
-        
-        return validationErrors; 
-    }
 }

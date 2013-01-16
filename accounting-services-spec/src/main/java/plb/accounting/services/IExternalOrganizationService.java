@@ -21,7 +21,7 @@ public interface IExternalOrganizationService {
 
     ExternalOrganizationDTO findExternalOrganizationById(long organizationId);
 
-    ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization);
+    BaseExternalOrganizationDTO saveExternalOrganization(BaseExternalOrganizationDTO organization);
 
     void deleteExternalOrganization(long organizationId);
 

@@ -1,10 +1,8 @@
 package plb.accounting.dao.impl.db4o;
 
-import com.db4o.Db4o;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.internal.config.EmbeddedConfigurationImpl;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalOrganization;
 import plb.accounting.model.Transaction;

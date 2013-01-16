@@ -13,9 +13,9 @@ import java.util.List;
  * User: pbala
  * Date: 10/30/12 9:38 AM
  */
-public interface IAccountingService extends IReportService{
+public interface IAccountingService {
 
-    List<AccountDTO> getAccounts();
+    List<BaseAccountDTO> getAccounts();
 
     List<TransactionDTO> getTransactions();
 
@@ -26,14 +26,14 @@ public interface IAccountingService extends IReportService{
 
     TransactionDTO findTransactionById(long transactionId);
 
-    ExternalOrganizationDTO findExternalOrganizationById(long organizationId);
+    BaseExternalOrganizationDTO findExternalOrganizationById(long organizationId);
 
 
-    DetailedAccountDTO saveAccount(DetailedAccountDTO account);
+    BaseAccountDTO saveAccount(BaseAccountDTO account);
 
     TransactionDTO saveTransaction(TransactionDTO transaction);
 
-    ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization);
+    BaseExternalOrganizationDTO saveExternalOrganization(BaseExternalOrganizationDTO organization);
 
 
     void deleteAccount(long accountId);
@@ -43,7 +43,7 @@ public interface IAccountingService extends IReportService{
     void deleteExternalOrganization(long organizationId);
 
 
-    List<AccountDTO> searchAccounts(AccountSearchCriteria criteria);
+    List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);
 
     List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria);
 

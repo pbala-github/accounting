@@ -3,11 +3,8 @@ package plb.accounting.dao.impl.db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
+import plb.accounting.common.validation.*;
 import plb.accounting.dao.IDAO;
-import plb.accounting.dao.impl.validation.AccountingValidator;
-import plb.accounting.dao.impl.validation.IAccountingValidator;
-import plb.accounting.dao.impl.validation.ValidationError;
-import plb.accounting.dao.impl.validation.ValidationException;
 import plb.accounting.model.BaseEntity;
 
 import java.util.List;
@@ -104,8 +101,8 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
     private void validate(T entity){
 
-        List<ValidationError> validationErrors = this.validator.validate(entity);
-        if(!validationErrors.isEmpty())
-            throw new ValidationException(validationErrors);
+        ValidationErrorList errors = this.validator.validate(entity);
+        if(!errors.getErrors().isEmpty())
+            throw new ValidationException(errors);
     }
 }

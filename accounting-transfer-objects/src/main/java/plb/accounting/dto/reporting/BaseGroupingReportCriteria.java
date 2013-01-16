@@ -1,5 +1,11 @@
 package plb.accounting.dto.reporting;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import plb.accounting.dto.validation.NotEmptyCollection;
+import sun.util.resources.LocaleNames_da;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,26 +16,29 @@ import java.util.Set;
  */
 public abstract class BaseGroupingReportCriteria implements IGroupingReportCriteria{
 
-
-
     /**
      *
      */
+    @NotNull
     private Date startDate;
 
     /**
      *
      */
+    @NotNull
     private Date endDate;
 
     /**
      *
      */
+    @NotEmpty
+    @NotEmptyCollection
     private Set<Long> includedAccountsIds = new HashSet<Long>();
 
     /**
      *
      */
+    @NotNull
     private GroupType groupBy = GroupType.PERIOD;
 
 
@@ -63,5 +72,10 @@ public abstract class BaseGroupingReportCriteria implements IGroupingReportCrite
 
     public void setIncludedAccountsIds(Set<Long> includedAccountsIds) {
         this.includedAccountsIds = includedAccountsIds;
+    }
+    
+    public Set<Long> addIncludedAccount(Long accountId){
+        this.includedAccountsIds.add(accountId);
+        return this.includedAccountsIds;
     }
 }
