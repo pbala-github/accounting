@@ -36,7 +36,7 @@ public class Transaction extends BaseEntity{
     /**
      *
      */
-    private ExternalOrganization relatedOrganization;
+    private ExternalParty relatedParty;
 
     public Date getExecutionDate() {
         return executionDate;
@@ -78,12 +78,12 @@ public class Transaction extends BaseEntity{
         this.description = description;
     }
 
-    public ExternalOrganization getRelatedOrganization() {
-        return relatedOrganization;
+    public ExternalParty getRelatedParty() {
+        return relatedParty;
     }
 
-    public void setRelatedOrganization(ExternalOrganization relatedOrganization) {
-        this.relatedOrganization = relatedOrganization;
+    public void setRelatedParty(ExternalParty relatedParty) {
+        this.relatedParty = relatedParty;
     }
 
     @Override

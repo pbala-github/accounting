@@ -4,7 +4,7 @@ package plb.accounting.common.search;
  * User: pbala
  * Date: 11/1/12 8:34 AM
  */
-public class ExternalOrganizationSearchCriteria {
+public class ExternalPartySearchCriteria {
 
     /**
      *

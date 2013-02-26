@@ -1,11 +1,11 @@
 package plb.accounting.services.test;
 
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
+import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.IAccountingDAOFacade;
 import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
+import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public List<ExternalOrganization> getExternalOrganizations() {
+    public List<ExternalParty> getExternalParties() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -43,7 +43,7 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public ExternalOrganization findExternalOrganizationById(long organizationId) {
+    public ExternalParty findExternalPartyById(long organizationId) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -58,7 +58,7 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public ExternalOrganization saveOrUpdateExternalOrganization(ExternalOrganization organization) {
+    public ExternalParty saveOrUpdateExternalParty(ExternalParty party) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -73,7 +73,7 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public void deleteExternalOrganization(long organizationId) {
+    public void deleteExternalParty(long organizationId) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -88,7 +88,7 @@ public class MockAccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
+    public List<ExternalParty> searchExternalParties(ExternalPartySearchCriteria criteria) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

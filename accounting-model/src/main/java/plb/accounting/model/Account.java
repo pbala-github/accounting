@@ -8,6 +8,51 @@ import java.util.List;
  * Date: 10/29/12 9:28 PM
  */
 public class Account extends BaseEntity{
+
+    /**
+     *
+     */
+    private String name;
+
+    /**
+     *
+     */
+    private BigDecimal initialBalance;
+
+    /**
+     *
+     */
+    private BigDecimal currentBalance;
+
+    /**
+     *
+     */
+    private Account parentAccount;
+
+    /**
+     *
+     */
+    private List<Account> childrenAccounts;
+
+    /**
+     *
+     */
+    private String description;
+
+    /**
+     *
+     */
+    private List<Transaction> transactions;
+
+    /**
+     *
+     */
+    private AccountTypeEnum type;
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -81,44 +126,5 @@ public class Account extends BaseEntity{
                 "} " + super.toString();
     }
 
-    /**
-     *
-     */
-    private String name;
-
-    /**
-     *
-     */
-    private BigDecimal initialBalance;
-
-    /**
-     *
-     */
-    private BigDecimal currentBalance;
-
-    /**
-     *
-     */
-    private Account parentAccount;
-
-    /**
-     *
-     */
-    private List<Account> childrenAccounts;
-
-    /**
-     *
-     */
-    private String description;
-
-    /**
-     *
-     */
-    private List<Transaction> transactions;
-
-    /**
-     *
-     */
-    private AccountTypeEnum type;
 }
 

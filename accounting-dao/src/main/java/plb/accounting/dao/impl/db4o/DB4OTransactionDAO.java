@@ -4,10 +4,8 @@ import com.db4o.query.Predicate;
 import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.ITransactionDAO;
-import plb.accounting.model.BaseEntity;
 import plb.accounting.model.Transaction;
 
-import java.beans.Beans;
 import java.util.List;
 
 /**
@@ -37,11 +35,11 @@ public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITra
                         (searchCriteria.getExecutionDateTo() == null ||
                                 searchCriteria.getExecutionDateTo().compareTo(candidate.getExecutionDate()) >= 0) &&
                         (StringUtils.isEmpty(searchCriteria.getOrgName()) ||
-                                (candidate.getRelatedOrganization() != null &&
-                                        candidate.getRelatedOrganization().getName().contains(searchCriteria.getOrgName()))) &&
+                                (candidate.getRelatedParty() != null &&
+                                        candidate.getRelatedParty().getName().contains(searchCriteria.getOrgName()))) &&
                         (StringUtils.isEmpty(searchCriteria.getOrgVat()) ||
-                                (candidate.getRelatedOrganization() != null &&
-                                        candidate.getRelatedOrganization().getVat().equals(searchCriteria.getOrgVat())));
+                                (candidate.getRelatedParty() != null &&
+                                        candidate.getRelatedParty().getVat().equals(searchCriteria.getOrgVat())));
             }
         } ;
 

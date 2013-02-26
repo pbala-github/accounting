@@ -1,13 +1,10 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
+import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
-import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
-import plb.accounting.model.Transaction;
 import plb.accounting.services.*;
 
 import java.util.List;
@@ -32,7 +29,7 @@ public class AccountingService implements IAccountingService {
     /**
      *
      */
-    private IExternalOrganizationService externalOrganizationService;
+    private IExternalPartyService externalPartyService;
 
     /**
      *
@@ -51,8 +48,8 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public List<BaseExternalOrganizationDTO> getExternalOrganizations() {
-        return externalOrganizationService.getExternalOrganizations();
+    public List<BaseExternalPartyDTO> getExternalParties() {
+        return externalPartyService.getExternalParties();
     }
 
     @Override
@@ -66,8 +63,8 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public ExternalOrganizationDTO findExternalOrganizationById(long organizationId) {
-        return externalOrganizationService.findExternalOrganizationById(organizationId);
+    public ExternalPartyDTO findExternalPartyById(long organizationId) {
+        return externalPartyService.findExternalPartyById(organizationId);
     }
 
     @Override
@@ -81,8 +78,8 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization) {
-        return externalOrganizationService.saveExternalOrganization(organization);
+    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
+        return externalPartyService.saveExternalParty(organization);
     }
 
     @Override
@@ -96,8 +93,8 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public void deleteExternalOrganization(long organizationId) {
-        externalOrganizationService.deleteExternalOrganization(organizationId);
+    public void deleteExternalParty(long organizationId) {
+        externalPartyService.deleteExternalParty(organizationId);
     }
 
     @Override
@@ -111,8 +108,8 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public List<BaseExternalOrganizationDTO> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
-        return externalOrganizationService.searchExternalOrganizations(criteria);
+    public List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
+        return externalPartyService.searchExternalParties(criteria);
     }
 
     @Override

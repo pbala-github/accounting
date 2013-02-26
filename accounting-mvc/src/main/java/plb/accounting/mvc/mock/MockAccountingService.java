@@ -1,14 +1,12 @@
 package plb.accounting.mvc.mock;
 
-import org.dummycreator.DummyCreator;
 import org.springframework.stereotype.Service;
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
+import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.IAccountingService;
-import plb.accounting.common.test.helpers.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -63,7 +61,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public List<BaseExternalOrganizationDTO> getExternalOrganizations() {
+    public List<BaseExternalPartyDTO> getExternalParties() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -78,7 +76,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public ExternalOrganizationDTO findExternalOrganizationById(long organizationId) {
+    public ExternalPartyDTO findExternalPartyById(long organizationId) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -93,7 +91,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public ExternalOrganizationDTO saveExternalOrganization(ExternalOrganizationDTO organization) {
+    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -108,7 +106,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public void deleteExternalOrganization(long organizationId) {
+    public void deleteExternalParty(long organizationId) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -123,7 +121,7 @@ public class MockAccountingService implements IAccountingService{
     }
 
     @Override
-    public List<BaseExternalOrganizationDTO> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
+    public List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

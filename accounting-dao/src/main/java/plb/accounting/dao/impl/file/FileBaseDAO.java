@@ -1,7 +1,7 @@
 package plb.accounting.dao.impl.file;
 
 import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
+import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.io.*;
@@ -56,7 +56,7 @@ public abstract class FileBaseDAO {
     static class ObjectsContainer{
         private Set<Account> accounts;
         private Set<Transaction> transactions;
-        private Set<ExternalOrganization>  externalOrganizations;
+        private Set<ExternalParty> externalParties;
 
 
     }

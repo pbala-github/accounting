@@ -1,10 +1,10 @@
 package plb.accounting.dao;
 
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.common.search.ExternalOrganizationSearchCriteria;
+import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.model.Account;
-import plb.accounting.model.ExternalOrganization;
+import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     /**
      *
      */
-    private IExternalOrganizationDAO externalOrganizationDAO;
+    private IExternalPartyDAO externalPartyDAO;
 
 
     @Override
@@ -44,8 +44,8 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public List<ExternalOrganization> getExternalOrganizations() {
-        return externalOrganizationDAO.getAll();
+    public List<ExternalParty> getExternalParties() {
+        return externalPartyDAO.getAll();
     }
 
     @Override
@@ -59,8 +59,8 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public ExternalOrganization findExternalOrganizationById(long organizationId) {
-        return externalOrganizationDAO.findById(organizationId);
+    public ExternalParty findExternalPartyById(long organizationId) {
+        return externalPartyDAO.findById(organizationId);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public ExternalOrganization saveOrUpdateExternalOrganization(ExternalOrganization organization) {
+    public ExternalParty saveOrUpdateExternalParty(ExternalParty party) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -89,8 +89,8 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public void deleteExternalOrganization(long organizationId) {
-        externalOrganizationDAO.delete(organizationId);
+    public void deleteExternalParty(long organizationId) {
+        externalPartyDAO.delete(organizationId);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
-    public List<ExternalOrganization> searchExternalOrganizations(ExternalOrganizationSearchCriteria criteria) {
-        return externalOrganizationDAO.searchExternalOrganizations(criteria);
+    public List<ExternalParty> searchExternalParties(ExternalPartySearchCriteria criteria) {
+        return externalPartyDAO.searchExternalParties(criteria);
     }
 }

@@ -3,7 +3,7 @@ package plb.accounting.dao.test;
 import com.db4o.ObjectContainer;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
-import plb.accounting.model.ExternalOrganization;
+import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.math.BigDecimal;
@@ -31,13 +31,13 @@ public abstract class DataBootstrap {
         }
     }
 
-    private static ExternalOrganization createOrganization(int o) {
-        ExternalOrganization organization = new ExternalOrganization();
-        organization.setDescription("org_description_" + o);
-        organization.setName("org_name_" + o);
-        organization.setVat("00000000"+o);
+    private static ExternalParty createParty(int o) {
+        ExternalParty party = new ExternalParty();
+        party.setDescription("org_description_" + o);
+        party.setName("org_name_" + o);
+        party.setVat("00000000"+o);
 
-        return organization;
+        return party;
     }
 
     private static Account createAccount(int a) {
@@ -55,7 +55,7 @@ public abstract class DataBootstrap {
 
     private static Transaction createTransaction(int t) {
 
-        ExternalOrganization organization = createOrganization(t);
+        ExternalParty party = createParty(t);
         Account originAccount = createAccount(t);
         Account destinationAccount = createAccount(t+100);
 
@@ -65,20 +65,20 @@ public abstract class DataBootstrap {
         db.store(destinationAccount);
         destinationAccount.setId(db.ext().getID(destinationAccount));
         System.out.println(destinationAccount);
-        db.store(organization);
-        organization.setId(db.ext().getID(organization));
-        System.out.println(organization);
+        db.store(party);
+        party.setId(db.ext().getID(party));
+        System.out.println(party);
 
         db.store(originAccount);
         db.store(destinationAccount);
-        db.store(organization);
+        db.store(party);
 
         Transaction transaction = new Transaction();
         transaction.setAmount(new BigDecimal(amountGenerator.nextInt(100)));
         transaction.setDescription("tr_description_" + t);
         transaction.setExecutionDate(new Date());
 
-        transaction.setRelatedOrganization(organization);
+        transaction.setRelatedParty(party);
         transaction.setOriginAccount(originAccount);
         transaction.setDestinationAccount(destinationAccount);
 
@@ -86,11 +86,11 @@ public abstract class DataBootstrap {
 
         originAccount.setTransactions(Arrays.asList(transaction));
         destinationAccount.setTransactions(Arrays.asList(transaction));
-        organization.setTransactions(Arrays.asList(transaction));
+        party.setTransactions(Arrays.asList(transaction));
 
         db.store(originAccount);
         db.store(destinationAccount);
-        db.store(organization);
+        db.store(party);
 
         return transaction;
     }

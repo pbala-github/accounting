@@ -6,7 +6,7 @@ import java.util.List;
  * User: pbala
  * Date: 10/29/12  9:31 PM
  */
-public class ExternalOrganization extends BaseEntity{
+public class ExternalParty extends BaseEntity{
 
     /**
      *
@@ -62,7 +62,7 @@ public class ExternalOrganization extends BaseEntity{
 
     @Override
     public String toString() {
-        return "ExternalOrganization{" +
+        return "ExternalParty{" +
                 "name='" + name + '\'' +
                 ", vat='" + vat + '\'' +
                 ", description='" + description + '\'' +

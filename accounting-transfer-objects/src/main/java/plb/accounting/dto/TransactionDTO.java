@@ -36,7 +36,7 @@ public class TransactionDTO extends BaseDTO{
     /**
      *
      */
-    private BaseExternalOrganizationDTO relatedOrganization;
+    private BaseExternalPartyDTO relatedParty;
 
     public Date getExecutionDate() {
         return executionDate;
@@ -78,12 +78,12 @@ public class TransactionDTO extends BaseDTO{
         this.description = description;
     }
 
-    public BaseExternalOrganizationDTO getRelatedOrganization() {
-        return relatedOrganization;
+    public BaseExternalPartyDTO getRelatedParty() {
+        return relatedParty;
     }
 
-    public void setRelatedOrganization(BaseExternalOrganizationDTO relatedOrganization) {
-        this.relatedOrganization = relatedOrganization;
+    public void setRelatedParty(BaseExternalPartyDTO relatedParty) {
+        this.relatedParty = relatedParty;
     }
 
     @Override

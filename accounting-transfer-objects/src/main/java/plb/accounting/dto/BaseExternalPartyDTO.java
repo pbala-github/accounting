@@ -6,7 +6,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/6/12 9:44 AM
  */
-public class BaseExternalOrganizationDTO extends BaseDTO{
+public class BaseExternalPartyDTO extends BaseDTO{
     /**
      *
      */
@@ -48,7 +48,7 @@ public class BaseExternalOrganizationDTO extends BaseDTO{
 
     @Override
     public String toString() {
-        return "ExternalOrganization{" +
+        return "ExternalParty{" +
                 "name='" + name + '\'' +
                 ", vat='" + vat + '\'' +
                 ", description='" + description + '\'' +
