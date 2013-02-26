@@ -40,7 +40,7 @@ public interface IAccountingService extends IReportService{
 
     void deleteTransaction(long transactionId);
 
-    void deleteExternalOrganization(long organizationId);
+    void deleteExternalParty(long organizationId);
 
 
     List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);

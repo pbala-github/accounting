@@ -3,6 +3,7 @@ package plb.accounting.services;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.DetailedAccountDTO;
 
 import java.util.List;
 

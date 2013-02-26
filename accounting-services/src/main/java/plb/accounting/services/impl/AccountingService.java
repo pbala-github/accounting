@@ -53,7 +53,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public AccountDTO findAccountById(long accountId) {
+    public DetailedAccountDTO findAccountById(long accountId) {
         return accountService.loadAccountById(accountId);
     }
 
@@ -68,7 +68,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public AccountDTO saveAccount(AccountDTO account) {
+    public BaseAccountDTO saveAccount(BaseAccountDTO account) {
         return accountService.saveAccount(account);
     }
 

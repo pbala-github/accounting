@@ -2,10 +2,8 @@ package plb.accounting.dto.reporting;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import plb.accounting.dto.validation.NotEmptyCollection;
-import sun.util.resources.LocaleNames_da;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
