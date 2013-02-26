@@ -1,11 +1,10 @@
 package plb.accounting.dao.impl.db4o;
 
-import EDU.purdue.cs.bloat.util.Assert;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
+import plb.accounting.common.validation.*;
 import plb.accounting.dao.IDAO;
-import plb.accounting.model.Account;
 import plb.accounting.model.BaseEntity;
 
 import java.util.List;
@@ -17,9 +16,12 @@ import java.util.List;
 public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
     private ObjectContainer db;
+    
+    private IAccountingValidator validator;
 
     protected DB4OBaseDAO() {
         db = AccountingObjectContainer.get();
+        validator = AccountingValidator.get();
     }
 
     @Override
@@ -33,6 +35,8 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
 
     @Override
     public T saveOrUpdate(T obj) {
+
+        validate(obj);
 
         if(obj.getId() == 0){
             getDb().store(obj);
@@ -91,10 +95,14 @@ public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
         return accounts.subList(0,accounts.size());
     }
 
-
-
     public ObjectContainer getDb() {
         return db;
     }
 
+    private void validate(T entity){
+
+        ValidationErrorList errors = this.validator.validate(entity);
+        if(!errors.getErrors().isEmpty())
+            throw new ValidationException(errors);
+    }
 }

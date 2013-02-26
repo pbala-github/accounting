@@ -9,7 +9,20 @@ import plb.accounting.dto.reporting.*;
 public class ReportManager implements IReportManager{
 
 
-    public IReportStrategy getReportStrategy(IReportCriteria reportCriteria) {
+    /**
+     * Dispatch to the right overloaded method
+     *
+     * @param reportCriteria
+     * @return
+     */
+    public <T extends IReportResult,E extends IReportCriteria> IReportStrategy<T,E> getReportStrategy(IReportCriteria reportCriteria) {
+        if(reportCriteria instanceof BalanceReportCriteria)
+            return (IReportStrategy<T, E>) this.getReportStrategy((BalanceReportCriteria)reportCriteria);
+        else if(reportCriteria instanceof OutcomeReportCriteria)
+            return (IReportStrategy<T, E>) this.getReportStrategy((OutcomeReportCriteria)reportCriteria);
+        else if(reportCriteria instanceof IncomeReportCriteria)
+            return (IReportStrategy<T, E>) this.getReportStrategy((IncomeReportCriteria)reportCriteria);
+
        throw new RuntimeException("A concrete implementation of IReportCriteria should be provided.");
     }
 
@@ -51,5 +64,16 @@ public class ReportManager implements IReportManager{
         else
             return new PeriodIncomeReportStrategy();
 
+    }
+
+    @Override
+    public <T extends IReportResult, E extends IReportCriteria> T createReport(E criteria, Object data) {
+
+         IReportStrategy<T,E> reportStrategy = getReportStrategy(criteria);
+
+        T result = reportStrategy.createReport(criteria,data);
+        result.setReportCriteria(criteria);
+
+        return result;
     }
 }

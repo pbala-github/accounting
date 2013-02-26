@@ -1,7 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.common.transformation.ITransformationService;
-import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.reporting.OutcomeReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.Account;
@@ -40,7 +40,7 @@ public class AccountOutcomeReportStrategy implements IReportStrategy<OutcomeRepo
             }
 
             totalOutcome = totalOutcome.add(outcome);
-            result.addResultEntry(0,outcome.doubleValue(),transformationService.transform(group.getKey(), BaseAccountDTO.class));
+            result.addResultEntry(0,outcome.doubleValue(),transformationService.transform(group.getKey(), AccountDTO.class));
         }
 
         result.setTotalOutcome(totalOutcome.doubleValue());

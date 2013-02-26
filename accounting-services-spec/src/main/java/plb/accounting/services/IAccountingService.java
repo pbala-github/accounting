@@ -22,14 +22,14 @@ public interface IAccountingService extends IReportService{
     List<BaseExternalPartyDTO> getExternalParties();
 
 
-    AccountDTO findAccountById(long accountId);
+    DetailedAccountDTO findAccountById(long accountId);
 
     TransactionDTO findTransactionById(long transactionId);
 
     ExternalPartyDTO findExternalPartyById(long organizationId);
 
 
-    AccountDTO saveAccount(AccountDTO account);
+    BaseAccountDTO saveAccount(BaseAccountDTO account);
 
     TransactionDTO saveTransaction(TransactionDTO transaction);
 
@@ -40,7 +40,7 @@ public interface IAccountingService extends IReportService{
 
     void deleteTransaction(long transactionId);
 
-    void deleteExternalParty(long organizationId);
+    void deleteExternalOrganization(long organizationId);
 
 
     List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);

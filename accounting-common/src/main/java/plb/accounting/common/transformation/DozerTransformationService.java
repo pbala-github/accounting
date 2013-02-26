@@ -1,12 +1,10 @@
 package plb.accounting.common.transformation;
 
+import org.dozer.Mapper;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerBeanMapperSingletonWrapper;
-import org.dozer.Mapper;
 
 /**
  * User: pbala

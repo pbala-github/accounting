@@ -1,5 +1,14 @@
 package plb.accounting.dto;
 
+import plb.accounting.dto.validation.TransactionCreation;
+import plb.accounting.dto.validation.TransactionCreationConstraint;
+
+import javax.validation.GroupSequence;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,30 +16,41 @@ import java.util.Date;
  * User: pbala
  * Date: 11/6/12 9:10 AM
  */
+@TransactionCreationConstraint(groups = TransactionCreation.class)
+@GroupSequence({TransactionDTO.class,TransactionCreation.class})
 public class TransactionDTO extends BaseDTO{
     /**
      *
      */
+    @NotNull
     private Date executionDate;
 
     /**
      *
      */
-    private BaseAccountDTO originAccount;
+    @NotNull
+    @Valid
+    private AccountDTO originAccount;
 
     /**
      *
      */
-    private BaseAccountDTO destinationAccount;
+    @NotNull
+    @Valid
+    private AccountDTO destinationAccount;
 
     /**
      *
      */
+    @NotNull
+    @Min(0)
     private BigDecimal amount;
 
     /**
      *
      */
+    @NotNull
+    @Size(min = 3)
     private String description;
 
     /**
@@ -46,19 +66,19 @@ public class TransactionDTO extends BaseDTO{
         this.executionDate = executionDate;
     }
 
-    public BaseAccountDTO getOriginAccount() {
+    public AccountDTO getOriginAccount() {
         return originAccount;
     }
 
-    public void setOriginAccount(BaseAccountDTO originAccount) {
+    public void setOriginAccount(AccountDTO originAccount) {
         this.originAccount = originAccount;
     }
 
-    public BaseAccountDTO getDestinationAccount() {
+    public AccountDTO getDestinationAccount() {
         return destinationAccount;
     }
 
-    public void setDestinationAccount(BaseAccountDTO destinationAccount) {
+    public void setDestinationAccount(AccountDTO destinationAccount) {
         this.destinationAccount = destinationAccount;
     }
 

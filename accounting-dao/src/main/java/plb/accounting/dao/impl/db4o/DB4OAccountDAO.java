@@ -5,7 +5,6 @@ import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.IAccountDAO;
 import plb.accounting.model.Account;
-import plb.accounting.model.BaseEntity;
 import plb.accounting.model.Transaction;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.common.transformation.ITransformationService;
-import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.reporting.BalanceReportCriteria;
 import plb.accounting.dto.reporting.BalanceReportResult;
 import plb.accounting.model.Account;
@@ -40,7 +40,7 @@ public class AccountBalanceReportStrategy implements IReportStrategy<BalanceRepo
                     income = income.add(t.getAmount());
             }
 
-            result.addResultEntry(income.doubleValue(),outcome.doubleValue(),transformationService.transform(group.getKey(), BaseAccountDTO.class));
+            result.addResultEntry(income.doubleValue(),outcome.doubleValue(),transformationService.transform(group.getKey(), AccountDTO.class));
         }
         
         return result;  

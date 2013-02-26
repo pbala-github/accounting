@@ -14,9 +14,9 @@ public interface IAccountService {
 
     List<BaseAccountDTO> getAccounts();
 
-    AccountDTO loadAccountById(long accountId);
+    DetailedAccountDTO loadAccountById(long accountId);
 
-    AccountDTO saveAccount(AccountDTO account);
+    BaseAccountDTO saveAccount(BaseAccountDTO account);
 
     void deleteAccount(long accountId);
 

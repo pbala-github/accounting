@@ -51,7 +51,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
         Account account = new Account();
         account.setCurrentBalance(BigDecimal.ZERO);
         account.setDescription("Description");
-        account.setInitialBalance(BigDecimal.ONE);
+        account.setInitialBalance(BigDecimal.valueOf(-1));
         account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
 
