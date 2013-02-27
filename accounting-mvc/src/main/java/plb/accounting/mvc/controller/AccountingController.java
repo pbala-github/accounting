@@ -3,6 +3,7 @@ package plb.accounting.mvc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plb.accounting.common.search.AccountSearchCriteria;
+import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.AccountDTO;
@@ -27,7 +28,7 @@ public class AccountingController {
      *
      * @return
      */
-    public List<AccountDTO> getAllAccounts(){
+    public List<BaseAccountDTO> getAllAccounts(){
         return accountingService.getAccounts();
     }
 

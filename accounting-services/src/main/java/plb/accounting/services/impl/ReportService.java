@@ -7,6 +7,7 @@ import plb.accounting.services.IReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
 import plb.accounting.services.impl.reporting.IReportStrategy;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class ReportService extends BaseService implements IReportService{
 
+    @Inject
     private IReportManager reportManager;
 
     @Override

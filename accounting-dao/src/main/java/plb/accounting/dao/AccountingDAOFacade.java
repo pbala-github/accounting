@@ -7,6 +7,7 @@ import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -17,19 +18,13 @@ import java.util.List;
  */
 public class AccountingDAOFacade implements IAccountingDAOFacade{
 
-    /**
-     *
-     */
+    @Inject
     private IAccountDAO accountDAO;
 
-    /**
-     *
-     */
+    @Inject
     private ITransactionDAO transactionDAO;
 
-    /**
-     *
-     */
+    @Inject
     private IExternalPartyDAO externalPartyDAO;
 
 

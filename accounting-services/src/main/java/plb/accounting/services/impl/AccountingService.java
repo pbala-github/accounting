@@ -7,6 +7,7 @@ import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.*;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -16,24 +17,16 @@ import java.util.List;
  * Date: 11/5/12 4:01 PM
  */
 public class AccountingService implements IAccountingService {
-    /**
-     *
-     */
+    @Inject
     private IAccountService accountService;
 
-    /**
-     *
-     */
+    @Inject
     private ITransactionService transactionService;
 
-    /**
-     *
-     */
+    @Inject
     private IExternalPartyService externalPartyService;
 
-    /**
-     *
-     */
+    @Inject
     private IReportService reportService;
 
 
