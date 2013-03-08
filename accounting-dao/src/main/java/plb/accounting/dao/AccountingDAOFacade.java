@@ -7,7 +7,14 @@ import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -16,6 +23,8 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 3:44 PM
  */
+@Stateless
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class AccountingDAOFacade implements IAccountingDAOFacade{
 
     @Inject
@@ -59,31 +68,37 @@ public class AccountingDAOFacade implements IAccountingDAOFacade{
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Account saveOrUpdateAccount(Account account) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return accountDAO.saveOrUpdate(account);
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Transaction saveOrUpdateTransaction(Transaction transaction) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return transactionDAO.saveOrUpdate(transaction);
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ExternalParty saveOrUpdateExternalParty(ExternalParty party) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return externalPartyDAO.saveOrUpdate(party);
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAccount(long accountId) {
         accountDAO.delete(accountId);
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteTransaction(long transactionId) {
         transactionDAO.delete(transactionId);
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteExternalParty(long organizationId) {
         externalPartyDAO.delete(organizationId);
     }

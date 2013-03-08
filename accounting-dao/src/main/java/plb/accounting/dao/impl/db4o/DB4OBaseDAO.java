@@ -4,7 +4,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
 import plb.accounting.common.validation.*;
-import plb.accounting.dao.IDAO;
+import plb.accounting.dao.EntityDAO;
 import plb.accounting.model.BaseEntity;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * User: pbala
  * Date: 10/31/12 1:14 PM
  */
-public abstract class DB4OBaseDAO<T extends BaseEntity> implements IDAO<T>{
+public abstract class DB4OBaseDAO<T extends BaseEntity> implements EntityDAO<T> {
 
     private ObjectContainer db;
     

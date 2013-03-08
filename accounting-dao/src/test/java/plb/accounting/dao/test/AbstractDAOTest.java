@@ -1,10 +1,9 @@
 package plb.accounting.dao.test;
 
-import com.db4o.ObjectContainer;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import plb.accounting.dao.IDAO;
+import plb.accounting.dao.EntityDAO;
 import plb.accounting.dao.impl.db4o.AccountingObjectContainer;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import java.io.File;
  * User: pbala
  * Date: 10/31/12 2:58 PM
  */
-public abstract class AbstractDAOTest<D extends IDAO> {
+public abstract class AbstractDAOTest<D extends EntityDAO> {
 
     @BeforeClass
     public static void setup(){
