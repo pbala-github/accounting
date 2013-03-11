@@ -3,16 +3,16 @@ package plb.accounting.dao.impl.db4o;
 import com.db4o.query.Predicate;
 import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
-import plb.accounting.dao.ITransactionDAO;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Transaction;
 
 import java.util.List;
 
 /**
  * User: pbala
- * Date: 10/31/12 1:42 PM
+ * Date: 3/11/13 2:23 PM
  */
-public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITransactionDAO{
+public class DB4OTransactionDAO extends DB4OBaseDAO implements TransactionDAO{
 
     @Override
     public List<Transaction> searchTransactions(final TransactionSearchCriteria searchCriteria) {
@@ -41,14 +41,8 @@ public class DB4OTransactionDAO extends DB4OBaseDAO<Transaction> implements ITra
                                 (candidate.getRelatedParty() != null &&
                                         candidate.getRelatedParty().getVat().equals(searchCriteria.getOrgVat())));
             }
-        } ;
+        };
 
         return executeQuery(predicate);
-    }
-
-
-    @Override
-    protected Class<Transaction> getObjectClass() {
-        return Transaction.class;
     }
 }

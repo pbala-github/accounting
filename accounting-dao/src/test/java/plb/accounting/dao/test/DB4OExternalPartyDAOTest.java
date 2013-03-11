@@ -1,6 +1,6 @@
 package plb.accounting.dao.test;
 
-import plb.accounting.dao.IExternalPartyDAO;
+import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.dao.impl.db4o.DB4OExternalPartyDAO;
 
 /**
@@ -10,7 +10,7 @@ import plb.accounting.dao.impl.db4o.DB4OExternalPartyDAO;
 public class DB4OExternalPartyDAOTest extends ExternalPartyDAOTest{
 
     @Override
-    protected IExternalPartyDAO getDAO() {
+    protected ExternalPartyDAO getDAO() {
         return new DB4OExternalPartyDAO();
     }
 }

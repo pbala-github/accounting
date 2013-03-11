@@ -1,11 +1,9 @@
 package plb.accounting.dao.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.dao.IAccountDAO;
-import plb.accounting.dao.ITransactionDAO;
+import plb.accounting.dao.AccountDAO;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dao.impl.db4o.DB4OTransactionDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
@@ -13,11 +11,13 @@ import plb.accounting.model.AccountTypeEnum;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 /**
  * User: pbala
  * Date: 10/31/12 3:04 PM
  */
-public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
+public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>{
 
     @Override
     @Test
@@ -37,7 +37,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
     @Override
     @Test
     public void getAll() {
-        List<Account> accounts = getDAO().getAll();
+        List<Account> accounts = getDAO().getAll(Account.class);
 
         assertNotNull(accounts);
         assertSame(10,accounts.size());
@@ -59,7 +59,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
         assertNotSame(0, stored.getId());
 
-        Account found = getDAO().findById(stored.getId());
+        Account found = getDAO().findById(Account.class,stored.getId());
 
         assertNotNull(found);
 
@@ -69,10 +69,10 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
     @Test
     @Override
     public void findById() {
-        Account account = getDAO().findById(56);
+        Account account = getDAO().findById(Account.class,56);
 
         assertNotNull(account);
-        assertEquals(account.getId(),56l);
+        assertTrue(account.getId().equals(new Long(56)));
     }
 
      @Test
@@ -86,15 +86,15 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
         assertEquals(1,accounts.size());
 
          int transacitons = accounts.get(0).getTransactions().size();
-         ITransactionDAO transactionDAO = new DB4OTransactionDAO();
-         int totalTransactions = transactionDAO.getAll().size();
+         TransactionDAO transactionDAO = new DB4OTransactionDAO();
+         int totalTransactions = transactionDAO.getAll(Account.class).size();
 
-        getDAO().delete(accounts.get(0).getId());
+        getDAO().delete(Account.class,accounts.get(0).getId());
 
         accounts = getDAO().searchAccounts(criteria);
 
         assertEquals(0,accounts.size());
-         int finalTransactionsTotal = transactionDAO.getAll().size();
+         int finalTransactionsTotal = transactionDAO.getAll(Account.class).size();
 
          assertEquals(totalTransactions-transacitons,finalTransactionsTotal);
 
@@ -104,7 +104,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
     @Override
     public void update() {
         
-        Account account = getDAO().findById(56l);
+        Account account = getDAO().findById(Account.class,56l);
 
         assertNotNull(account);
 
@@ -112,7 +112,7 @@ public abstract class AccountDAOTest extends AbstractDAOTest<IAccountDAO>{
 
         getDAO().saveOrUpdate(account);
 
-        Account found = getDAO().findById(56l);
+        Account found = getDAO().findById(Account.class,56l);
 
         assertNotNull(found);
 

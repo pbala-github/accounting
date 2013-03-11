@@ -19,9 +19,9 @@ public final class AccountingObjectContainer {
 
     private static ObjectContainer objectContainer;
 
-    public static synchronized ObjectContainer get(){
+    public static synchronized ObjectContainer get() {
 
-        if(objectContainer == null) initialize();
+        if (objectContainer == null) initialize();
 
         return objectContainer;
     }

@@ -1,19 +1,19 @@
 package plb.accounting.dao.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import plb.accounting.common.search.TransactionSearchCriteria;
-import plb.accounting.dao.ITransactionDAO;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Transaction;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * User: pbala
  * Date: 11/2/12 2:30 PM
  */
-public abstract class TransactionDAOTest extends AbstractDAOTest<ITransactionDAO>{
+public abstract class TransactionDAOTest extends AbstractDAOTest<TransactionDAO>{
     @Override
     public void persist() {
         //To change body of implemented methods use File | Settings | File Templates.
@@ -37,7 +37,7 @@ public abstract class TransactionDAOTest extends AbstractDAOTest<ITransactionDAO
     @Test
     @Override
     public void getAll() {
-        List<Transaction> transactions = getDAO().getAll();
+        List<Transaction> transactions = getDAO().getAll(Transaction.class);
 
         assertEquals(5,transactions.size());
     }

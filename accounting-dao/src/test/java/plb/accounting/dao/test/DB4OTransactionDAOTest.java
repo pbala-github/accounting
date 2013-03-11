@@ -1,7 +1,7 @@
 package plb.accounting.dao.test;
 
 import org.junit.BeforeClass;
-import plb.accounting.dao.ITransactionDAO;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dao.impl.db4o.DB4OTransactionDAO;
 
 /**
@@ -10,7 +10,7 @@ import plb.accounting.dao.impl.db4o.DB4OTransactionDAO;
  */
 public class DB4OTransactionDAOTest extends TransactionDAOTest{
 
-    private static ITransactionDAO dao;
+    private static TransactionDAO dao;
 
     @BeforeClass
     public static void setup(){
@@ -19,7 +19,7 @@ public class DB4OTransactionDAOTest extends TransactionDAOTest{
     }
 
     @Override
-    protected ITransactionDAO getDAO() {
+    protected TransactionDAO getDAO() {
         return dao;
     }
 }
