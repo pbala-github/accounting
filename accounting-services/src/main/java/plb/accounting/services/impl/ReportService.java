@@ -1,11 +1,11 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.IReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
-import plb.accounting.services.impl.reporting.IReportStrategy;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -14,10 +14,12 @@ import java.util.List;
  * User: pbala
  * Date: 11/7/12 12:31 PM
  */
-public class ReportService extends BaseService implements IReportService{
+public class ReportService extends BaseService implements IReportService {
 
     @Inject
     private IReportManager reportManager;
+    @Inject
+    private TransactionDAO transactionDAO;
 
     @Override
     public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
@@ -28,7 +30,7 @@ public class ReportService extends BaseService implements IReportService{
         transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
         transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
+        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
@@ -41,7 +43,7 @@ public class ReportService extends BaseService implements IReportService{
         transactionCriteria.setExecutionDateTo(criteria.getEndDate());
         transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
+        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
@@ -53,12 +55,9 @@ public class ReportService extends BaseService implements IReportService{
         transactionCriteria.setExecutionDateTo(criteria.getEndDate());
         transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = accountingDAOFacade.searchTransactions(transactionCriteria);
+        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
 
-    public void setReportManager(IReportManager reportManager) {
-        this.reportManager = reportManager;
-    }
 }

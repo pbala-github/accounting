@@ -27,13 +27,13 @@ public class ReportsServiceTest {
     @BeforeClass
     public static void setup(){
         reportService = new ReportService();
-        ((ReportService)reportService).setReportManager(new ReportManager());
-        ((ReportService)reportService).setAccountingDAOFacade(new MockAccountingDAOFacade());
+//        ((ReportService)reportService).setReportManager(new ReportManager());
+//        ((ReportService)reportService).setAccountingDAOFacade(new MockAccountingDAOFacade());
         Mapper dozerBeanMapper = DozerBeanMapperSingletonWrapper.getInstance();
         ITransformationService transformationService = new DozerTransformationService();
         ((DozerBeanMapper)dozerBeanMapper).setMappingFiles(Arrays.asList("file:/home/pbala/myProjects/accounting/accounting-common/src/main/resources/config/dozer/dozerBeanMapping.xml"));
         ((DozerTransformationService)transformationService).setMapper(dozerBeanMapper);
-        ((ReportService)reportService).setTransformationService(transformationService);
+//        ((ReportService)reportService).setTransformationService(transformationService);
     }
 
 

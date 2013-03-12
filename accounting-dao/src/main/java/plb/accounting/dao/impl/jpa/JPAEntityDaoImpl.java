@@ -26,8 +26,8 @@ public abstract class JPAEntityDaoImpl implements EntityDAO {
 
     @Override
     public <T extends BaseEntity> T saveOrUpdate(T obj) {
-        if (obj.getId() != null && em.getReference(obj.getClass(), obj.getId()) != null) {
-            em.merge(obj);
+        if (obj.getId() != null && em.find(obj.getClass(), obj.getId()) != null) {
+            obj = em.merge(obj);
         } else {
             em.persist(obj);
             em.flush();

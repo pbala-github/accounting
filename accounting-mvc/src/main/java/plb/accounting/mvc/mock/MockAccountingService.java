@@ -18,10 +18,95 @@ import java.util.List;
  */
 @Service
 public class MockAccountingService implements IAccountingService{
-    @Override
-    public List<AccountDTO> getAccounts() {
 
-        return createAccounts();
+    @Override
+    public List<BaseAccountDTO> getAccounts() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactions() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<BaseExternalPartyDTO> getExternalParties() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public DetailedAccountDTO findAccountById(long accountId) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public TransactionDTO findTransactionById(long transactionId) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public ExternalPartyDTO findExternalPartyById(long organizationId) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public BaseAccountDTO saveAccount(BaseAccountDTO account) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public TransactionDTO saveTransaction(TransactionDTO transaction) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteAccount(long accountId) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteTransaction(long transactionId) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteExternalParty(long organizationId) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private List<AccountDTO> createAccounts(){
@@ -55,88 +140,5 @@ public class MockAccountingService implements IAccountingService{
         return Arrays.asList(baseAccountDTO);
     }
 
-    @Override
-    public List<TransactionDTO> getTransactions() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
-    @Override
-    public List<BaseExternalPartyDTO> getExternalParties() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public DetailedAccountDTO findAccountById(long accountId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public TransactionDTO findTransactionById(long transactionId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public ExternalPartyDTO findExternalPartyById(long organizationId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public DetailedAccountDTO saveAccount(DetailedAccountDTO account) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public TransactionDTO saveTransaction(TransactionDTO transaction) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void deleteAccount(long accountId) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void deleteTransaction(long transactionId) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void deleteExternalParty(long organizationId) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<AccountDTO> searchAccounts(AccountSearchCriteria criteria) {
-        return createAccounts();
-    }
-
-    @Override
-    public List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

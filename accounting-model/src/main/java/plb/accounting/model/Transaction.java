@@ -1,5 +1,6 @@
 package plb.accounting.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,35 +8,44 @@ import java.util.Date;
  * User: pbala
  * Date: 10/29/12 9:31 PM
  */
-public class Transaction extends BaseEntity{
+@Entity
+@Table(name = "TRANSACTIONS")
+public class Transaction extends BaseEntity {
     /**
      *
      */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TR_EXECUTION_DATE", nullable = false)
     private Date executionDate;
 
     /**
      *
      */
+    @ManyToOne
     private Account originAccount;
 
     /**
      *
      */
+    @ManyToOne
     private Account destinationAccount;
 
     /**
      *
      */
+    @Column(name = "TR_AMOUNT", nullable = false, precision = 2, scale = 10)
     private BigDecimal amount;
 
     /**
      *
      */
+    @Column(name = "TR_DESCRIPTION", nullable = false, length = 500)
     private String description;
 
     /**
      *
      */
+    @ManyToOne
     private ExternalParty relatedParty;
 
     public Date getExecutionDate() {

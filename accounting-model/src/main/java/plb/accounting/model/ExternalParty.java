@@ -2,6 +2,7 @@ package plb.accounting.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -9,28 +10,35 @@ import java.util.List;
  * User: pbala
  * Date: 10/29/12  9:31 PM
  */
+@Entity
+@Table(name = "EXTERNAL_PARTIES")
 public class ExternalParty extends BaseEntity{
 
     /**
      *
      */
     @NotEmpty
+    @Column(name = "EX_PARTY_NAME", nullable = false, unique = true)
     private String name;
 
     /**
      *
      */
+    @Column(name = "EXT_PARTY_VAT", length = 13)
     private String vat;
 
     /**
      *
      */
+    @Column(name = "EXT_PARTY_DESCRIPTION", length = 500)
     private String description;
 
     /**
      *
      */
     @Valid
+    @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    @OrderBy("executionDate asc")
     private List<Transaction> transactions;
 
     public String getName() {

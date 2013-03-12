@@ -2,6 +2,7 @@ package plb.accounting.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -12,52 +13,66 @@ import java.util.List;
  * User: pbala
  * Date: 10/29/12 9:28 PM
  */
-public class Account extends BaseEntity{
+@Entity
+@Table(name = "ACCOUNTS", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACC_NAME", "ACC_PARENT_ACCOUNT"})})
+public class Account extends BaseEntity {
     /**
      *
      */
     @NotEmpty
+    @Column(name = "ACC_NAME", nullable = false)
     private String name;
 
     /**
      *
      */
     @Min(0)
+    @Column(name = "ACC_INITIAL_BALANCE", nullable = false, precision = 2, scale = 10)
     private BigDecimal initialBalance;
 
     /**
      *
      */
     @Min(0)
+    @Column(name = "ACC_CURRENT_BALANCE", nullable = false, precision = 2, scale = 10)
     private BigDecimal currentBalance;
 
     /**
      *
      */
     @Valid
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ACC_PARENT_ACCOUNT")
     private Account parentAccount;
 
     /**
      *
      */
     @Valid
+    @OneToMany(mappedBy = "parentAccount")
+    @OrderBy("name ASC")
     private List<Account> childrenAccounts;
 
     /**
      *
      */
+    @Column(name = "ACC_DECRIPTION", length = 500)
     private String description;
 
     /**
      *
      */
     @Valid
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OrderBy("executionDate ASC")
     private List<Transaction> transactions;
 
     /**
      *
      */
     @NotNull
+    @Column(name = "ACC_TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
     private AccountTypeEnum type;
 
     public String getName() {

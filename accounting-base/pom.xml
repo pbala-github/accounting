@@ -20,8 +20,8 @@
         <module>../accounting-mvc</module>
     </modules>
 
-	<properties>
-	    <commons-lang.version>2.3</commons-lang.version>
+    <properties>
+        <commons-lang.version>2.3</commons-lang.version>
         <springframework.version>3.1.1.RELEASE</springframework.version>
         <springSwfVersion>2.3.1.RELEASE</springSwfVersion>
         <slf4j.version>1.7.1</slf4j.version>
@@ -30,6 +30,11 @@
         <junit.version>4.7</junit.version>
         <richfaces.version>4.2.2.Final</richfaces.version>
         <hibernate.validator.version>4.0.2.GA</hibernate.validator.version>
+        <easymock.version>3.1</easymock.version>
+        <ojdbc6.version>11.2.0.3</ojdbc6.version>
+        <glassfish-embedded-all.version>3.1.2.2</glassfish-embedded-all.version>
+        <jeeunit.version>1.0.0</jeeunit.version>
+
     </properties>
 
     <dependencyManagement>
@@ -71,14 +76,14 @@
                 <version>${version}</version>
             </dependency>
 
-            <!--Other dependencies -->
+            <!--DB dependencies -->
             <dependency>
                 <groupId>db4o</groupId>
                 <artifactId>db4o-all-java5</artifactId>
                 <version>8.0</version>
             </dependency>
 
-	        <dependency>
+            <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
@@ -116,11 +121,6 @@
                 <type>pom</type>
             </dependency>
 
-            <dependency>
-                <groupId>dummy-creator</groupId>
-                <artifactId>dummy-creator</artifactId>
-                <version>1.2</version>
-            </dependency>
 
             <!--Bean Validation dependencies -->
             <dependency>
@@ -143,35 +143,9 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-js</artifactId>
-                <version>${springSwfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-webflow</artifactId>
-                <version>${springSwfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
-                <version>${springSwfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-faces</artifactId>
-                <version>${springSwfVersion}</version>
-            </dependency>
-
 
             <dependency>
                 <groupId>javax</groupId>
@@ -198,6 +172,44 @@
                 <artifactId>powermock-api-easymock</artifactId>
                 <version>${powermock.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>dummy-creator</groupId>
+                <artifactId>dummy-creator</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${ojdbc6.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.jeeunit</groupId>
+                <artifactId>jeeunit-glassfish</artifactId>
+                <version>${jeeunit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.jeeunit</groupId>
+                <artifactId>jeeunit-cdi</artifactId>
+                <version>${jeeunit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.main.extras</groupId>
+                <artifactId>glassfish-embedded-all</artifactId>
+                <version>${glassfish-embedded-all.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.extras</groupId>
+                <artifactId>glassfish-embedded-all</artifactId>
+                <version>${glassfish-embedded-all.version}</version>
+            </dependency>
+            <!-- Easy Mock -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

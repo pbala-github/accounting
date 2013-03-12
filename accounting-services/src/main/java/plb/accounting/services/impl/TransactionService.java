@@ -1,6 +1,7 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.ITransactionService;
@@ -13,31 +14,32 @@ import java.util.List;
  */
 public class TransactionService extends BaseService implements ITransactionService {
 
-
+    private TransactionDAO dao;
+    
     @Override
     public List<TransactionDTO> getTransactions() {
-        return transformationService.transform(accountingDAOFacade.getTransactions(),TransactionDTO.class);
+        return transformationService.transform(dao.getAll(Transaction.class),TransactionDTO.class);
     }
 
     @Override
     public TransactionDTO findTransactionById(long transactionId) {
 
-        return transformationService.transform(accountingDAOFacade.findTransactionById(transactionId),TransactionDTO.class);
+        return transformationService.transform(dao.findById(Transaction.class,transactionId),TransactionDTO.class);
     }
 
     @Override
     public TransactionDTO saveTransaction(TransactionDTO transaction) {
-        Transaction t = accountingDAOFacade.saveOrUpdateTransaction(transformationService.transform(transaction,Transaction.class));
+        Transaction t = dao.saveOrUpdate(transformationService.transform(transaction,Transaction.class));
         return transformationService.transform(t,TransactionDTO.class);
     }
 
     @Override
     public void deleteTransaction(long transactionId) {
-        accountingDAOFacade.deleteTransaction(transactionId);
+        dao.delete(Transaction.class,transactionId);
     }
 
     @Override
     public List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria) {
-        return transformationService.transform(accountingDAOFacade.searchTransactions(criteria),TransactionDTO.class);
+        return transformationService.transform(dao.searchTransactions(criteria),TransactionDTO.class);
     }
 }
