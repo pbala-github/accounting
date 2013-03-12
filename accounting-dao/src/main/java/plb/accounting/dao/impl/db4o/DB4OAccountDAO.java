@@ -42,8 +42,12 @@ public class DB4OAccountDAO extends DB4OBaseDAO implements AccountDAO {
         if (account == null)
             throw new RuntimeException("Entity not found in DB.");
 
-        if (account.getTransactions() != null)
-            for (Transaction transaction : account.getTransactions())
+        if (account.getInTransactions() != null)
+            for (Transaction transaction : account.getInTransactions())
+                getDb().delete(transaction);
+
+        if (account.getOutTransactions() != null)
+            for (Transaction transaction : account.getOutTransactions())
                 getDb().delete(transaction);
 
         getDb().delete(account);

@@ -86,8 +86,8 @@ public abstract class DataBootstrap {
 
         db.store(transaction);
 
-        originAccount.setTransactions(Arrays.asList(transaction));
-        destinationAccount.setTransactions(Arrays.asList(transaction));
+        originAccount.setOutTransactions(Arrays.asList(transaction));
+        destinationAccount.setInTransactions(Arrays.asList(transaction));
         party.setTransactions(Arrays.asList(transaction));
 
         db.store(originAccount);

@@ -85,7 +85,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         assertNotNull(accounts);
         assertEquals(1,accounts.size());
 
-         int transacitons = accounts.get(0).getTransactions().size();
+         int transacitons = accounts.get(0).getInTransactions().size();
          TransactionDAO transactionDAO = new DB4OTransactionDAO();
          int totalTransactions = transactionDAO.getAll(Account.class).size();
 

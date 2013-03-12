@@ -22,12 +22,14 @@ public class Transaction extends BaseEntity {
      *
      */
     @ManyToOne
+    @JoinColumn(name = "TR_ORIGIN_ACCOUNT")
     private Account originAccount;
 
     /**
      *
      */
     @ManyToOne
+    @JoinColumn(name = "TR_DEST_ACCOUNT")
     private Account destinationAccount;
 
     /**

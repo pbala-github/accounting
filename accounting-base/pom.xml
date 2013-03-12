@@ -17,7 +17,7 @@
         <module>../accounting-common</module>
         <module>../accounting-transfer-objects</module>
         <module>../accounting-services</module>
-        <module>../accounting-mvc</module>
+        <!--<module>../accounting-mvc</module>-->
     </modules>
 
     <properties>
@@ -81,6 +81,16 @@
                 <groupId>db4o</groupId>
                 <artifactId>db4o-all-java5</artifactId>
                 <version>8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>4.1.9.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>1.0.1.Final</version>
             </dependency>
 
             <dependency>

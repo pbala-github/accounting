@@ -41,7 +41,7 @@ public class Account extends BaseEntity {
      *
      */
     @Valid
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ACC_PARENT_ACCOUNT")
     private Account parentAccount;
 
@@ -49,7 +49,7 @@ public class Account extends BaseEntity {
      *
      */
     @Valid
-    @OneToMany(mappedBy = "parentAccount")
+    @OneToMany(mappedBy = "parentAccount",cascade = CascadeType.ALL)
     @OrderBy("name ASC")
     private List<Account> childrenAccounts;
 
@@ -63,10 +63,17 @@ public class Account extends BaseEntity {
      *
      */
     @Valid
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "destinationAccount",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @OrderBy("executionDate ASC")
-    private List<Transaction> transactions;
+    private List<Transaction> inTransactions;
 
+    /**
+     *
+     */
+    @Valid
+    @OneToMany(mappedBy = "originAccount",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OrderBy("executionDate ASC")
+    private List<Transaction> outTransactions;
     /**
      *
      */
@@ -123,12 +130,12 @@ public class Account extends BaseEntity {
         this.description = description;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Transaction> getInTransactions() {
+        return inTransactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setInTransactions(List<Transaction> inTransactions) {
+        this.inTransactions = inTransactions;
     }
 
     public AccountTypeEnum getType() {
@@ -137,6 +144,14 @@ public class Account extends BaseEntity {
 
     public void setType(AccountTypeEnum type) {
         this.type = type;
+    }
+
+    public List<Transaction> getOutTransactions() {
+        return outTransactions;
+    }
+
+    public void setOutTransactions(List<Transaction> outTransactions) {
+        this.outTransactions = outTransactions;
     }
 
     @Override
