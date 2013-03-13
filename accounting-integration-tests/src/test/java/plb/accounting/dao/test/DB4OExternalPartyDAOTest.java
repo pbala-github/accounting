@@ -7,7 +7,7 @@ import plb.accounting.dao.impl.db4o.DB4OExternalPartyDAO;
  * User: pbala
  * Date: 11/2/12 1:43 PM
  */
-public class DB4OExternalPartyDAOTest extends ExternalPartyDAOTest{
+public class DB4OExternalPartyDAOTest extends AbstractExternalPartyDAOTest {
 
     @Override
     protected ExternalPartyDAO getDAO() {

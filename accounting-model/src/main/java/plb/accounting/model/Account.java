@@ -27,14 +27,14 @@ public class Account extends BaseEntity {
      *
      */
     @Min(0)
-    @Column(name = "ACC_INITIAL_BALANCE", nullable = false, precision = 2, scale = 10)
+    @Column(name = "ACC_INITIAL_BALANCE", nullable = false)
     private BigDecimal initialBalance;
 
     /**
      *
      */
     @Min(0)
-    @Column(name = "ACC_CURRENT_BALANCE", nullable = false, precision = 2, scale = 10)
+    @Column(name = "ACC_CURRENT_BALANCE", nullable = false)
     private BigDecimal currentBalance;
 
     /**

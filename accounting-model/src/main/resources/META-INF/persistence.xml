@@ -7,7 +7,6 @@
         <properties>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <!--<property name="hibernate.connection.driver_class" value=""/>-->
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
         </properties>

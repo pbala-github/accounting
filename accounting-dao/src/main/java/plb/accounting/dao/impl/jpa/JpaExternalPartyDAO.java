@@ -24,7 +24,7 @@ import java.util.List;
 @Stateless
 @Local(ExternalPartyDAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class JpaExternalEntityDAO extends JPAEntityDaoImpl implements ExternalPartyDAO {
+public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDAO {
 
 
     @Override

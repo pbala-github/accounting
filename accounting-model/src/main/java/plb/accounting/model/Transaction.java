@@ -35,7 +35,7 @@ public class Transaction extends BaseEntity {
     /**
      *
      */
-    @Column(name = "TR_AMOUNT", nullable = false, precision = 2, scale = 10)
+    @Column(name = "TR_AMOUNT", nullable = false)
     private BigDecimal amount;
 
     /**
@@ -48,6 +48,7 @@ public class Transaction extends BaseEntity {
      *
      */
     @ManyToOne
+    @JoinColumn(name = "TR_REL_PARTY")
     private ExternalParty relatedParty;
 
     public Date getExecutionDate() {

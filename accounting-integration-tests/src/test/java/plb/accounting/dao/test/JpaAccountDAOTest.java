@@ -2,7 +2,7 @@ package plb.accounting.dao.test;
 
 import org.junit.BeforeClass;
 import plb.accounting.dao.AccountDAO;
-import plb.accounting.dao.impl.jpa.JpaAccountDAOImpl;
+import plb.accounting.dao.impl.jpa.JpaAccountDAO;
 
 /**
  * User: pbala
@@ -10,17 +10,17 @@ import plb.accounting.dao.impl.jpa.JpaAccountDAOImpl;
  */
 public class JpaAccountDAOTest extends AbstractAccountDAOTest{
 
-    protected static JpaAccountDAOImpl dao;
-    private  static JpaAccountDAOWrapper daoWrapper;
+    private static AccountDAO dao;
 
     @BeforeClass
     public static void setUp(){
-        daoWrapper.delegate = dao;
+        dao = JpaDaoUtil.advanceDao(new JpaAccountDAO(),AccountDAO.class);
+        DataBootstrap.bootstrap(dao);
     }
 
     @Override
     protected AccountDAO getDAO() {
-        return daoWrapper;
+        return dao;
     }
 
 }

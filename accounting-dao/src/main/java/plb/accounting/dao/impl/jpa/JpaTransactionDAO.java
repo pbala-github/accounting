@@ -27,7 +27,7 @@ import java.util.List;
 @Stateless
 @Local(TransactionDAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class JpaTransactionDAOImpl extends JPAEntityDaoImpl implements TransactionDAO {
+public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
 
     @Override
     public List<Transaction> searchTransactions(TransactionSearchCriteria criteria) {

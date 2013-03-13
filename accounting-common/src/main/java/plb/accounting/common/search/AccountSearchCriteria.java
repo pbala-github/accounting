@@ -1,5 +1,6 @@
 package plb.accounting.common.search;
 
+import plb.accounting.common.paging.PaginationInfo;
 import plb.accounting.dto.AccountTypeEnum;
 
 import java.math.BigDecimal;
@@ -9,7 +10,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/1/12 8:29 AM
  */
-public class AccountSearchCriteria {
+public class AccountSearchCriteria extends PaginationInfo{
 
     /**
      *

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="testAccountingPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jar-file>file:/home/pbala/myProjects/accounting/accounting-model/target/accounting-model-1.0.jar</jar-file>
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/accounting"/>
+            <property name="hibernate.connection.username" value="accounting"/>
+            <property name="hibernate.connection.password" value="accounting"/>
+            <property name="hibernate.connection.pool_size" value="2"/>
+            <!--<property name="hibernate.connection.datasource" value=""/>-->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.transaction.factory_class"
+                      value="org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory"/>
+
+
+        </properties>
+    </persistence-unit>
+</persistence>

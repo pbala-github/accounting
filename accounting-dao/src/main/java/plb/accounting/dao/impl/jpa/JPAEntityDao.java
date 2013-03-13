@@ -14,7 +14,7 @@ import java.util.List;
  * Date: 3/8/13 4:15 PM
  */
 
-public abstract class JPAEntityDaoImpl implements EntityDAO {
+public abstract class JPAEntityDao implements EntityDAO {
 
     @Inject
     protected EntityManager em;
@@ -43,11 +43,25 @@ public abstract class JPAEntityDaoImpl implements EntityDAO {
         em.remove(reference);
     }
 
+    /**
+     * Query API implementation
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     @Override
     public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
-        CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
-        Root<T> root = criteriaQuery.from(clazz);
-        return em.createQuery(criteriaQuery).getResultList();
+        return em.createQuery("from " + clazz.getSimpleName()).getResultList();
     }
 
+//    @Override
+//    public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
+//        CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
+//        Root<T> root = criteriaQuery.from(clazz);
+//        return em.createQuery(criteriaQuery).getResultList();
+//    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
 }
