@@ -5,8 +5,6 @@ import plb.accounting.model.BaseEntity;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -45,6 +43,7 @@ public abstract class JPAEntityDao implements EntityDAO {
 
     /**
      * Query API implementation
+     *
      * @param clazz
      * @param <T>
      * @return

@@ -4,13 +4,12 @@ import plb.accounting.common.paging.PaginationInfo;
 import plb.accounting.dto.AccountTypeEnum;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * User: pbala
  * Date: 11/1/12 8:29 AM
  */
-public class AccountSearchCriteria extends PaginationInfo{
+public class AccountSearchCriteria extends PaginationInfo {
 
     /**
      *
@@ -30,7 +29,7 @@ public class AccountSearchCriteria extends PaginationInfo{
     /**
      *
      */
-    private long parentAccountId;
+    private Long parentAccountId;
 
     /**
      *
@@ -45,13 +44,11 @@ public class AccountSearchCriteria extends PaginationInfo{
         this.accountName = accountName;
     }
 
-
-
-    public long getParentAccountId() {
+    public Long getParentAccountId() {
         return parentAccountId;
     }
 
-    public void setParentAccountId(long parentAccountId) {
+    public void setParentAccountId(Long parentAccountId) {
         this.parentAccountId = parentAccountId;
     }
 

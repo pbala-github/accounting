@@ -8,9 +8,9 @@ import java.io.Serializable;
  */
 public class PaginationInfo implements Serializable {
 
-    private int offset;
+    private int offset = 0;
 
-    private int pageSize;
+    private int pageSize = 50;
 
     public int getOffset() {
         return offset;

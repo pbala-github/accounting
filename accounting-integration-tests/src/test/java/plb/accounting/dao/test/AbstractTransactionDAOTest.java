@@ -8,8 +8,7 @@ import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -59,7 +58,12 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Test
     @Override
     public void update() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        Transaction transaction = getDAO().getAll(Transaction.class).get(0);
+        assertNotNull(transaction);
+        transaction.setDescription("hhhhhhhhhhh");
+        getDAO().saveOrUpdate(transaction);
+        transaction= getDAO().findById(Transaction.class, transaction.getId());
+        assertEquals("hhhhhhhhhhh", transaction.getDescription());
     }
 
     @Test
@@ -68,18 +72,44 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertNotNull(getDAO().getAll(Transaction.class));
     }
 
-//    @Test
+    @Test
     @Override
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
-
-        criteria.setDescription("tr_description_1");
-
+        criteria.setDescription("tr_description_2");
         List<Transaction> transactions = getDAO().searchTransactions(criteria);
-
         assertEquals(1,transactions.size());
+        assertEquals("tr_description_2",transactions.get(0).getDescription());
 
-        assertEquals("tr_description_1",transactions.get(0).getDescription());
+        criteria.setAmountFrom(new BigDecimal(55));
+        transactions = getDAO().searchTransactions(criteria);
+        assertEquals(1,transactions.size());
+        assertEquals("tr_description_2",transactions.get(0).getDescription());
 
+        criteria.setAmountTo(new BigDecimal(60));
+        transactions = getDAO().searchTransactions(criteria);
+        assertEquals(0,transactions.size());
+
+        criteria = new TransactionSearchCriteria();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH,1);
+        criteria.setExecutionDateFrom(calendar.getTime());
+        transactions = getDAO().searchTransactions(criteria);
+        assertEquals(5,transactions.size());
+
+        calendar.set(Calendar.MONTH,2);
+        criteria.setExecutionDateTo(calendar.getTime());
+        transactions = getDAO().searchTransactions(criteria);
+        assertEquals(0,transactions.size());
+
+        criteria = new TransactionSearchCriteria();
+        criteria.setOrgName("org_name_2");
+        transactions = getDAO().searchTransactions(criteria);
+        assertEquals(1,transactions.size());
+        assertEquals("org_name_2",transactions.get(0).getRelatedParty().getName());
+
+        criteria = new TransactionSearchCriteria();
+        criteria.setOriginAccountIds(new HashSet<Long>(Arrays.asList(1l,2l,3l)));
+        assertNotNull(getDAO().searchTransactions(criteria));
     }
 }

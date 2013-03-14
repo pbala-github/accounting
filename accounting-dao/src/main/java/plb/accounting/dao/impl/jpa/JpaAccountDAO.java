@@ -4,14 +4,13 @@ import org.springframework.util.StringUtils;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
+import plb.accounting.model.AccountTypeEnum;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import java.util.List;
-
-import static plb.accounting.dao.impl.jpa.QueryBuilder.OperatorsEnum.*;
 
 /**
  * User: pbala
@@ -36,15 +35,15 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
             qb.and("name", searchCriteria.getAccountName());
 
         if (searchCriteria.getAccountType() != null)
-            qb.and("type", searchCriteria.getAccountType());
-
-        if (searchCriteria.getHighestAccountBalance() != null)
-            qb.and("currentBalance", searchCriteria.getLowestAccountBalance(), GREATER_THAN);
+            qb.and("type", AccountTypeEnum.valueOf(searchCriteria.getAccountType().name()));
 
         if (searchCriteria.getLowestAccountBalance() != null)
-            qb.and("currentBalance", searchCriteria.getHighestAccountBalance(), LESS_THAN);
+            qb.greaterThan("currentBalance", searchCriteria.getLowestAccountBalance());
 
-        if (searchCriteria.getParentAccountId() != 0l)
+        if (searchCriteria.getHighestAccountBalance() != null)
+            qb.lessThan("currentBalance", searchCriteria.getHighestAccountBalance());
+
+        if (searchCriteria.getParentAccountId() != null)
             qb.and("parentAccount.id", searchCriteria.getParentAccountId());
 
         return qb.build(em, searchCriteria).getResultList();

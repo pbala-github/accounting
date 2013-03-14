@@ -1,10 +1,12 @@
 package plb.accounting.common.search;
 
+import plb.accounting.common.paging.PaginationInfo;
+
 /**
  * User: pbala
  * Date: 11/1/12 8:34 AM
  */
-public class ExternalPartySearchCriteria {
+public class ExternalPartySearchCriteria extends PaginationInfo{
 
     /**
      *

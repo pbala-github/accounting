@@ -18,18 +18,28 @@ import static org.junit.Assert.*;
 public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO> {
 
     @Override
-//    @Test
+    @Test
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
-
         List<Account> accounts = getDAO().searchAccounts(criteria);
-
-
         assertNotNull(accounts);
-
         assertEquals(1, accounts.size());
         assertEquals("Account name 102", accounts.get(0).getName());
+
+        criteria.setLowestAccountBalance(new BigDecimal(5));
+        accounts = getDAO().searchAccounts(criteria);
+        assertNotNull(accounts);
+        assertEquals(0, accounts.size());
+
+        criteria = new AccountSearchCriteria();
+        criteria.setAccountType(plb.accounting.dto.AccountTypeEnum.INCOME);
+        accounts = getDAO().searchAccounts(criteria);
+        assertTrue(accounts.isEmpty());
+
+        criteria.setAccountType(plb.accounting.dto.AccountTypeEnum.OUTCOME);
+        accounts = getDAO().searchAccounts(criteria);
+        assertFalse(accounts.isEmpty());
     }
 
     @Override

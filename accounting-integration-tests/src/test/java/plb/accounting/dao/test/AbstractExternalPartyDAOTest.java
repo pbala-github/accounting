@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<ExternalPartyDAO>{
 
-//    @Test
+    @Test
     @Override
     public void persist() {
         ExternalParty party = new ExternalParty();
@@ -28,7 +28,7 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
         assertNotNull(party.getId());
     }
 
-//    @Test
+    @Test
     @Override
     public void findById() {
         ExternalParty externalParty = getDAO().getAll(ExternalParty.class).get(0);
@@ -56,25 +56,30 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
         assertEquals("hhhhhhhhhhh", party.getName());
     }
 
-//    @Test
+    @Test
     @Override
     public void getAll() {
        assertNotNull(getDAO().getAll(ExternalParty.class));
     }
 
-//    @Test
+    @Test
     @Override
     public void searchByCriteria() {
         ExternalPartySearchCriteria criteria = new ExternalPartySearchCriteria();
-
         criteria.setName("org_name_2");
-
         List<ExternalParty> parties = getDAO().searchExternalParties(criteria);
-
-
         assertEquals(1, parties.size());
         assertEquals("org_name_2", parties.get(0).getName());
 
+        criteria.setVat("000000002");
+        parties = getDAO().searchExternalParties(criteria);
+        assertEquals(1, parties.size());
+        assertEquals("org_name_2", parties.get(0).getName());
+        assertEquals("000000002", parties.get(0).getVat());
+
+        criteria.setVat("000000001");
+        parties = getDAO().searchExternalParties(criteria);
+        assertEquals(0, parties.size());
     }
 
 }

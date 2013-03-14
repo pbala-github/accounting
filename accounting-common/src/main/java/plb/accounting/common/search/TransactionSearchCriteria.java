@@ -1,5 +1,7 @@
 package plb.accounting.common.search;
 
+import plb.accounting.common.paging.PaginationInfo;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -7,7 +9,7 @@ import java.util.*;
  * User: pbala
  * Date: 11/1/12 8:35 AM
  */
-public class TransactionSearchCriteria {
+public class TransactionSearchCriteria extends PaginationInfo{
     /**
      *
      */
