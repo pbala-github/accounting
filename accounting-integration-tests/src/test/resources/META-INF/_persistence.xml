@@ -11,7 +11,6 @@
             <property name="hibernate.connection.username" value="accounting"/>
             <property name="hibernate.connection.password" value="accounting"/>
             <property name="hibernate.connection.pool_size" value="2"/>
-            <!--<property name="hibernate.connection.datasource" value=""/>-->
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
@@ -21,4 +20,15 @@
 
         </properties>
     </persistence-unit>
+    <!--<persistence-unit name="accountingPU" transaction-type="JTA">-->
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+        <!--<jta-data-source>plb/accountingDS</jta-data-source>-->
+
+        <!--<properties>-->
+            <!--<property name="hibernate.show_sql" value="true"/>-->
+            <!--<property name="hibernate.format_sql" value="true"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>-->
+        <!--</properties>-->
+    <!--</persistence-unit>-->
 </persistence>

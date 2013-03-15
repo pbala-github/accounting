@@ -6,6 +6,7 @@ import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,6 +17,9 @@ import static org.junit.Assert.*;
  * Date: 10/31/12 3:04 PM
  */
 public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO> {
+
+    @Inject
+    DataBootstrap dataBootstrap;
 
     @Override
     @Test

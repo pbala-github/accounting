@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : logback.xml
+    Created on : March 30, 2009, 6:58 PM
+    Author     : andy
+    Description:
+        Purpose of the document follows.
+-->
+
+
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d %p [%c] - &lt;%m&gt;%n</Pattern>
+        </layout>
+    </appender>
+
+    <logger name="org.apache" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache.openjpa" level="INFO"/>
+    <logger name="net.sf.ehcache" level="ERROR"/>
+    <logger name="org.jboss.weld" level="INFO"/>
+    <logger name="plb" level="TRACE"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

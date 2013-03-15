@@ -6,12 +6,14 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Transaction;
 
+import javax.enterprise.inject.Alternative;
 import java.util.List;
 
 /**
  * User: pbala
  * Date: 3/11/13 2:23 PM
  */
+@Alternative
 public class DB4OTransactionDAO extends DB4OBaseDAO implements TransactionDAO{
 
     @Override

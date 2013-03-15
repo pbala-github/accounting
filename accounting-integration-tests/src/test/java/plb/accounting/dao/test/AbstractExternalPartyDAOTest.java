@@ -6,6 +6,7 @@ import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -15,6 +16,9 @@ import static org.junit.Assert.*;
  * Date: 11/2/12 1:47 PM
  */
 public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<ExternalPartyDAO>{
+
+    @Inject
+    DataBootstrap dataBootstrap;
 
     @Test
     @Override

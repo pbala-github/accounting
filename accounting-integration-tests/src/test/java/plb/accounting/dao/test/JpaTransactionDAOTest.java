@@ -1,22 +1,21 @@
 package plb.accounting.dao.test;
 
-import org.junit.BeforeClass;
+import com.googlecode.jeeunit.JeeunitRunner;
+import org.junit.runner.RunWith;
 import plb.accounting.dao.TransactionDAO;
-import plb.accounting.dao.impl.jpa.JpaTransactionDAO;
+
+import javax.inject.Inject;
 
 /**
  * User: pbala
  * Date: 3/13/13 11:06 AM
  */
+@RunWith(JeeunitRunner.class)
 public class JpaTransactionDAOTest extends AbstractTransactionDAOTest{
 
-    private static TransactionDAO dao;
-
-    @BeforeClass
-    public static void setUp(){
-        dao = JpaDaoUtil.advanceDao(new JpaTransactionDAO(), TransactionDAO.class);
-        DataBootstrap.bootstrap(dao);
-    }
+    @Inject
+    @Transactional
+    private TransactionDAO dao;
 
     @Override
     protected TransactionDAO getDAO() {

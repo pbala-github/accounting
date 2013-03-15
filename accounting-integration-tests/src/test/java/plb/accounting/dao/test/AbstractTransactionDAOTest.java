@@ -7,18 +7,20 @@ import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * User: pbala
  * Date: 11/2/12 2:30 PM
  */
 public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<TransactionDAO>{
+
+    @Inject
+    DataBootstrap dataBootstrap;
 
     @Test
     @Override
@@ -76,17 +78,17 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Override
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
-        criteria.setDescription("tr_description_2");
+        criteria.setDescription("tr_description_4");
         List<Transaction> transactions = getDAO().searchTransactions(criteria);
         assertEquals(1,transactions.size());
-        assertEquals("tr_description_2",transactions.get(0).getDescription());
+        assertEquals("tr_description_4",transactions.get(0).getDescription());
 
-        criteria.setAmountFrom(new BigDecimal(55));
+        criteria.setAmountFrom(new BigDecimal(5));
         transactions = getDAO().searchTransactions(criteria);
         assertEquals(1,transactions.size());
-        assertEquals("tr_description_2",transactions.get(0).getDescription());
+        assertEquals("tr_description_4",transactions.get(0).getDescription());
 
-        criteria.setAmountTo(new BigDecimal(60));
+        criteria.setAmountTo(new BigDecimal(10));
         transactions = getDAO().searchTransactions(criteria);
         assertEquals(0,transactions.size());
 
@@ -95,7 +97,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         calendar.set(Calendar.MONTH,1);
         criteria.setExecutionDateFrom(calendar.getTime());
         transactions = getDAO().searchTransactions(criteria);
-        assertEquals(5,transactions.size());
+        assertFalse(transactions.isEmpty());
 
         calendar.set(Calendar.MONTH,2);
         criteria.setExecutionDateTo(calendar.getTime());
@@ -103,10 +105,10 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertEquals(0,transactions.size());
 
         criteria = new TransactionSearchCriteria();
-        criteria.setOrgName("org_name_2");
+        criteria.setOrgName("org_name_3");
         transactions = getDAO().searchTransactions(criteria);
-        assertEquals(1,transactions.size());
-        assertEquals("org_name_2",transactions.get(0).getRelatedParty().getName());
+        assertFalse(transactions.isEmpty());
+        assertEquals("org_name_3",transactions.get(0).getRelatedParty().getName());
 
         criteria = new TransactionSearchCriteria();
         criteria.setOriginAccountIds(new HashSet<Long>(Arrays.asList(1l,2l,3l)));

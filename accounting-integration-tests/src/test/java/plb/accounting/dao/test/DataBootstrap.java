@@ -1,38 +1,46 @@
 package plb.accounting.dao.test;
 
 import org.junit.Assert;
+import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.EntityDAO;
+import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
  * User: pbala
  * Date: 11/1/12 10:39 PM
  */
-public abstract class DataBootstrap {
+public class DataBootstrap {
 
     public static final int MAX_TRANSACTIONS = 5;
 
     private static Random amountGenerator = new Random(50);
 
-    private static EntityDAO db;
+    @Inject
+    @Transactional
+    private ExternalPartyDAO db;
 
     private static Boolean initialized = false;
 
-    static synchronized void bootstrap(EntityDAO db) {
-
+    @PostConstruct
+    synchronized void bootstrap() {
+        System.out.println("\n\n::::::::::::BOOTSTRAPPING DATA::::::::::::::::::\n\n");
         if (initialized) {
             return;
         }
         Assert.assertNotNull(db);
-        DataBootstrap.db = db;
-
+        cleanup();
         for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
             createTransaction(t);
         }
@@ -40,7 +48,7 @@ public abstract class DataBootstrap {
         initialized = true;
     }
 
-    public static ExternalParty createParty(int o) {
+    public ExternalParty createParty(int o) {
         ExternalParty party = new ExternalParty();
         party.setDescription("org_description_" + o);
         party.setName("org_name_" + o);
@@ -49,7 +57,7 @@ public abstract class DataBootstrap {
         return party;
     }
 
-    public static Account createAccount(int a) {
+    public Account createAccount(int a) {
         Account account = new Account();
         account.setCurrentBalance(BigDecimal.ZERO);
         account.setDescription("Description");
@@ -61,7 +69,7 @@ public abstract class DataBootstrap {
     }
 
 
-    private static Transaction createTransaction(int t) {
+    private Transaction createTransaction(int t) {
 
         ExternalParty party = createParty(t);
         Account originAccount = createAccount(t);
@@ -87,4 +95,33 @@ public abstract class DataBootstrap {
 
         return transaction;
     }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("\n\n::::::::::CLEAN UP DATA::::::::::::\n\n");
+        Assert.assertNotNull(db);
+        deleteAccounts();
+        deleteExternalParties();
+    }
+
+    private void deleteExternalParties() {
+        List<ExternalParty> externalParties = db.getAll(ExternalParty.class);
+        if (externalParties != null) {
+            for (ExternalParty externalParty : externalParties) {
+                db.delete(ExternalParty.class, externalParty.getId());
+            }
+        }
+    }
+
+    private void deleteAccounts() {
+        List<Account> accounts = db.getAll(Account.class);
+        if (accounts != null) {
+            for (Account account : accounts) {
+                db.delete(Account.class, account.getId());
+            }
+        }
+
+    }
+
+
 }

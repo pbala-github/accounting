@@ -1,10 +1,10 @@
 package plb.accounting.dao.test;
 
 import com.googlecode.jeeunit.JeeunitRunner;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import plb.accounting.dao.AccountDAO;
-import plb.accounting.dao.impl.jpa.JpaAccountDAO;
+
+import javax.inject.Inject;
 
 /**
  * User: pbala
@@ -13,13 +13,9 @@ import plb.accounting.dao.impl.jpa.JpaAccountDAO;
 @RunWith(JeeunitRunner.class)
 public class JpaAccountDAOTest extends AbstractAccountDAOTest{
 
-    private static AccountDAO dao;
-
-    @BeforeClass
-    public static void setUp(){
-        dao = JpaDaoUtil.advanceDao(new JpaAccountDAO(),AccountDAO.class);
-        DataBootstrap.bootstrap(dao);
-    }
+    @Inject
+    @Transactional
+    private AccountDAO dao;
 
     @Override
     protected AccountDAO getDAO() {

@@ -12,20 +12,26 @@
 
     <artifactId>accounting-integration-tests</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/JpaAccountDAOTest.java</include>
+                        <include>**/JpaExternalPartyDAOTest.java</include>
+                        <include>**/JpaTransactionDAOTest.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>accounting</groupId>
             <artifactId>accounting-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>accounting</groupId>
-            <artifactId>accounting-model</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javaee</groupId>
-                    <artifactId>javaee-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>accounting</groupId>

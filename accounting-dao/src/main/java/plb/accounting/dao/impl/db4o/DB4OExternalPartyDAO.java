@@ -7,12 +7,14 @@ import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
+import javax.enterprise.inject.Alternative;
 import java.util.List;
 
 /**
  * User: pbala
  * Date: 10/31/12 1:41 PM
  */
+@Alternative
 public class DB4OExternalPartyDAO extends DB4OBaseDAO implements ExternalPartyDAO {
 
 
