@@ -7,6 +7,7 @@ import plb.accounting.dto.ExternalPartyDTO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.services.IExternalPartyService;
 
+import javax.ejb.EJB;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class ExternalPartyService extends BaseService implements IExternalPartyService {
 
+    @EJB
     private ExternalPartyDAO dao;
 
     @Override

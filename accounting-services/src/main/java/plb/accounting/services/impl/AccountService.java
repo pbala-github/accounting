@@ -7,6 +7,7 @@ import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.model.Account;
 import plb.accounting.services.IAccountService;
 
+import javax.ejb.EJB;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class AccountService extends BaseService implements IAccountService {
 
+    @EJB
     private AccountDAO dao;
 
     @Override

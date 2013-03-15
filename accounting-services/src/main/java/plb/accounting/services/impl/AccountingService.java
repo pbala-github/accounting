@@ -7,6 +7,10 @@ import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.*;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -16,6 +20,9 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:01 PM
  */
+@Local(IAccountingService.class)
+@Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class AccountingService implements IAccountingService {
     @Inject
     private IAccountService accountService;

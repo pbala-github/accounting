@@ -6,6 +6,7 @@ import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.ITransactionService;
 
+import javax.ejb.EJB;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public class TransactionService extends BaseService implements ITransactionService {
 
+    @EJB
     private TransactionDAO dao;
     
     @Override
