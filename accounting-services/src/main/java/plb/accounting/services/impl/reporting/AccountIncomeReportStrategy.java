@@ -8,6 +8,7 @@ import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,15 +18,18 @@ import java.util.List;
  */
 public class AccountIncomeReportStrategy implements IReportStrategy<IncomeReportResult,IncomeReportCriteria>{
 
+    @Inject
     protected ITransformationService transformationService;
+
+    @Inject
+    private IGroupStrategy<Account, Transaction> groupStrategy;
+//    IGroupStrategy<Account,Transaction> groupStrategy = new TransactionAccountGroupStrategy();
 
     @Override
     public IncomeReportResult createReport(IncomeReportCriteria reportCriteria, Object data) {
 
         IncomeReportResult result = new IncomeReportResult();
         List<Transaction> transactions = (List<Transaction>) data;
-
-        IGroupStrategy<Account,Transaction> groupStrategy = new TransactionAccountGroupStrategy();
 
         GroupContainer<Account,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);
 

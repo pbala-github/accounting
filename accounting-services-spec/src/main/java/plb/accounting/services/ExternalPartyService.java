@@ -10,13 +10,13 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 3:57 PM
  */
-public interface IExternalPartyService {
+public interface ExternalPartyService {
 
     List<BaseExternalPartyDTO> getExternalParties();
 
     ExternalPartyDTO findExternalPartyById(long organizationId);
 
-    ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization);
+    ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
 
     void deleteExternalParty(long organizationId);
 

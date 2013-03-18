@@ -20,7 +20,7 @@ public class TransactionCreationConstraintValidator implements ConstraintValidat
 
     @Override
     public boolean isValid(TransactionDTO value, ConstraintValidatorContext context) {
-        AccountDTO srcAccount = value.getOriginAccount();
+        AccountDTO srcAccount = (AccountDTO) value.getOriginAccount();
 
         return srcAccount.getCurrentBalance() != null && srcAccount.getCurrentBalance().subtract(value.getAmount()).compareTo(BigDecimal.ZERO) >= 0 ;
     }

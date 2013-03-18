@@ -17,6 +17,7 @@
         <module>../accounting-common</module>
         <module>../accounting-transfer-objects</module>
         <module>../accounting-services</module>
+        <module>../accounting-web</module>
         <!--<module>../accounting-mvc</module>-->
     </modules>
 
@@ -35,7 +36,7 @@
         <mysql.version>5.1.6</mysql.version>
         <glassfish-embedded-all.version>3.1.2.2</glassfish-embedded-all.version>
         <jeeunit.version>1.0.0</jeeunit.version>
-
+        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>
@@ -162,6 +163,14 @@
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>6.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
 
             <!--Test dependencies -->

@@ -10,6 +10,7 @@ import plb.accounting.common.validation.ValidationException;
 import plb.accounting.dao.EntityDAO;
 import plb.accounting.model.BaseEntity;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -20,11 +21,11 @@ public abstract class DB4OBaseDAO implements EntityDAO {
 
     private ObjectContainer db;
 
+    @Inject
     private IAccountingValidator validator;
 
     protected DB4OBaseDAO() {
         db = AccountingObjectContainer.get();
-        validator = AccountingValidator.get();
     }
 
     @Override

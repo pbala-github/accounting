@@ -6,6 +6,8 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.*;
+import plb.accounting.services.AccountService;
+import plb.accounting.services.ExternalPartyService;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -20,21 +22,21 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:01 PM
  */
-@Local(IAccountingService.class)
+@Local(plb.accounting.services.AccountingService.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class AccountingService implements IAccountingService {
+public class AccountingService implements plb.accounting.services.AccountingService {
     @Inject
-    private IAccountService accountService;
+    private AccountService accountService;
 
     @Inject
     private ITransactionService transactionService;
 
     @Inject
-    private IExternalPartyService externalPartyService;
+    private ExternalPartyService externalPartyService;
 
     @Inject
-    private IReportService reportService;
+    private ReportService reportService;
 
 
     @Override
@@ -78,7 +80,7 @@ public class AccountingService implements IAccountingService {
     }
 
     @Override
-    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
+    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         return externalPartyService.saveExternalParty(organization);
     }
 

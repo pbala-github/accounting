@@ -5,6 +5,7 @@ import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,12 +15,13 @@ import java.util.List;
  */
 public class PeriodOutcomeReportStrategy implements IReportStrategy<OutcomeReportResult,OutcomeReportCriteria>{
 
+    @Inject
+    private  IGroupStrategy<IPeriod,Transaction> groupStrategy;// = new TransactionPeriodGroupStrategy();
+
     @Override
     public OutcomeReportResult createReport(OutcomeReportCriteria reportCriteria, Object data) {
         OutcomeReportResult result = new OutcomeReportResult();
         List<Transaction> transactions = (List<Transaction>) data;
-
-        IGroupStrategy<IPeriod,Transaction> groupStrategy = new TransactionPeriodGroupStrategy();
 
         GroupContainer<IPeriod,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>#{pageTitle} - #{resourceBundle.application_title}</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="yui-skin-sam">
+<div id="doc2" class="yui-t6">
+    <div id="hd" role="navigation">
+        <ui:insert name="applMenu">
+            Insert application menu
+        </ui:insert>
+    </div>
+    <div id="bd" role="main">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div id="application" role="application" class="yui-g">
+                    <ui:insert name="content">
+                        Insert content here.
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+        <div id="complementary" role="complementary" class="yui-b">
+            <ui:insert name="complementary">
+                Insert complementary content here.
+            </ui:insert>
+        </div>
+    </div>
+    <div id="ft" role="contentinfo">
+        #{facesContext.viewRoot.viewId}
+        <div style="display: inline-block;float: right;">
+            P.L.B 2012
+        </div>
+    </div>
+</div>
+</h:body>
+</html>

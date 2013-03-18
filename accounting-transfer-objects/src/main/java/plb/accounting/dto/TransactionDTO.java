@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -30,14 +29,14 @@ public class TransactionDTO extends BaseDTO{
      */
     @NotNull
     @Valid
-    private AccountDTO originAccount;
+    private BaseAccountDTO originAccount;
 
     /**
      *
      */
     @NotNull
     @Valid
-    private AccountDTO destinationAccount;
+    private BaseAccountDTO destinationAccount;
 
     /**
      *
@@ -66,19 +65,19 @@ public class TransactionDTO extends BaseDTO{
         this.executionDate = executionDate;
     }
 
-    public AccountDTO getOriginAccount() {
+    public BaseAccountDTO getOriginAccount() {
         return originAccount;
     }
 
-    public void setOriginAccount(AccountDTO originAccount) {
+    public void setOriginAccount(BaseAccountDTO originAccount) {
         this.originAccount = originAccount;
     }
 
-    public AccountDTO getDestinationAccount() {
+    public BaseAccountDTO getDestinationAccount() {
         return destinationAccount;
     }
 
-    public void setDestinationAccount(AccountDTO destinationAccount) {
+    public void setDestinationAccount(BaseAccountDTO destinationAccount) {
         this.destinationAccount = destinationAccount;
     }
 

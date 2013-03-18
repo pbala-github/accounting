@@ -13,7 +13,7 @@ import java.util.List;
  * User: pbala
  * Date: 10/30/12 9:38 AM
  */
-public interface IAccountingService extends IReportService{
+public interface AccountingService extends ReportService {
 
     List<BaseAccountDTO> getAccounts();
 
@@ -33,7 +33,7 @@ public interface IAccountingService extends IReportService{
 
     TransactionDTO saveTransaction(TransactionDTO transaction);
 
-    ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization);
+    ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
 
 
     void deleteAccount(long accountId);

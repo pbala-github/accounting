@@ -1,5 +1,6 @@
 package plb.accounting.common.validation;
 
+import javax.annotation.PostConstruct;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -12,22 +13,7 @@ import java.util.Set;
  */
 public class AccountingValidator implements IAccountingValidator{
 
-    private static IAccountingValidator instance;
-
-    public static synchronized IAccountingValidator get(){
-
-        if(instance == null)
-            instance = new AccountingValidator();
-
-        return instance;
-    }
-
     private Validator validator;
-
-    private AccountingValidator() {
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        this.validator = validatorFactory.getValidator();
-    }
 
     @Override
     public <T> ValidationErrorList validate(T obj, Class<?>...groups) {
@@ -35,5 +21,12 @@ public class AccountingValidator implements IAccountingValidator{
         
         return ValidationErrorConverter.toValidationErrorList(violations);
     }
+
+    @PostConstruct
+    private void init() {
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        this.validator = validatorFactory.getValidator();
+    }
+
 
 }

@@ -4,7 +4,7 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Transaction;
-import plb.accounting.services.IReportService;
+import plb.accounting.services.ReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
 
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/7/12 12:31 PM
  */
-public class ReportService extends BaseService implements IReportService {
+public class ReportServiceImpl extends BaseService implements ReportService {
 
     @Inject
     private IReportManager reportManager;

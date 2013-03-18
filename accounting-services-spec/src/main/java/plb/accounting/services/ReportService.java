@@ -6,7 +6,7 @@ import plb.accounting.dto.reporting.*;
  * User: pbala
  * Date: 11/7/12 12:30 PM
  */
-public interface IReportService {
+public interface ReportService {
 
     BalanceReportResult createBalanceReport(BalanceReportCriteria criteria);
 

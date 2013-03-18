@@ -6,6 +6,8 @@ import org.junit.Test;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.impl.reporting.*;
 
+import javax.inject.Inject;
+
 /**
  * Test that the right report strategy is retrieved
  * using the report criteria
@@ -15,12 +17,8 @@ import plb.accounting.services.impl.reporting.*;
  */
 public class ReportStrategyFactoryTest {
 
-    private static IReportManager reportManager;
-
-    @BeforeClass
-    public static void setup(){
-        reportManager = new ReportManager();
-    }
+    @Inject
+    private IReportManager reportManager;
 
     @Test
     public void balanceReportStrategy(){

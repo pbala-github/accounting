@@ -6,6 +6,7 @@ import plb.accounting.common.validation.IAccountingValidator;
 import plb.accounting.common.validation.ValidationError;
 import plb.accounting.common.validation.ValidationErrorList;
 
+import javax.inject.Inject;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -15,12 +16,8 @@ import javax.validation.Validator;
  */
 public abstract class BaseValidationTest {
 
-    private static IAccountingValidator validator;
-
-    @BeforeClass
-    public static void setUp(){
-        validator = AccountingValidator.get();
-    }
+    @Inject
+    private IAccountingValidator validator;
 
     protected IAccountingValidator getValidator(){
         return validator;

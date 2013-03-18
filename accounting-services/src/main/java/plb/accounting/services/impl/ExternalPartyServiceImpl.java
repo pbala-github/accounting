@@ -5,7 +5,7 @@ import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.ExternalPartyDTO;
 import plb.accounting.model.ExternalParty;
-import plb.accounting.services.IExternalPartyService;
+import plb.accounting.services.ExternalPartyService;
 
 import javax.ejb.EJB;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:24 PM
  */
-public class ExternalPartyService extends BaseService implements IExternalPartyService {
+public class ExternalPartyServiceImpl extends BaseService implements ExternalPartyService {
 
     @EJB
     private ExternalPartyDAO dao;
@@ -30,7 +30,7 @@ public class ExternalPartyService extends BaseService implements IExternalPartyS
     }
 
     @Override
-    public ExternalPartyDTO saveExternalParty(ExternalPartyDTO organization) {
+    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         ExternalParty externalParty = dao.saveOrUpdate(transformationService.transform(organization, ExternalParty.class));
 
         return transformationService.transform(externalParty, ExternalPartyDTO.class);
