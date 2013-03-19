@@ -29,6 +29,9 @@ public class Operator {
      */
     public static final Operator LIKE = new Operator(" like ");
 
+    /**
+     *
+     */
     private String operand;
 
     protected Operator(String operand) {

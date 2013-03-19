@@ -1,9 +1,10 @@
 package plb.accounting.dao.impl.jpa.query;
 
-import org.springframework.util.Assert;
+import org.slf4j.Logger;
 import plb.accounting.common.paging.PaginationInfo;
 import plb.accounting.model.BaseEntity;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -14,6 +15,9 @@ import java.util.*;
  * Date: 3/13/13 2:51 PM
  */
 public class QueryBuilder {
+
+    @Inject
+    private Logger logger;
 
     /**
      * Every QueryBuilder instance is associated with a single class. The final query is executed against this class.
@@ -73,6 +77,7 @@ public class QueryBuilder {
 
     /**
      * Criteria that filters values from a given set
+     *
      * @param field
      * @param set
      * @return
@@ -103,7 +108,7 @@ public class QueryBuilder {
      */
     public Query build(EntityManager em, PaginationInfo paginationInfo) {
         String queryString = constructQueryString();
-        System.out.format("\n\nQuery String: %s\n\n", queryString);
+        logger.debug(String.format("\n\nQuery String: %s\n\n", queryString));
         Query namedQuery = em.createQuery(queryString);
         setQueryParameters(namedQuery);
 
@@ -144,7 +149,7 @@ public class QueryBuilder {
      */
     private String buildWhereClause() {
         final StringBuilder sb = new StringBuilder("");
-        final String classIdentifier = createIdentifier(classToQuery.getSimpleName());
+        final String classIdentifier = QueryUtils.createIdentifier(classToQuery.getSimpleName());
 
         if (!criteriaMap.isEmpty()) {
             sb.append("where ");
@@ -153,11 +158,11 @@ public class QueryBuilder {
         iterate(new VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
-                if (isNestedProperty(criteria.field)) {
-                    String[] fieldPaths = criteria.field.split("\\.");
-                    sb.append(createExpression(createIdentifier(fieldPaths[0]), fieldPaths[1], criteria.operator, counter)).append(" and ");
+                if (QueryUtils.isNestedProperty(criteria.field)) {
+                    String[] fieldPaths = QueryUtils.extractFieldPaths(criteria.field);
+                    sb.append(QueryUtils.createExpression(QueryUtils.createIdentifier(fieldPaths[0]), fieldPaths[1], criteria.operator, counter)).append(" and ");
                 } else
-                    sb.append(createExpression(classIdentifier, criteria.field, criteria.operator, counter)).append(" and ");
+                    sb.append(QueryUtils.createExpression(classIdentifier, criteria.field, criteria.operator, counter)).append(" and ");
             }
         });
 
@@ -174,7 +179,7 @@ public class QueryBuilder {
      * @return
      */
     private String buildFromClause() {
-        final String identifier = createIdentifier(classToQuery.getSimpleName());
+        final String identifier = QueryUtils.createIdentifier(classToQuery.getSimpleName());
         final StringBuilder sb = new StringBuilder("from ");
         sb.append(classToQuery.getSimpleName()).append(" ");
         sb.append(identifier).append(" ");
@@ -182,9 +187,9 @@ public class QueryBuilder {
         iterate(new VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
-                if (isNestedProperty(criteria.field)) {
-                    String[] fieldPaths = criteria.field.split("\\.");
-                    sb.append(",").append("IN(").append(identifier).append(".").append(fieldPaths[0]).append(") ").append(createIdentifier(fieldPaths[0]));
+                if (QueryUtils.isNestedProperty(criteria.field)) {
+                    String[] fieldPaths = QueryUtils.extractFieldPaths(criteria.field);
+                    sb.append(",").append("IN(").append(identifier).append(".").append(fieldPaths[0]).append(") ").append(QueryUtils.createIdentifier(fieldPaths[0]));
                 }
             }
         });
@@ -198,69 +203,23 @@ public class QueryBuilder {
      * @return
      */
     private String buildSelectClause() {
-        String identifier = createIdentifier(classToQuery.getSimpleName());
+        String identifier = QueryUtils.createIdentifier(classToQuery.getSimpleName());
         StringBuilder sb = new StringBuilder("select ");
         sb.append(identifier);
 
         return sb.toString();
     }
 
-    /**
-     * @param field
-     * @return
-     */
-    private String createIdentifier(String field) {
-        return field.toLowerCase() + field.length();
-    }
-
-    /**
-     * @param s1
-     * @param s2
-     * @param counter
-     * @return
-     */
-    private String createIdentifier(String s1, String s2, int counter) {
-        return new StringBuilder().append(s1).append(s2).append(counter).toString();
-    }
-
-    /**
-     * Check whether the given field is nested
-     *
-     * @param field
-     * @return true if nested
-     */
-    private boolean isNestedProperty(String field) {
-        return field.contains(".");
-    }
-
-    /**
-     * @param identifier
-     * @param field
-     * @param operator
-     * @param counter
-     * @return
-     */
-    private String createExpression(String identifier, String field, Operator operator, int counter) {
-        Assert.notNull(identifier);
-        StringBuilder sb = new StringBuilder("");
-
-        sb.append(identifier).append(".");
-        sb.append(operator.deflate(field, createIdentifier(identifier, field, counter)));
-
-        return sb.toString();
-    }
-
-
     private void setQueryParameters(final Query query) {
         iterate(new VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
                 String identifier;
-                if (isNestedProperty(criteria.field)) {
-                    String[] split = criteria.field.split("\\.");
-                    identifier = createIdentifier(createIdentifier(split[0]), split[1], counter);
+                if (QueryUtils.isNestedProperty(criteria.field)) {
+                    String[] split = QueryUtils.extractFieldPaths(criteria.field);
+                    identifier = QueryUtils.createIdentifier(QueryUtils.createIdentifier(split[0]), split[1], counter);
                 } else {
-                    identifier = createIdentifier(createIdentifier(classToQuery.getSimpleName()), criteria.field, counter);
+                    identifier = QueryUtils.createIdentifier(QueryUtils.createIdentifier(classToQuery.getSimpleName()), criteria.field, counter);
                 }
 
                 if (Date.class.isAssignableFrom(criteria.value.getClass())) {
