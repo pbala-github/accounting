@@ -12,6 +12,11 @@
     <name>accounting-web Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+
+        <dependency>
+            <groupId>accounting</groupId>
+            <artifactId>accounting-services</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>

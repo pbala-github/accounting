@@ -1,7 +1,7 @@
 package plb.accounting.services.test;
 
 import plb.accounting.dao.test.DataBootstrap;
-import plb.accounting.services.impl.AccountingService;
+import plb.accounting.services.AccountingService;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

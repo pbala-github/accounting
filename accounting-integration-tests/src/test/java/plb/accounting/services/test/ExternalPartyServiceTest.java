@@ -20,9 +20,9 @@ public class ExternalPartyServiceTest extends AbstractServiceTest {
     @Test
     public void persist() {
         ExternalPartyDTO party = new ExternalPartyDTO();
-        party.setName("external party 1");
+        party.setName("external party 99");
         party.setDescription("external party description");
-        party.setVat("1111111111");
+        party.setVat("1111111119");
 
         party = service.saveExternalParty(party);
         assertNotNull(party.getId());
@@ -32,10 +32,10 @@ public class ExternalPartyServiceTest extends AbstractServiceTest {
     public void findById() {
         BaseExternalPartyDTO externalParty = service.getExternalParties().get(0);
         assertNotNull(externalParty);
-        assertEquals(externalParty.getId(),service.findExternalPartyById(externalParty.getId()).getId());
+        assertEquals(externalParty.getId(), service.findExternalPartyById(externalParty.getId()).getId());
     }
 
-    //    @Test
+//    @Test
     public void delete() {
         BaseExternalPartyDTO party = service.getExternalParties().get(0);
         assertNotNull(party);

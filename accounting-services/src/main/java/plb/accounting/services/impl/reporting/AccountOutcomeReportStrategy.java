@@ -2,8 +2,7 @@ package plb.accounting.services.impl.reporting;
 
 import plb.accounting.common.transformation.ITransformationService;
 import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.reporting.OutcomeReportCriteria;
-import plb.accounting.dto.reporting.OutcomeReportResult;
+import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
@@ -49,6 +48,16 @@ public class AccountOutcomeReportStrategy implements IReportStrategy<OutcomeRepo
         result.setTotalOutcome(totalOutcome.doubleValue());
         return result;
 
+    }
+
+
+    @Override
+    public boolean supports(IReportCriteria reportCriteria) {
+        if (OutcomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
+                IGroupingReportCriteria.GroupType.ACCOUNT.equals(((OutcomeReportCriteria) reportCriteria).getGroupBy()))
+            return true;
+
+        return false;
     }
 
 }

@@ -3,6 +3,7 @@ package plb.accounting.dao.impl.jpa;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dao.ExternalPartyDAO;
+import plb.accounting.dao.impl.jpa.query.QueryBuilder;
 import plb.accounting.model.ExternalParty;
 
 import javax.ejb.Local;
@@ -10,12 +11,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

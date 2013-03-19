@@ -25,8 +25,8 @@ public class TransactionService extends BaseService implements ITransactionServi
 
     @Override
     public TransactionDTO findTransactionById(long transactionId) {
-
-        return transformationService.transform(dao.findById(Transaction.class,transactionId),TransactionDTO.class);
+        Transaction transaction = dao.findById(Transaction.class, transactionId);
+        return transaction != null ? transformationService.transform(transaction, TransactionDTO.class) : null;
     }
 
     @Override

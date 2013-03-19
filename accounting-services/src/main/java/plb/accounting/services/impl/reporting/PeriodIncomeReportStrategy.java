@@ -1,7 +1,6 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.IncomeReportCriteria;
-import plb.accounting.dto.reporting.IncomeReportResult;
+import plb.accounting.dto.reporting.*;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
 
@@ -42,6 +41,15 @@ public class PeriodIncomeReportStrategy implements IReportStrategy<IncomeReportR
 
         result.setTotalIncome(totalIncome.doubleValue());
         return result;
+    }
+
+    @Override
+    public boolean supports(IReportCriteria reportCriteria) {
+        if (IncomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
+                IGroupingReportCriteria.GroupType.PERIOD.equals(((IncomeReportCriteria) reportCriteria).getGroupBy()))
+            return true;
+
+        return false;
     }
 
 }

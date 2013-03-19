@@ -3,6 +3,7 @@ package plb.accounting.dao.impl.jpa;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
+import plb.accounting.dao.impl.jpa.query.QueryBuilder;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 

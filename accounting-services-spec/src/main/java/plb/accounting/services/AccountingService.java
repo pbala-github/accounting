@@ -4,6 +4,7 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
+import plb.accounting.dto.reporting.*;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * User: pbala
  * Date: 10/30/12 9:38 AM
  */
-public interface AccountingService extends ReportService {
+public interface AccountingService {
 
     List<BaseAccountDTO> getAccounts();
 
@@ -48,5 +49,11 @@ public interface AccountingService extends ReportService {
     List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria);
 
     List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria);
+
+    BalanceReportResult createBalanceReport(BalanceReportCriteria criteria);
+
+    OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria);
+
+    IncomeReportResult createIncomeReport(IncomeReportCriteria criteria);
 
 }

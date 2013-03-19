@@ -3,6 +3,7 @@ package plb.accounting.dao.impl.jpa;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
+import plb.accounting.dao.impl.jpa.query.QueryBuilder;
 import plb.accounting.model.Transaction;
 
 import javax.ejb.Local;

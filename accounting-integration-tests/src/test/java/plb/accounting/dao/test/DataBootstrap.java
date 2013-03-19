@@ -37,6 +37,7 @@ public class DataBootstrap {
     synchronized void bootstrap() {
         System.out.println("\n\n::::::::::::BOOTSTRAPPING DATA::::::::::::::::::\n\n");
         if (initialized) {
+            System.out.println("\n\n:::::::::::::BOOTSTRAP ALREADY COMPLETED::::::::::::::::\n\n");
             return;
         }
         Assert.assertNotNull(db);

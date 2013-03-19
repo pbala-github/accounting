@@ -1,4 +1,4 @@
-package plb.accounting.dao.impl.jpa;
+package plb.accounting.dao.impl.jpa.query;
 
 import org.springframework.util.Assert;
 import plb.accounting.common.paging.PaginationInfo;
@@ -14,25 +14,6 @@ import java.util.*;
  * Date: 3/13/13 2:51 PM
  */
 public class QueryBuilder {
-
-    public enum OperatorsEnum {
-        EQUALS("="), LESS_THAN("<"), GREATER_THAN(">"), IN("IN");
-
-        private String operator;
-
-        OperatorsEnum(String operator) {
-            this.operator = operator;
-        }
-
-        public String operator() {
-            return this.operator;
-        }
-
-        @Override
-        public String toString() {
-            return operator();
-        }
-    }
 
     /**
      * Every QueryBuilder instance is associated with a single class. The final query is executed against this class.
@@ -65,7 +46,7 @@ public class QueryBuilder {
      * @return
      */
     public QueryBuilder and(String field, Object value) {
-        return and(field, value, OperatorsEnum.EQUALS);
+        return and(field, value, Operator.EQUALS);
     }
 
     /**
@@ -76,7 +57,7 @@ public class QueryBuilder {
      * @return
      */
     public QueryBuilder greaterThan(String field, Object value) {
-        return and(field, value, OperatorsEnum.GREATER_THAN);
+        return and(field, value, Operator.GREATER_THAN);
     }
 
     /**
@@ -87,7 +68,7 @@ public class QueryBuilder {
      * @return
      */
     public QueryBuilder lessThan(String field, Object value) {
-        return and(field, value, OperatorsEnum.LESS_THAN);
+        return and(field, value, Operator.LESS_THAN);
     }
 
     /**
@@ -97,7 +78,7 @@ public class QueryBuilder {
      * @return
      */
     public QueryBuilder in(String field, Set<?> set) {
-        return and(field, set, OperatorsEnum.IN);
+        return and(field, set, Operator.IN);
     }
 
     /**
@@ -108,7 +89,7 @@ public class QueryBuilder {
      * @param operator
      * @return
      */
-    private QueryBuilder and(String field, Object value, OperatorsEnum operator) {
+    private QueryBuilder and(String field, Object value, Operator operator) {
         addCriteria(new Criteria(field, value, operator));
         return this;
     }
@@ -259,12 +240,12 @@ public class QueryBuilder {
      * @param counter
      * @return
      */
-    private String createExpression(String identifier, String field, OperatorsEnum operator, int counter) {
+    private String createExpression(String identifier, String field, Operator operator, int counter) {
         Assert.notNull(identifier);
         StringBuilder sb = new StringBuilder("");
 
         sb.append(identifier).append(".");
-        sb.append(field).append(" ").append(operator).append(" :").append(createIdentifier(identifier, field, counter));
+        sb.append(operator.deflate(field, createIdentifier(identifier, field, counter)));
 
         return sb.toString();
     }
@@ -308,9 +289,9 @@ public class QueryBuilder {
     class Criteria {
         String field;
         Object value;
-        OperatorsEnum operator;
+        Operator operator;
 
-        Criteria(String field, Object value, OperatorsEnum operator) {
+        Criteria(String field, Object value, Operator operator) {
             this.field = field;
             this.value = value;
             this.operator = operator;

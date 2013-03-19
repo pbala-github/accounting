@@ -31,6 +31,7 @@ public class GroupContainer<K,E> {
     
     public Group<K,E> createGroupWithKey(K key){
         Group<K,E> group = new Group<K, E>();
+        group.setKey(key);
         addGroup(group);
         return group;
     }

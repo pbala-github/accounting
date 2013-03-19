@@ -1,4 +1,4 @@
-<domain log-root="${com.sun.aas.instanceRoot}/logs" application-root="${com.sun.aas.instanceRoot}/applications" version="5">
+<domain log-root="${com.sun.aas.instanceRoot}/logs" application-root="${com.sun.aas.instanceRoot}/applications" version="43">
   <system-applications>
     <application context-root="" location="${com.sun.aas.installRootURI}/lib/install/applications/__admingui" name="__admingui" directory-deployed="true" object-type="system-admin">
       <module name="__admingui">
@@ -23,12 +23,18 @@
       <property name="DatabaseName" value="sun-appserv-samples"></property>
       <property name="connectionAttributes" value=";create=true"></property>
     </jdbc-connection-pool>
-    <jdbc-connection-pool driver-classname="" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" max-pool-size="5" res-type="javax.sql.XADataSource" steady-pool-size="1" description="" name="accounting-pool">
-      <property name="portNumber" value="3306"></property>
-      <property name="databaseName" value="accounting"></property>
-      <property name="serverName" value="localhost"></property>
-      <property name="user" value="accounting"></property>
-      <property name="password" value="accounting"></property>
+    <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.xa.client.OracleXADataSource" max-pool-size="3" res-type="javax.sql.XADataSource" steady-pool-size="1" description="" name="accounting-pool">
+      <property name="User" value="accounting"></property>
+      <property name="Password" value="accounting"></property>
+      <property name="DataSourceName" value="OracleXADataSource"></property>
+      <property name="ExplicitCachingEnabled" value="false"></property>
+      <property name="MaxStatements" value="0"></property>
+      <property name="NativeXA" value="false"></property>
+      <property name="NetworkProtocol" value="tcp"></property>
+      <property name="ImplicitCachingEnabled" value="false"></property>
+      <property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+      <property name="PortNumber" value="0"></property>
+      <property name="LoginTimeout" value="0"></property>
     </jdbc-connection-pool>
     <jdbc-resource pool-name="accounting-pool" description="" jndi-name="plb/accountingDS"></jdbc-resource>
   </resources>
@@ -41,7 +47,7 @@
     </server>
   </servers>
   <nodes>
-    <node node-host="localhost" name="localhost-plb-domain" type="CONFIG" install-dir="${com.sun.aas.productRoot}"></node>
+    <node node-host="localhost" name="localhost-domain1" type="CONFIG" install-dir="${com.sun.aas.productRoot}"></node>
   </nodes>
   <configs>
     <config name="server-config">
@@ -52,16 +58,16 @@
       </http-service>
       <iiop-service>
         <orb use-thread-pool-ids="thread-pool-1"></orb>
-        <iiop-listener port="9037" id="orb-listener-1" address="0.0.0.0" lazy-init="true"></iiop-listener>
-        <iiop-listener port="9038" id="SSL" address="0.0.0.0" security-enabled="true">
+        <iiop-listener port="3700" id="orb-listener-1" address="0.0.0.0" lazy-init="true"></iiop-listener>
+        <iiop-listener port="3820" id="SSL" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as"></ssl>
         </iiop-listener>
-        <iiop-listener port="9039" id="SSL_MUTUALAUTH" address="0.0.0.0" security-enabled="true">
+        <iiop-listener port="3920" id="SSL_MUTUALAUTH" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as" client-auth-enabled="true"></ssl>
         </iiop-listener>
       </iiop-service>
       <admin-service system-jmx-connector-name="system" type="das-and-server">
-        <jmx-connector port="9086" address="0.0.0.0" security-enabled="false" auth-realm-name="admin-realm" name="system"></jmx-connector>
+        <jmx-connector port="8686" address="0.0.0.0" security-enabled="false" auth-realm-name="admin-realm" name="system"></jmx-connector>
         <property name="adminConsoleContextRoot" value="/admin"></property>
         <property name="adminConsoleDownloadLocation" value="${com.sun.aas.installRoot}/lib/install/applications/admingui.war"></property>
         <property name="ipsRoot" value="${com.sun.aas.installRoot}/.."></property>
@@ -81,8 +87,8 @@
         <ejb-timer-service></ejb-timer-service>
       </ejb-container>
       <mdb-container></mdb-container>
-      <jms-service default-jms-host="default_JMS_host">
-        <jms-host port="9076" host="localhost" name="default_JMS_host"></jms-host>
+      <jms-service default-jms-host="default_JMS_host" type="EMBEDDED">
+        <jms-host host="localhost" name="default_JMS_host"></jms-host>
       </jms-service>
       <security-service>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
@@ -149,9 +155,7 @@
       <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <java-config debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=n,suspend=y,address=9009" system-classpath="" classpath-suffix="">
         <jvm-options>-XX:MaxPermSize=192m</jvm-options>
-        <jvm-options>-XX:PermSize=64m</jvm-options>
         <jvm-options>-client</jvm-options>
-        <jvm-options>-Djava.awt.headless=true</jvm-options>
         <jvm-options>-Djavax.management.builder.initial=com.sun.enterprise.v3.admin.AppServerMBeanServerBuilder</jvm-options>
         <jvm-options>-XX:+UnlockDiagnosticVMOptions</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/modules/endorsed${path.separator}${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
@@ -165,7 +169,8 @@
         <jvm-options>-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver</jvm-options>
         <jvm-options>-DANTLR_USE_DIRECT_CLASS_LOADING=true</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
-        <jvm-options>-Dosgi.shell.telnet.port=9066</jvm-options>
+        <jvm-options>-Dorg.glassfish.additionalOSGiBundlesToStart=org.apache.felix.shell,org.apache.felix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.gogo.command</jvm-options>
+        <jvm-options>-Dosgi.shell.telnet.port=6666</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.maxconn=1</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.ip=127.0.0.1</jvm-options>
         <jvm-options>-Dgosh.args=--nointeractive</jvm-options>
@@ -188,7 +193,7 @@
             <http default-virtual-server="server" max-connections="250">
               <file-cache></file-cache>
             </http>
-            <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as"></ssl>
+            <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" ssl3-enabled="false" cert-nickname="s1as"></ssl>
           </protocol>
           <protocol name="admin-listener">
             <http default-virtual-server="__asadmin" max-connections="250" encoded-slash-enabled="true">
@@ -197,9 +202,9 @@
           </protocol>
         </protocols>
         <network-listeners>
-          <network-listener port="9080" protocol="http-listener-1" transport="tcp" name="http-listener-1" thread-pool="http-thread-pool"></network-listener>
-          <network-listener port="9081" protocol="http-listener-2" transport="tcp" name="http-listener-2" thread-pool="http-thread-pool"></network-listener>
-          <network-listener port="9048" protocol="admin-listener" transport="tcp" name="admin-listener" thread-pool="admin-thread-pool"></network-listener>
+          <network-listener port="8080" protocol="http-listener-1" transport="tcp" name="http-listener-1" thread-pool="http-thread-pool"></network-listener>
+          <network-listener port="8181" protocol="http-listener-2" transport="tcp" name="http-listener-2" thread-pool="http-thread-pool"></network-listener>
+          <network-listener port="4848" protocol="admin-listener" transport="tcp" name="admin-listener" thread-pool="admin-thread-pool"></network-listener>
         </network-listeners>
         <transports>
           <transport name="tcp"></transport>
@@ -253,7 +258,7 @@
         <ejb-timer-service></ejb-timer-service>
       </ejb-container>
       <mdb-container></mdb-container>
-      <jms-service addresslist-behavior="priority" default-jms-host="default_JMS_host">
+      <jms-service addresslist-behavior="priority" default-jms-host="default_JMS_host" type="EMBEDDED">
         <jms-host port="${JMS_PROVIDER_PORT}" host="localhost" name="default_JMS_host"></jms-host>
       </jms-service>
       <log-service log-rotation-limit-in-bytes="2000000" file="${com.sun.aas.instanceRoot}/logs/server.log">
@@ -315,9 +320,7 @@
       <diagnostic-service></diagnostic-service>
       <java-config debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUGGER_PORT}" system-classpath="" classpath-suffix="">
         <jvm-options>-XX:MaxPermSize=192m</jvm-options>
-        <jvm-options>-XX:PermSize=64m</jvm-options>
         <jvm-options>-server</jvm-options>
-        <jvm-options>-Djava.awt.headless=true</jvm-options>
         <jvm-options>-XX:+UnlockDiagnosticVMOptions</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/modules/endorsed${path.separator}${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
         <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
@@ -331,6 +334,7 @@
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
         <jvm-options>-XX:NewRatio=2</jvm-options>
         <jvm-options>-Xmx512m</jvm-options>
+        <jvm-options>-Dorg.glassfish.additionalOSGiBundlesToStart=org.apache.felix.shell,org.apache.felix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.gogo.command</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.port=${OSGI_SHELL_TELNET_PORT}</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.maxconn=1</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.ip=127.0.0.1</jvm-options>
@@ -358,33 +362,18 @@
             <http default-virtual-server="server">
               <file-cache></file-cache>
             </http>
-            <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as"></ssl>
+            <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" ssl3-enabled="false" cert-nickname="s1as"></ssl>
           </protocol>
           <protocol name="admin-listener">
             <http default-virtual-server="__asadmin" max-connections="250">
               <file-cache></file-cache>
             </http>
           </protocol>
-          <protocol security-enabled="true" name="sec-admin-listener">
-            <http default-virtual-server="__asadmin" encoded-slash-enabled="true">
-              <file-cache></file-cache>
-            </http>
-            <ssl client-auth="want" classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="glassfish-instance"></ssl>
-          </protocol>
-          <protocol name="admin-http-redirect">
-            <http-redirect secure="true"></http-redirect>
-          </protocol>
-          <protocol name="pu-protocol">
-            <port-unification>
-              <protocol-finder protocol="sec-admin-listener" name="http-finder" classname="com.sun.grizzly.config.HttpProtocolFinder"></protocol-finder>
-              <protocol-finder protocol="admin-http-redirect" name="admin-http-redirect" classname="com.sun.grizzly.config.HttpProtocolFinder"></protocol-finder>
-            </port-unification>
-          </protocol>
         </protocols>
         <network-listeners>
           <network-listener port="${HTTP_LISTENER_PORT}" protocol="http-listener-1" transport="tcp" name="http-listener-1" thread-pool="http-thread-pool"></network-listener>
           <network-listener port="${HTTP_SSL_LISTENER_PORT}" protocol="http-listener-2" transport="tcp" name="http-listener-2" thread-pool="http-thread-pool"></network-listener>
-          <network-listener port="${ASADMIN_LISTENER_PORT}" protocol="pu-protocol" transport="tcp" name="admin-listener" thread-pool="http-thread-pool"></network-listener>
+          <network-listener port="${ASADMIN_LISTENER_PORT}" protocol="admin-listener" transport="tcp" name="admin-listener" thread-pool="admin-thread-pool"></network-listener>
         </network-listeners>
         <transports>
           <transport name="tcp"></transport>
@@ -415,11 +404,7 @@
       <connector-service></connector-service>
     </config>
   </configs>
-  <property name="administrative.domain.name" value="plb-domain"></property>
-  <secure-admin special-admin-indicator="b232a89f-614e-4265-84a9-58280c53d136">
-    <secure-admin-principal dn="CN=pbala-intrsft,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"></secure-admin-principal>
-    <secure-admin-principal dn="CN=pbala-intrsft-instance,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"></secure-admin-principal>
-  </secure-admin>
+  <property name="administrative.domain.name" value="domain1"></property>
   <load-balancers></load-balancers>
   <lb-configs></lb-configs>
   <clusters></clusters>

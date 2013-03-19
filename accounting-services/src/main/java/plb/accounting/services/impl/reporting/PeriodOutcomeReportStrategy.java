@@ -1,5 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
+import plb.accounting.dto.reporting.IGroupingReportCriteria;
+import plb.accounting.dto.reporting.IReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.AccountTypeEnum;
@@ -42,6 +44,15 @@ public class PeriodOutcomeReportStrategy implements IReportStrategy<OutcomeRepor
 
         result.setTotalOutcome(totalOutcome.doubleValue());
         return result;
+    }
+
+    @Override
+    public boolean supports(IReportCriteria reportCriteria) {
+        if (OutcomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
+                IGroupingReportCriteria.GroupType.PERIOD.equals(((OutcomeReportCriteria) reportCriteria).getGroupBy()))
+            return true;
+
+        return false;
     }
 
 }

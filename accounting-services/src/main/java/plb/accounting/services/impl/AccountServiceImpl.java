@@ -26,7 +26,8 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
     @Override
     public DetailedAccountDTO loadAccountById(long accountId) {
-        return transformationService.transform(dao.findById(Account.class, accountId), DetailedAccountDTO.class);
+        Account account = dao.findById(Account.class, accountId);
+        return account != null ? transformationService.transform(account, DetailedAccountDTO.class) : null;
     }
 
     @Override

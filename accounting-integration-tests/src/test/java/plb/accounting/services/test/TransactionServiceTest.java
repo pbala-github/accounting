@@ -23,7 +23,7 @@ public class TransactionServiceTest extends AbstractServiceTest {
     @Test
     public void persist() {
         TransactionDTO transaction = new TransactionDTO();
-        transaction.setAmount(BigDecimal.ZERO);
+        transaction.setAmount(BigDecimal.TEN);
         transaction.setDescription("transaction description");
         BaseAccountDTO destinationAccount = service.getAccounts().get(0);
         transaction.setDestinationAccount(destinationAccount);
@@ -70,17 +70,17 @@ public class TransactionServiceTest extends AbstractServiceTest {
     @Test
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
-        criteria.setDescription("tr_description_4");
+        criteria.setDescription("transaction description");
         List<TransactionDTO> transactions = service.searchTransactions(criteria);
         assertEquals(1, transactions.size());
-        assertEquals("tr_description_4", transactions.get(0).getDescription());
+        assertEquals("transaction description", transactions.get(0).getDescription());
 
         criteria.setAmountFrom(new BigDecimal(5));
         transactions = service.searchTransactions(criteria);
         assertEquals(1, transactions.size());
-        assertEquals("tr_description_4", transactions.get(0).getDescription());
+        assertEquals("transaction description", transactions.get(0).getDescription());
 
-        criteria.setAmountTo(new BigDecimal(10));
+        criteria.setAmountTo(new BigDecimal(9));
         transactions = service.searchTransactions(criteria);
         assertEquals(0, transactions.size());
 

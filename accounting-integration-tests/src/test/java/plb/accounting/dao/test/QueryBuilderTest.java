@@ -3,7 +3,7 @@ package plb.accounting.dao.test;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import plb.accounting.common.paging.PaginationInfo;
-import plb.accounting.dao.impl.jpa.QueryBuilder;
+import plb.accounting.dao.impl.jpa.query.QueryBuilder;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;

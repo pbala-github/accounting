@@ -26,7 +26,8 @@ public class ExternalPartyServiceImpl extends BaseService implements ExternalPar
 
     @Override
     public ExternalPartyDTO findExternalPartyById(long organizationId) {
-        return transformationService.transform(dao.findById(ExternalParty.class, organizationId), ExternalPartyDTO.class);
+        ExternalParty externalParty = dao.findById(ExternalParty.class, organizationId);
+        return externalParty != null ? transformationService.transform(externalParty, ExternalPartyDTO.class) : null;
     }
 
     @Override

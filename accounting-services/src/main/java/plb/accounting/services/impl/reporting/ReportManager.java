@@ -1,6 +1,14 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.*;
+import org.springframework.util.Assert;
+import plb.accounting.dto.reporting.IReportCriteria;
+import plb.accounting.dto.reporting.IReportResult;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: pbala
@@ -8,6 +16,17 @@ import plb.accounting.dto.reporting.*;
  */
 public class ReportManager implements IReportManager {
 
+    private Set<IReportStrategy> strategies = new HashSet<IReportStrategy>();
+
+    @Inject
+    private Instance<IReportStrategy> iReportStrategies;
+
+    @PostConstruct
+    private void initReportStrategies() {
+        for (IReportStrategy iReportStrategy : iReportStrategies) {
+            strategies.add(iReportStrategy);
+        }
+    }
 
     /**
      * Dispatch to the right overloaded method
@@ -16,57 +35,20 @@ public class ReportManager implements IReportManager {
      * @return
      */
     public <T extends IReportResult, E extends IReportCriteria> IReportStrategy<T, E> getReportStrategy(IReportCriteria reportCriteria) {
-        if (reportCriteria instanceof BalanceReportCriteria)
-            return (IReportStrategy<T, E>) this.getReportStrategy((BalanceReportCriteria) reportCriteria);
-        else if (reportCriteria instanceof OutcomeReportCriteria)
-            return (IReportStrategy<T, E>) this.getReportStrategy((OutcomeReportCriteria) reportCriteria);
-        else if (reportCriteria instanceof IncomeReportCriteria)
-            return (IReportStrategy<T, E>) this.getReportStrategy((IncomeReportCriteria) reportCriteria);
 
-        throw new RuntimeException("A concrete implementation of IReportCriteria should be provided.");
-    }
+        for (IReportStrategy reportStrategy : strategies) {
+            if (reportStrategy.supports(reportCriteria))
+                return reportStrategy;
+        }
 
-
-    /**
-     * @param reportCriteria
-     * @return
-     */
-    public IReportStrategy<BalanceReportResult, BalanceReportCriteria> getReportStrategy(BalanceReportCriteria reportCriteria) {
-        if (BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
-            return new AccountBalanceReportStrategy();
-        else
-            return new PeriodBalanceReportStrategy();
-
-    }
-
-    /**
-     * @param reportCriteria
-     * @return
-     */
-    public IReportStrategy<OutcomeReportResult, OutcomeReportCriteria> getReportStrategy(OutcomeReportCriteria reportCriteria) {
-        if (BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
-            return new AccountOutcomeReportStrategy();
-        else
-            return new PeriodOutcomeReportStrategy();
-
-    }
-
-    /**
-     * @param reportCriteria
-     * @return
-     */
-    public IReportStrategy<IncomeReportResult, IncomeReportCriteria> getReportStrategy(IncomeReportCriteria reportCriteria) {
-        if (BalanceReportCriteria.GroupType.ACCOUNT.equals(reportCriteria.getGroupBy()))
-            return new AccountIncomeReportStrategy();
-        else
-            return new PeriodIncomeReportStrategy();
-
+        return null;
     }
 
     @Override
     public <T extends IReportResult, E extends IReportCriteria> T createReport(E criteria, Object data) {
 
         IReportStrategy<T, E> reportStrategy = getReportStrategy(criteria);
+        Assert.notNull(reportStrategy, String.format("No report strategy found for report criteria %s", criteria));
 
         T result = reportStrategy.createReport(criteria, data);
         result.setReportCriteria(criteria);

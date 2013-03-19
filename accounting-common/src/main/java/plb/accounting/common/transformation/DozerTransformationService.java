@@ -44,6 +44,6 @@ public class DozerTransformationService implements ITransformationService {
     @PostConstruct
     private void init() {
         mapper = DozerBeanMapperSingletonWrapper.getInstance();
-        ((DozerBeanMapper) mapper).setMappingFiles(Arrays.asList("/config/dozer/dozerBeanMapping.xml"));
+        ((DozerBeanMapper) mapper).setMappingFiles(Arrays.asList("config/dozer/dozerBeanMapping.xml"));
     }
 }

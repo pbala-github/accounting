@@ -57,6 +57,7 @@ public class AccountServiceTest extends AbstractServiceTest {
     public void deleteAccount() {
         BaseAccountDTO account = service.getAccounts().get(0);
         assertNotNull(account);
+        System.out.println("Found account: " + account);
         service.deleteAccount(account.getId());
         assertNull(service.findAccountById(account.getId()));
     }

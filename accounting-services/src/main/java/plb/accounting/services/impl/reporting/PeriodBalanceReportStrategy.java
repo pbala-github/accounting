@@ -1,7 +1,6 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.BalanceReportCriteria;
-import plb.accounting.dto.reporting.BalanceReportResult;
+import plb.accounting.dto.reporting.*;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.Transaction;
 
@@ -41,6 +40,16 @@ public class PeriodBalanceReportStrategy implements IReportStrategy<BalanceRepor
         }
 
         return result;  
+    }
+
+
+    @Override
+    public boolean supports(IReportCriteria reportCriteria) {
+        if (BalanceReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
+                IGroupingReportCriteria.GroupType.PERIOD.equals(((BalanceReportCriteria) reportCriteria).getGroupBy()))
+            return true;
+
+        return false;
     }
 
 

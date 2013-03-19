@@ -6,8 +6,6 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.*;
-import plb.accounting.services.AccountService;
-import plb.accounting.services.ExternalPartyService;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -18,14 +16,14 @@ import java.util.List;
 
 /**
  * Entry point class (facade) for service components
- *
+ * <p/>
  * User: pbala
  * Date: 11/5/12 4:01 PM
  */
-@Local(plb.accounting.services.AccountingService.class)
+@Local(AccountingService.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class AccountingService implements plb.accounting.services.AccountingService {
+public class AccountingServiceImpl implements AccountingService {
     @Inject
     private AccountService accountService;
 
