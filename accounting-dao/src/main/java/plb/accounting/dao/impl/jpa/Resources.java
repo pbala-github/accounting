@@ -2,6 +2,7 @@ package plb.accounting.dao.impl.jpa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import plb.accounting.dao.impl.Logging;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -22,6 +23,7 @@ public class Resources {
     private EntityManager entityManager;
 
     @Produces
+    @Logging
     private Logger logger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getBean().getClass());
     }

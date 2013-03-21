@@ -2,6 +2,9 @@ package plb.accounting.dao.impl.jpa.query;
 
 import org.springframework.util.Assert;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * User: pbala
  * Date: 3/19/13 10:07 PM
@@ -64,5 +67,25 @@ public final class QueryUtils {
         sb.append(operator.deflate(field, QueryUtils.createIdentifier(identifier, field, counter)));
 
         return sb.toString();
+    }
+
+    /**
+     * Template method to iterate over a given criteria map.
+     *
+     * @param vs
+     */
+    public static void iterate(Map<String, Set<QueryBuilder.Criteria>> criteriaMap,VisitorSupport vs) {
+
+        for (Map.Entry<String, Set<QueryBuilder.Criteria>> entry : criteriaMap.entrySet()) {
+            int c = 0;
+            for (QueryBuilder.Criteria criteria : entry.getValue()) {
+                vs.visitCriteria(entry, criteria, c++);
+            }
+        }
+    }
+
+    static class VisitorSupport {
+        void visitCriteria(Map.Entry<String, Set<QueryBuilder.Criteria>> entry, QueryBuilder.Criteria criteria, int counter) {
+        }
     }
 }

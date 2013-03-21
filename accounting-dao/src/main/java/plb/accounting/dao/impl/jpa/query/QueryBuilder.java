@@ -1,10 +1,10 @@
 package plb.accounting.dao.impl.jpa.query;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import plb.accounting.common.paging.PaginationInfo;
 import plb.accounting.model.BaseEntity;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -16,8 +16,7 @@ import java.util.*;
  */
 public class QueryBuilder {
 
-    @Inject
-    private Logger logger;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * Every QueryBuilder instance is associated with a single class. The final query is executed against this class.
@@ -155,7 +154,7 @@ public class QueryBuilder {
             sb.append("where ");
         }
 
-        iterate(new VisitorSupport() {
+        QueryUtils.iterate(criteriaMap, new QueryUtils.VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
                 if (QueryUtils.isNestedProperty(criteria.field)) {
@@ -184,7 +183,7 @@ public class QueryBuilder {
         sb.append(classToQuery.getSimpleName()).append(" ");
         sb.append(identifier).append(" ");
 
-        iterate(new VisitorSupport() {
+        QueryUtils.iterate(criteriaMap, new QueryUtils.VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
                 if (QueryUtils.isNestedProperty(criteria.field)) {
@@ -211,7 +210,7 @@ public class QueryBuilder {
     }
 
     private void setQueryParameters(final Query query) {
-        iterate(new VisitorSupport() {
+        QueryUtils.iterate(criteriaMap, new QueryUtils.VisitorSupport() {
             @Override
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
                 String identifier;
@@ -230,22 +229,8 @@ public class QueryBuilder {
         });
     }
 
-    /**
-     * Template method to iterate over the criteria map.
-     *
-     * @param vs
-     */
-    private void iterate(VisitorSupport vs) {
 
-        for (Map.Entry<String, Set<Criteria>> entry : criteriaMap.entrySet()) {
-            int c = 0;
-            for (Criteria criteria : entry.getValue()) {
-                vs.visitCriteria(entry, criteria, c++);
-            }
-        }
-    }
-
-    class Criteria {
+    static class Criteria {
         String field;
         Object value;
         Operator operator;
@@ -257,8 +242,4 @@ public class QueryBuilder {
         }
     }
 
-    class VisitorSupport {
-        void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
-        }
-    }
 }

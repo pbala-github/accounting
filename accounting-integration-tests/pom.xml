@@ -19,10 +19,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <includes>
+                        <!--<include>**/QueryBuilderTest.java</include>-->
                         <!--DAO Tests-->
-                        <include>**/JpaAccountDAOTest.java</include>
-                        <include>**/JpaExternalPartyDAOTest.java</include>
-                        <include>**/JpaTransactionDAOTest.java</include>
+                        <!--<include>**/JpaAccountDAOTest.java</include>-->
+                        <!--<include>**/JpaExternalPartyDAOTest.java</include>-->
+                        <!--<include>**/JpaTransactionDAOTest.java</include>-->
                         <!--Service Tests-->
                         <include>**/AccountServiceTest.java</include>
                         <include>**/ExternalPartyServiceTest.java</include>

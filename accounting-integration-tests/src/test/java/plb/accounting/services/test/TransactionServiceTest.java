@@ -70,15 +70,15 @@ public class TransactionServiceTest extends AbstractServiceTest {
     @Test
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
-        criteria.setDescription("transaction description");
+        criteria.setDescription("tr_description_4");
         List<TransactionDTO> transactions = service.searchTransactions(criteria);
         assertEquals(1, transactions.size());
-        assertEquals("transaction description", transactions.get(0).getDescription());
+        assertEquals("tr_description_4", transactions.get(0).getDescription());
 
         criteria.setAmountFrom(new BigDecimal(5));
         transactions = service.searchTransactions(criteria);
         assertEquals(1, transactions.size());
-        assertEquals("transaction description", transactions.get(0).getDescription());
+        assertEquals("tr_description_4", transactions.get(0).getDescription());
 
         criteria.setAmountTo(new BigDecimal(9));
         transactions = service.searchTransactions(criteria);

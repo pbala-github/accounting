@@ -18,6 +18,7 @@
         <ui:param name="pageTitle" value="#{resourceBundle.total_accounts_title}"/>
         <ui:define name="insideForm">
 
+            <h:outputText value="#{accountsView.accounts}"/>
             <!--<rich:tree var="item" toggleType="client" selectionType="ajax">-->
                 <!--<rich:treeModelRecursiveAdaptor roots="#{accounts}" nodes="#{item.childrenAccounts}">-->
                     <!--<rich:treeNode expanded="true" selectionType="ajax">-->

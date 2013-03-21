@@ -27,7 +27,7 @@ public class Operator {
     /**
      *
      */
-    public static final Operator LIKE = new Operator(" like ");
+    public static final Operator LIKE = new Operator("like");
 
     /**
      *
@@ -42,7 +42,7 @@ public class Operator {
         Assert.notNull(parameterName);
         Assert.notNull(parameterAlias);
 
-        return new StringBuilder(parameterName).append(getOperand()).append(":").append(parameterAlias).toString();
+        return new StringBuilder(parameterName).append(" ").append(getOperand()).append(" :").append(parameterAlias).toString();
     }
 
     public String getOperand() {
