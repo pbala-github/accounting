@@ -1,7 +1,8 @@
-package plb.accounting.web.controllers;
+package plb.accounting.web.viewmodels;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.web.controllers.AccountController;
 
 import javax.enterprise.inject.New;
 import javax.faces.bean.ViewScoped;

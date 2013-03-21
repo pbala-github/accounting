@@ -3,9 +3,11 @@ package plb.accounting.web.controllers;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.services.AccountingService;
+import plb.accounting.web.WebResource;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
@@ -17,7 +19,8 @@ import java.util.List;
 @ApplicationScoped
 public class AccountController {
 
-    @EJB
+    @Inject
+    @WebResource
     private AccountingService service;
 
     public List<BaseAccountDTO> getAccounts(AccountSearchCriteria searchCriteria) {
