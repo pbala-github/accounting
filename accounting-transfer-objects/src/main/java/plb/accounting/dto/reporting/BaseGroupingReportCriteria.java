@@ -37,7 +37,7 @@ public abstract class BaseGroupingReportCriteria implements IGroupingReportCrite
      *
      */
     @NotNull
-    private GroupType groupBy = GroupType.PERIOD;
+    protected GroupType groupBy = GroupType.PERIOD;
 
 
     public Date getStartDate() {

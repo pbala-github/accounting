@@ -56,4 +56,6 @@ public interface AccountingService {
 
     IncomeReportResult createIncomeReport(IncomeReportCriteria criteria);
 
+    StatusReportResult createStatusReport(StatusReportCriteria criteria);
+
 }

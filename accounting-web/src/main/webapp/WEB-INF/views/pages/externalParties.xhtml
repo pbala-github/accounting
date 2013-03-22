@@ -11,18 +11,22 @@
       xmlns:a4j="http://richfaces.org/a4j">
 
 <h:head>
-    <title>Simple JSF Facelets page</title>
+    <title>Not Used</title>
 </h:head>
 
 <h:body>
-    <ui:composition template="/WEB-INF/views/templates/standardSearch.xhtml">
-        <ui:define name="searchForm">
+    <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
+        <ui:param name="results" value="#{epView.externalParties}"/>
+        <ui:define name="myForm">
             <h:panelGrid columns="2">
                 <h:outputLabel value="Name"/>
                 <h:inputText value="#{epView.searchCriteria.name}"/>
 
                 <h:outputLabel value="VAT"/>
                 <h:inputText value="#{epView.searchCriteria.vat}"/>
+
+                <h:outputLabel/>
+                <h:commandButton value="Search" action="#{epView.loadExternalParties}"/>
 
             </h:panelGrid>
         </ui:define>
@@ -31,7 +35,19 @@
                 <f:facet name="header">
                     <h:outputText value="Name" />
                 </f:facet>
-                <h:outputText value="#{car.vendor}" />
+                <h:outputText value="#{tblRowItem.name}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Vat" />
+                </f:facet>
+                <h:outputText value="#{tblRowItem.vat}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="" />
+                </f:facet>
+                <h:commandLink value="View" action="#{epView.selectExternalParty}"/>
             </rich:column>
         </ui:define>
     </ui:composition>

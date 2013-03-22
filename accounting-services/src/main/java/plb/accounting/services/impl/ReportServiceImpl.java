@@ -1,8 +1,10 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
+import plb.accounting.model.Account;
 import plb.accounting.model.Transaction;
 import plb.accounting.services.ReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
@@ -60,4 +62,10 @@ public class ReportServiceImpl extends BaseService implements ReportService {
         return reportManager.createReport(criteria, transactions);
     }
 
+    @Override
+    public StatusReportResult createStatusReport(StatusReportCriteria criteria) {
+        List<Account> accounts = transactionDAO.getAll(Account.class);
+
+        return reportManager.createReport(criteria, accounts);
+    }
 }

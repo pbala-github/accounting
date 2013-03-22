@@ -126,4 +126,9 @@ public class AccountingServiceImpl implements AccountingService {
     public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
         return reportService.createIncomeReport(criteria);
     }
+
+    @Override
+    public StatusReportResult createStatusReport(StatusReportCriteria criteria) {
+        return reportService.createStatusReport(criteria);
+    }
 }

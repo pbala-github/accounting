@@ -8,6 +8,8 @@ import plb.accounting.dto.reporting.*;
  */
 public interface ReportService {
 
+    StatusReportResult createStatusReport(StatusReportCriteria criteria);
+
     BalanceReportResult createBalanceReport(BalanceReportCriteria criteria);
 
     OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria);

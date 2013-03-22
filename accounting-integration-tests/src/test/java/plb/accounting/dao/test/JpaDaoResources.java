@@ -23,6 +23,9 @@ import java.lang.reflect.Proxy;
 public class JpaDaoResources {
 
     @Inject
+    EntityManager em;
+
+    @Inject
     UserTransaction userTransaction;
 
     @EJB
@@ -37,6 +40,8 @@ public class JpaDaoResources {
     @Produces
     @Transactional
     public AccountDAO getTransactionalAccountDAO() {
+//        System.out.println("Entity Manager: " + em);
+//        System.out.println("Accounts: " + em.createQuery("from Account ").getResultList());
         return advanceDao(dao, AccountDAO.class);
     }
 

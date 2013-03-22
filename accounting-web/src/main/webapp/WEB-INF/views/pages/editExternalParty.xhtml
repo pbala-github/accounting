@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+    <title>Not Used</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/WEB-INF/views/templates/standardForm.xhtml">
+        <ui:define name="formActions">
+            <h:commandButton value="Save" action="#{epView.saveExternalParty}"/>
+        </ui:define>
+        <ui:define name="insideForm">
+            <h:panelGrid columns="4">
+
+                <h:outputLabel value="Name"/>
+                <h:inputText value="#{epView.externalParty.name}"/>
+
+                <h:outputLabel value="Vat"/>
+                <h:inputText value="#{epView.externalParty.vat}"/>
+            </h:panelGrid>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

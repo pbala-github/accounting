@@ -13,9 +13,11 @@
 <h:body class="yui-skin-sam">
 <div id="doc2" class="yui-t6">
     <div id="hd" role="navigation">
+        <h:form id="navigationForm">
         <ui:insert name="applMenu">
-            Insert application menu
+            <ui:include src="/WEB-INF/views/include/applicationMenu.xhtml"/>
         </ui:insert>
+        </h:form>
     </div>
     <div id="bd" role="main">
         <div id="yui-main">

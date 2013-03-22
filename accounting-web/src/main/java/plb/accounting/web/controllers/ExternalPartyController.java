@@ -26,7 +26,7 @@ public class ExternalPartyController {
      *
      * @return
      */
-    List<BaseExternalPartyDTO> getExternalParties() {
+    public List<BaseExternalPartyDTO> getExternalParties() {
         return service.getExternalParties();
     }
 
@@ -35,7 +35,7 @@ public class ExternalPartyController {
      * @param organizationId
      * @return
      */
-    ExternalPartyDTO findExternalPartyById(long organizationId) {
+    public ExternalPartyDTO findExternalPartyById(long organizationId) {
         return service.findExternalPartyById(organizationId);
     }
 
@@ -44,7 +44,7 @@ public class ExternalPartyController {
      * @param organization
      * @return
      */
-    ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
+    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         return service.saveExternalParty(organization);
     }
 
@@ -52,7 +52,7 @@ public class ExternalPartyController {
      *
      * @param organizationId
      */
-    void deleteExternalParty(long organizationId) {
+    public void deleteExternalParty(long organizationId) {
         service.deleteExternalParty(organizationId);
     }
 
@@ -61,7 +61,7 @@ public class ExternalPartyController {
      * @param criteria
      * @return
      */
-    List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
+    public List<BaseExternalPartyDTO> searchExternalParties(ExternalPartySearchCriteria criteria) {
         return service.searchExternalParties(criteria);
     }
 }
