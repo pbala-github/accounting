@@ -31,10 +31,10 @@ public class ExternalPartyServiceImpl extends BaseService implements ExternalPar
     }
 
     @Override
-    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
+    public BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         ExternalParty externalParty = dao.saveOrUpdate(transformationService.transform(organization, ExternalParty.class));
 
-        return transformationService.transform(externalParty, ExternalPartyDTO.class);
+        return transformationService.transform(externalParty, BaseExternalPartyDTO.class);
     }
 
     @Override

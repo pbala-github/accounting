@@ -15,22 +15,8 @@ public class AccountDTO extends BaseAccountDTO {
     /**
      *
      */
-    @Min(0)
-    private BigDecimal currentBalance;
-
-    /**
-     *
-     */
     @Valid
     private List<AccountDTO> childrenAccounts;
-
-    public BigDecimal getCurrentBalance() {
-        return currentBalance;
-    }
-
-    public void setCurrentBalance(BigDecimal currentBalance) {
-        this.currentBalance = currentBalance;
-    }
 
     public List<AccountDTO> getChildrenAccounts() {
         return childrenAccounts;
@@ -42,9 +28,8 @@ public class AccountDTO extends BaseAccountDTO {
 
     @Override
     public String toString() {
-        return "BaseAccountDTO{" +
-                "currentBalance=" + currentBalance +
-                ", childrenAccounts=" + childrenAccounts +
-                "} " + super.toString();
+        return "AccountDTO{" +
+                "childrenAccounts=" + childrenAccounts +
+                '}';
     }
 }

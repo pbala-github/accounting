@@ -1,11 +1,13 @@
 package plb.accounting.web.controllers;
 
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.BaseAccountInfoDTO;
+import plb.accounting.dto.reporting.StatusReportCriteria;
+import plb.accounting.dto.reporting.StatusReportResult;
 import plb.accounting.services.AccountingService;
 import plb.accounting.web.WebResource;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,7 +25,24 @@ public class AccountController {
     @WebResource
     private AccountingService service;
 
-    public List<BaseAccountDTO> getAccounts(AccountSearchCriteria searchCriteria) {
+    public List<BaseAccountInfoDTO> getAccounts(AccountSearchCriteria searchCriteria) {
         return service.searchAccounts(searchCriteria);
     }
+
+    public StatusReportResult getStatusReportResult(StatusReportCriteria criteria) {
+        return service.createStatusReport(criteria);
+    }
+
+    public  List<AccountDTO> getAccountsTree() {
+        return service.getAccountsTree();
+    }
+
+    public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO accountInfoDTO) {
+        return service.saveAccount(accountInfoDTO);
+    }
+
+    public List<BaseAccountInfoDTO> getAllAccounts() {
+        return service.getAccounts();
+    }
+
 }

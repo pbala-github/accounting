@@ -1,7 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.reporting.IReportCriteria;
-import plb.accounting.dto.reporting.IReportResult;
+import plb.accounting.dto.reporting.ReportCriteria;
+import plb.accounting.dto.reporting.ReportResult;
 
 /**
  * User: pbala
@@ -9,7 +9,7 @@ import plb.accounting.dto.reporting.IReportResult;
  */
 public interface IReportManager {
 
-    <T extends IReportResult,E extends IReportCriteria> IReportStrategy<T,E> getReportStrategy(IReportCriteria reportCriteria);
+    <T extends ReportResult,E extends ReportCriteria> IReportStrategy<T,E> getReportStrategy(ReportCriteria reportCriteria);
 
-    <T extends IReportResult,E extends IReportCriteria> T createReport(E criteria, Object data);
+    <T extends ReportResult,E extends ReportCriteria> T createReport(E criteria, Object data);
 }

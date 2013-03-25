@@ -16,7 +16,9 @@ import java.util.List;
  */
 public interface AccountingService {
 
-    List<BaseAccountDTO> getAccounts();
+    List<BaseAccountInfoDTO> getAccounts();
+
+    List<AccountDTO> getAccountsTree();
 
     List<TransactionDTO> getTransactions();
 
@@ -30,11 +32,11 @@ public interface AccountingService {
     ExternalPartyDTO findExternalPartyById(long organizationId);
 
 
-    BaseAccountDTO saveAccount(BaseAccountDTO account);
+    BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO account);
 
     TransactionDTO saveTransaction(TransactionDTO transaction);
 
-    ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
+    BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
 
 
     void deleteAccount(long accountId);
@@ -44,7 +46,7 @@ public interface AccountingService {
     void deleteExternalParty(long organizationId);
 
 
-    List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria);
+    List<BaseAccountInfoDTO> searchAccounts(AccountSearchCriteria criteria);
 
     List<TransactionDTO> searchTransactions(TransactionSearchCriteria criteria);
 

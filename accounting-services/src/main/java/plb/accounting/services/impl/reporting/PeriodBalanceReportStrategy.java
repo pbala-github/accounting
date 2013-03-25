@@ -44,7 +44,7 @@ public class PeriodBalanceReportStrategy implements IReportStrategy<BalanceRepor
 
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (BalanceReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 IGroupingReportCriteria.GroupType.PERIOD.equals(((BalanceReportCriteria) reportCriteria).getGroupBy()))
             return true;

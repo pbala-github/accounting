@@ -1,7 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.dto.reporting.IGroupingReportCriteria;
-import plb.accounting.dto.reporting.IReportCriteria;
+import plb.accounting.dto.reporting.ReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportCriteria;
 import plb.accounting.dto.reporting.OutcomeReportResult;
 import plb.accounting.model.AccountTypeEnum;
@@ -47,7 +47,7 @@ public class PeriodOutcomeReportStrategy implements IReportStrategy<OutcomeRepor
     }
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (OutcomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 IGroupingReportCriteria.GroupType.PERIOD.equals(((OutcomeReportCriteria) reportCriteria).getGroupBy()))
             return true;

@@ -1,12 +1,11 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.reporting.IReportCriteria;
+import plb.accounting.dto.reporting.ReportCriteria;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.dto.reporting.StatusReportResult;
 import plb.accounting.model.Account;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class StatusReportStrategy implements IReportStrategy<StatusReportResult,
     }
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         return reportCriteria != null && StatusReportCriteria.class.isAssignableFrom(reportCriteria.getClass());
     }
 

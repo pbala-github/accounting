@@ -1,6 +1,7 @@
 package plb.accounting.dto.reporting;
 
 import plb.accounting.dto.AccountDTO;
+import plb.accounting.dto.BaseAccountInfoDTO;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/7/12 9:32 AM
  */
-public abstract class BaseReportResult<T extends IReportCriteria> extends AbstractReportResult<T>{
+public abstract class BaseReportResult<T extends ReportCriteria> extends AbstractReportResult<T> {
 
     /**
      *
@@ -19,32 +20,29 @@ public abstract class BaseReportResult<T extends IReportCriteria> extends Abstra
 
 
     /**
-     *
      * @param income
      * @param outcome
      * @param startDate
      * @param endDate
      * @return
      */
-    public BaseReportResultEntry addResultEntry(double income, double outcome,Date startDate, Date endDate){
-        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income,outcome,startDate,endDate);
+    public BaseReportResultEntry addResultEntry(double income, double outcome, Date startDate, Date endDate) {
+        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income, outcome, startDate, endDate);
         resultEntries.add(resultEntry);
         return resultEntry;
     }
 
     /**
-     *
      * @param income
      * @param outcome
      * @param account
      * @return
      */
-    public BaseReportResultEntry addResultEntry(double income, double outcome,AccountDTO account){
-        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income,outcome,account);
+    public BaseReportResultEntry addResultEntry(double income, double outcome, AccountDTO account) {
+        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income, outcome, account);
         resultEntries.add(resultEntry);
         return resultEntry;
     }
-
 
 
     public List<BaseReportResultEntry> getResultEntries() {
@@ -61,12 +59,12 @@ public abstract class BaseReportResult<T extends IReportCriteria> extends Abstra
         /**
          *
          */
-        private double outcome;
+        private Double outcome;
 
         /**
          *
          */
-        private AccountDTO account;
+        private BaseAccountInfoDTO account;
 
         /**
          *
@@ -79,20 +77,20 @@ public abstract class BaseReportResult<T extends IReportCriteria> extends Abstra
         private Date endDate;
 
 
-        public BaseReportResultEntry(Double income, double outcome, Date startDate, Date endDate) {
+        public BaseReportResultEntry(Double income, Double outcome, Date startDate, Date endDate) {
             this.income = income;
             this.outcome = outcome;
             this.startDate = startDate;
             this.endDate = endDate;
         }
 
-        public BaseReportResultEntry(Double income, double outcome, AccountDTO account) {
+        public BaseReportResultEntry(Double income, Double outcome, BaseAccountInfoDTO account) {
             this.income = income;
             this.outcome = outcome;
             this.account = account;
         }
 
-        public BaseReportResultEntry(Double income, double outcome, AccountDTO account, Date startDate, Date endDate) {
+        public BaseReportResultEntry(Double income, Double outcome, BaseAccountInfoDTO account, Date startDate, Date endDate) {
             this.income = income;
             this.outcome = outcome;
             this.account = account;
@@ -104,11 +102,11 @@ public abstract class BaseReportResult<T extends IReportCriteria> extends Abstra
             return income;
         }
 
-        public double getOutcome() {
+        public Double getOutcome() {
             return outcome;
         }
 
-        public AccountDTO getAccount() {
+        public BaseAccountInfoDTO getAccount() {
             return account;
         }
 

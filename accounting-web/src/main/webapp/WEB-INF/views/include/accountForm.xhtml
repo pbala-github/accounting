@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: panagiotis
+  Date: 3/25/13
+  Time: 11:18 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+</h:head>
+
+<h:body>
+   <ui:composition>
+       <h:panelGrid columns="4" cellspacing="10px">
+
+           <h:outputLabel value="#{resourceBundle.account_name}" for="acntName"/>
+           <h:inputText id="acntName" value="#{account.name}"/>
+
+           <h:outputLabel value="#{resourceBundle.account_initialBalance}" for="acntInitBal"/>
+           <h:inputText id="acntInitBal" value="#{account.initialBalance}"/>
+
+           <h:outputLabel value="#{resourceBundle.account_description}" for="acntDescr"/>
+           <h:inputTextarea value="#{account.description}"
+                            id="acntDescr"
+                            rows="5"
+                            cols="40"
+                   />
+
+           <h:panelGrid columns="1">
+               <h:outputLabel value="#{resourceBundle.account_type}" for="acntType"/>
+               <h:outputLabel value="#{resourceBundle.account_parent}" for="acntParent"/>
+           </h:panelGrid>
+
+           <h:panelGrid columns="1">
+               <h:selectOneMenu value="#{account.type}" id="acntType">
+                   <f:selectItem itemValue="#{null}" itemLabel=""/>
+                   <f:selectItems value="#{accountTypes}"
+                                  var="accountType"
+                                  itemLabel="#{resourceBundle['accountType_'.concat(accountType)]}"
+                                  itemValue="#{accountType}"/>
+               </h:selectOneMenu>
+
+
+               <h:selectOneMenu value="#{account.parentAccount.id}" id="acntParent">
+                   <f:selectItem itemValue="#{null}" itemLabel=""/>
+                   <f:selectItems value="#{accounts}"
+                                  var="accountParent"
+                                  itemLabel="#{accountParent.name}"
+                                  itemValue="#{accountParent.id}"/>
+               </h:selectOneMenu>
+           </h:panelGrid>
+
+       </h:panelGrid>
+   </ui:composition>
+</h:body>
+
+</html>

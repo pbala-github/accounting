@@ -2,7 +2,9 @@ package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
+import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.model.Account;
 import plb.accounting.services.AccountService;
@@ -20,8 +22,8 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     private AccountDAO dao;
 
     @Override
-    public List<BaseAccountDTO> getAccounts() {
-        return transformationService.transform(dao.getAll(Account.class), BaseAccountDTO.class);
+    public List<BaseAccountInfoDTO> getAccounts() {
+        return transformationService.transform(dao.getAll(Account.class), BaseAccountInfoDTO.class);
     }
 
     @Override
@@ -31,11 +33,14 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     }
 
     @Override
-    public BaseAccountDTO saveAccount(BaseAccountDTO accountDTO) {
+    public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO accountDTO) {
+        //new account
+        if (accountDTO.getId() == null) {
+            accountDTO.setCurrentBalance(accountDTO.getInitialBalance());
+        }
 
         Account account = dao.saveOrUpdate(transformationService.transform(accountDTO, Account.class));
-
-        return transformationService.transform(account, DetailedAccountDTO.class);
+        return transformationService.transform(account, BaseAccountInfoDTO.class);
     }
 
     @Override
@@ -44,8 +49,12 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     }
 
     @Override
-    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
-        return transformationService.transform(dao.searchAccounts(criteria), BaseAccountDTO.class);
+    public List<BaseAccountInfoDTO> searchAccounts(AccountSearchCriteria criteria) {
+        return transformationService.transform(dao.searchAccounts(criteria), BaseAccountInfoDTO.class);
     }
 
+    @Override
+    public List<AccountDTO> getAccountsTree() {
+        return transformationService.transform(dao.getAll(Account.class), AccountDTO.class);
+    }
 }

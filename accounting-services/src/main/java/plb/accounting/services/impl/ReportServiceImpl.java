@@ -1,7 +1,6 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
-import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Account;
@@ -9,6 +8,7 @@ import plb.accounting.model.Transaction;
 import plb.accounting.services.ReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
 
     @Inject
     private IReportManager reportManager;
-    @Inject
+    @EJB
     private TransactionDAO transactionDAO;
 
     @Override

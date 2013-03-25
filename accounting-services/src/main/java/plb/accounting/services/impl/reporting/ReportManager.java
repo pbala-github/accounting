@@ -1,8 +1,8 @@
 package plb.accounting.services.impl.reporting;
 
 import org.springframework.util.Assert;
-import plb.accounting.dto.reporting.IReportCriteria;
-import plb.accounting.dto.reporting.IReportResult;
+import plb.accounting.dto.reporting.ReportCriteria;
+import plb.accounting.dto.reporting.ReportResult;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
@@ -34,7 +34,7 @@ public class ReportManager implements IReportManager {
      * @param reportCriteria
      * @return
      */
-    public <T extends IReportResult, E extends IReportCriteria> IReportStrategy<T, E> getReportStrategy(IReportCriteria reportCriteria) {
+    public <T extends ReportResult, E extends ReportCriteria> IReportStrategy<T, E> getReportStrategy(ReportCriteria reportCriteria) {
 
         for (IReportStrategy reportStrategy : strategies) {
             if (reportStrategy.supports(reportCriteria))
@@ -45,7 +45,7 @@ public class ReportManager implements IReportManager {
     }
 
     @Override
-    public <T extends IReportResult, E extends IReportCriteria> T createReport(E criteria, Object data) {
+    public <T extends ReportResult, E extends ReportCriteria> T createReport(E criteria, Object data) {
 
         IReportStrategy<T, E> reportStrategy = getReportStrategy(criteria);
         Assert.notNull(reportStrategy, String.format("No report strategy found for report criteria %s", criteria));

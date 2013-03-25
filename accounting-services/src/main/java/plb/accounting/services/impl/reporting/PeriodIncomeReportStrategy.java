@@ -44,7 +44,7 @@ public class PeriodIncomeReportStrategy implements IReportStrategy<IncomeReportR
     }
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (IncomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 IGroupingReportCriteria.GroupType.PERIOD.equals(((IncomeReportCriteria) reportCriteria).getGroupBy()))
             return true;

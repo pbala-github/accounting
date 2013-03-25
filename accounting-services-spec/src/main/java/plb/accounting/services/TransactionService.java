@@ -9,7 +9,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 3:56 PM
  */
-public interface ITransactionService {
+public interface TransactionService {
 
     List<TransactionDTO> getTransactions();
 

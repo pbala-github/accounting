@@ -6,6 +6,7 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.*;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.services.*;
+import plb.accounting.services.TransactionService;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -28,7 +29,7 @@ public class AccountingServiceImpl implements AccountingService {
     private AccountService accountService;
 
     @Inject
-    private ITransactionService transactionService;
+    private TransactionService transactionService;
 
     @Inject
     private ExternalPartyService externalPartyService;
@@ -38,8 +39,13 @@ public class AccountingServiceImpl implements AccountingService {
 
 
     @Override
-    public List<BaseAccountDTO> getAccounts() {
+    public List<BaseAccountInfoDTO> getAccounts() {
         return accountService.getAccounts();
+    }
+
+    @Override
+    public List<AccountDTO> getAccountsTree() {
+        return accountService.getAccountsTree();
     }
 
     @Override
@@ -68,7 +74,7 @@ public class AccountingServiceImpl implements AccountingService {
     }
 
     @Override
-    public BaseAccountDTO saveAccount(BaseAccountDTO account) {
+    public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO account) {
         return accountService.saveAccount(account);
     }
 
@@ -78,7 +84,7 @@ public class AccountingServiceImpl implements AccountingService {
     }
 
     @Override
-    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
+    public BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         return externalPartyService.saveExternalParty(organization);
     }
 
@@ -98,7 +104,7 @@ public class AccountingServiceImpl implements AccountingService {
     }
 
     @Override
-    public List<BaseAccountDTO> searchAccounts(AccountSearchCriteria criteria) {
+    public List<BaseAccountInfoDTO> searchAccounts(AccountSearchCriteria criteria) {
         return accountService.searchAccounts(criteria);
     }
 

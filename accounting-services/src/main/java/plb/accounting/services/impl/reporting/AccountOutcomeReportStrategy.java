@@ -52,7 +52,7 @@ public class AccountOutcomeReportStrategy implements IReportStrategy<OutcomeRepo
 
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (OutcomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 IGroupingReportCriteria.GroupType.ACCOUNT.equals(((OutcomeReportCriteria) reportCriteria).getGroupBy()))
             return true;

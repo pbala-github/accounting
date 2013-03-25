@@ -20,13 +20,15 @@
             <h:commandButton value="Save" action="#{epView.saveExternalParty}"/>
         </ui:define>
         <ui:define name="insideForm">
-            <h:panelGrid columns="4">
+            <h:panelGrid columns="4" styleClass="tbl-cntr">
 
                 <h:outputLabel value="Name"/>
                 <h:inputText value="#{epView.externalParty.name}"/>
 
                 <h:outputLabel value="Vat"/>
                 <h:inputText value="#{epView.externalParty.vat}"/>
+
+                <h:inputHidden value="#{externalParty.id}"/>
             </h:panelGrid>
         </ui:define>
     </ui:composition>

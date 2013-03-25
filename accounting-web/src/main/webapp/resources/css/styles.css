@@ -420,3 +420,24 @@ body {
 #ft{
    background-color: magenta;
 }
+
+.div-cntr{
+    width: 99%;
+    margin: auto;
+}
+
+.tbl-cntr{
+    margin: auto;
+}
+
+.search-form{
+    padding: 5px 0px 10px 0px;
+}
+
+.results-grid {
+    padding: 5px 0px 10px 0px;
+}
+
+#bd {
+    min-height: 300px;
+}

@@ -29,14 +29,14 @@ public class TransactionDTO extends BaseDTO{
      */
     @NotNull
     @Valid
-    private BaseAccountDTO originAccount;
+    private BaseAccountInfoDTO originAccount;
 
     /**
      *
      */
     @NotNull
     @Valid
-    private BaseAccountDTO destinationAccount;
+    private BaseAccountInfoDTO destinationAccount;
 
     /**
      *
@@ -65,19 +65,19 @@ public class TransactionDTO extends BaseDTO{
         this.executionDate = executionDate;
     }
 
-    public BaseAccountDTO getOriginAccount() {
+    public BaseAccountInfoDTO getOriginAccount() {
         return originAccount;
     }
 
-    public void setOriginAccount(BaseAccountDTO originAccount) {
+    public void setOriginAccount(BaseAccountInfoDTO originAccount) {
         this.originAccount = originAccount;
     }
 
-    public BaseAccountDTO getDestinationAccount() {
+    public BaseAccountInfoDTO getDestinationAccount() {
         return destinationAccount;
     }
 
-    public void setDestinationAccount(BaseAccountDTO destinationAccount) {
+    public void setDestinationAccount(BaseAccountInfoDTO destinationAccount) {
         this.destinationAccount = destinationAccount;
     }
 

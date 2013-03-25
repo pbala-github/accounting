@@ -4,7 +4,7 @@ import plb.accounting.common.transformation.ITransformationService;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.reporting.BalanceReportCriteria;
 import plb.accounting.dto.reporting.BalanceReportResult;
-import plb.accounting.dto.reporting.IReportCriteria;
+import plb.accounting.dto.reporting.ReportCriteria;
 import plb.accounting.model.Account;
 import plb.accounting.model.Transaction;
 
@@ -50,7 +50,7 @@ public class AccountBalanceReportStrategy implements IReportStrategy<BalanceRepo
     }
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (BalanceReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 BalanceReportCriteria.GroupType.ACCOUNT.equals(((BalanceReportCriteria) reportCriteria).getGroupBy()))
             return true;

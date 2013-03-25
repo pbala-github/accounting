@@ -52,7 +52,7 @@ public class AccountIncomeReportStrategy implements IReportStrategy<IncomeReport
     }
 
     @Override
-    public boolean supports(IReportCriteria reportCriteria) {
+    public boolean supports(ReportCriteria reportCriteria) {
         if (IncomeReportCriteria.class.isAssignableFrom(reportCriteria.getClass()) &&
                 IGroupingReportCriteria.GroupType.ACCOUNT.equals(((IncomeReportCriteria) reportCriteria).getGroupBy()))
             return true;

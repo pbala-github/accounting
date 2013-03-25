@@ -44,7 +44,7 @@ public class ExternalPartyController {
      * @param organization
      * @return
      */
-    public ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
+    public BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         return service.saveExternalParty(organization);
     }
 

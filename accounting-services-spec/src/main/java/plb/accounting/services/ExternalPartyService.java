@@ -16,7 +16,7 @@ public interface ExternalPartyService {
 
     ExternalPartyDTO findExternalPartyById(long organizationId);
 
-    ExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
+    BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);
 
     void deleteExternalParty(long organizationId);
 

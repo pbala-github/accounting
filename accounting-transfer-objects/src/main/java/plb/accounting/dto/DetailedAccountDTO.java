@@ -23,4 +23,10 @@ public class DetailedAccountDTO extends AccountDTO {
         this.transactions = transactions;
     }
 
+    @Override
+    public String toString() {
+        return "DetailedAccountDTO{" +
+                "transactions=" + transactions +
+                '}';
+    }
 }

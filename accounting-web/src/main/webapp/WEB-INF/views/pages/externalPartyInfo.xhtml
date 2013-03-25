@@ -16,18 +16,21 @@
 
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
-        <ui:param name="results" value="#{epView.externalParty.transactions}"/>
+        <ui:param name="results" value="#{externalParty.transactions}"/>
         <ui:define name="formActions">
-            <h:commandButton value="Edit" action="editExternalParty"/>
+            <h:commandButton value="Edit" action="#{epView.editExternalParty}"/>
         </ui:define>
          <ui:define name="myForm">
-             <h:panelGrid columns="4">
+             <h:panelGrid columns="4" styleClass="tbl-cntr">
 
                  <h:outputLabel value="Name"/>
-                 <h:outputText value="#{epView.externalParty.name}"/>
+                 <h:outputText value="#{externalParty.name}"/>
 
                  <h:outputLabel value="Vat"/>
-                 <h:outputText value="#{epView.externalParty.vat}"/>
+                 <h:outputText value="#{externalParty.vat}"/>
+
+                 <h:inputHidden value="#{externalParty.id}"/>
+
              </h:panelGrid>
          </ui:define>
         <ui:define name="gridColumns">

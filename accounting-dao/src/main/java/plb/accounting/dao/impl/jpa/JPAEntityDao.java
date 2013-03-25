@@ -28,10 +28,10 @@ public abstract class JPAEntityDao implements EntityDAO {
             obj = em.merge(obj);
         } else {
             em.persist(obj);
-            em.flush();
-            em.refresh(obj);
         }
 
+        em.flush();
+        em.refresh(obj);
         return obj;
     }
 

@@ -17,11 +17,11 @@
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardForm.xhtml">
         <ui:define name="insideForm">
-            <h:panelGroup layout="block" styleClass="search-form">
+            <h:panelGroup layout="block" styleClass="form-cntr search-form">
                 <ui:insert name="myForm"/>
             </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="results-grid">
-                <rich:dataTable id="rsltTable" value="#{results}" rowKeyVar="tblRowItemNo" var="tblRowItem" rendered="#{results != null}">
+            <h:panelGroup layout="block" styleClass="form-cntr results-grid">
+                <rich:dataTable id="rsltTable" value="#{results}" rowKeyVar="tblRowItemNo" var="tblRowItem" rendered="#{results != null}" styleClass="tbl-cntr">
                     <ui:insert name="gridColumns"/>
                 </rich:dataTable>
             </h:panelGroup>

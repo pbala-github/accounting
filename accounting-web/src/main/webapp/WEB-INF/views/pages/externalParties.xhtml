@@ -16,14 +16,14 @@
 
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
-        <ui:param name="results" value="#{epView.externalParties}"/>
+        <ui:param name="results" value="#{externalParties}"/>
         <ui:define name="myForm">
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="2" styleClass="tbl-cntr">
                 <h:outputLabel value="Name"/>
-                <h:inputText value="#{epView.searchCriteria.name}"/>
+                <h:inputText value="#{epSearchCriteria.name}"/>
 
                 <h:outputLabel value="VAT"/>
-                <h:inputText value="#{epView.searchCriteria.vat}"/>
+                <h:inputText value="#{epSearchCriteria.vat}"/>
 
                 <h:outputLabel/>
                 <h:commandButton value="Search" action="#{epView.loadExternalParties}"/>
@@ -47,7 +47,9 @@
                 <f:facet name="header">
                     <h:outputText value="" />
                 </f:facet>
-                <h:commandLink value="View" action="#{epView.selectExternalParty}"/>
+                <h:commandLink value="View" action="#{epView.selectExternalParty}">
+                    <f:param name="epId" value="#{tblRowItem.id}"/>
+                </h:commandLink>
             </rich:column>
         </ui:define>
     </ui:composition>
