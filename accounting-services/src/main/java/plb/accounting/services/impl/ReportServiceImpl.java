@@ -1,6 +1,8 @@
 package plb.accounting.services.impl;
 
+import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
 import plb.accounting.model.Account;
@@ -22,6 +24,8 @@ public class ReportServiceImpl extends BaseService implements ReportService {
     private IReportManager reportManager;
     @EJB
     private TransactionDAO transactionDAO;
+    @EJB
+    private AccountDAO accountDAO;
 
     @Override
     public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
@@ -64,7 +68,9 @@ public class ReportServiceImpl extends BaseService implements ReportService {
 
     @Override
     public StatusReportResult createStatusReport(StatusReportCriteria criteria) {
-        List<Account> accounts = transactionDAO.getAll(Account.class);
+        AccountSearchCriteria accountSearchCriteria = new AccountSearchCriteria();
+        accountSearchCriteria.setTopParentAccount(true);
+        List<Account> accounts = accountDAO.searchAccounts(accountSearchCriteria);
 
         return reportManager.createReport(criteria, accounts);
     }

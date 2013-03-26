@@ -84,4 +84,5 @@ public class AccountsView {
     public List<BaseAccountInfoDTO> getAccounts() {
         return controller.getAllAccounts();
     }
+
 }

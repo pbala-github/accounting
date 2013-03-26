@@ -1,6 +1,7 @@
 package plb.accounting.web;
 
 import plb.accounting.services.AccountingService;
+import plb.accounting.web.qualifiers.WebResource;
 
 import javax.ejb.EJB;
 import javax.enterprise.inject.Produces;
@@ -11,6 +12,7 @@ import javax.enterprise.inject.Produces;
  */
 public class Resources {
 
-    @Produces @WebResource @EJB
+    @Produces @WebResource
+    @EJB
     private AccountingService service;
 }

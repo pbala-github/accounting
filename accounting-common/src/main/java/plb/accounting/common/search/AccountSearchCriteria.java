@@ -35,6 +35,10 @@ public class AccountSearchCriteria extends PaginationInfo {
      *
      */
     private AccountTypeEnum accountType;
+    /**
+     *
+     */
+    private boolean topParentAccount;
 
     public String getAccountName() {
         return accountName;
@@ -74,5 +78,13 @@ public class AccountSearchCriteria extends PaginationInfo {
 
     public void setAccountType(AccountTypeEnum accountType) {
         this.accountType = accountType;
+    }
+
+    public boolean isTopParentAccount() {
+        return topParentAccount;
+    }
+
+    public void setTopParentAccount(boolean topParentAccount) {
+        this.topParentAccount = topParentAccount;
     }
 }

@@ -22,7 +22,13 @@
                     <h:outputText value="Menu" />
                 </h:panelGroup>
             </f:facet>
-            <rich:menuItem label="Create External Party" action="#{epView.createExternalParty}" mode="server"/>
+            <rich:menuItem label="Accounts" action="accounts" mode="server"/>
+            <rich:menuItem label="External Parties" action="externalParties" mode="server"/>
+            <rich:menuItem label="Transactions" action="transactions" mode="server"/>
+            <rich:menuSeparator/>
+            <rich:menuItem label="Create Account" action="createAccount" mode="server"/>
+            <rich:menuItem label="Create External Party" action="editExternalParty" mode="server"/>
+            <rich:menuItem label="Create Transaction" action="editTransaction" mode="server"/>
         </rich:dropDownMenu>
     </ui:composition>
 </h:body>

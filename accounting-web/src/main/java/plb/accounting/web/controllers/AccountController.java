@@ -6,7 +6,7 @@ import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.dto.reporting.StatusReportResult;
 import plb.accounting.services.AccountingService;
-import plb.accounting.web.WebResource;
+import plb.accounting.web.qualifiers.WebResource;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

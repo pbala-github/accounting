@@ -47,6 +47,9 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
         if (searchCriteria.getParentAccountId() != null)
             qb.and("parentAccount.id", searchCriteria.getParentAccountId());
 
+        if(searchCriteria.isTopParentAccount())
+            qb.nill("parentAccount");
+
         return qb.build(em, searchCriteria).getResultList();
     }
 

@@ -29,6 +29,15 @@ public class Operator {
      */
     public static final Operator LIKE = new Operator("like");
 
+    public static final Operator NULL = new Operator("IS NULL"){
+        @Override
+        public String deflate(String parameterName, String parameterAlias) {
+            Assert.notNull(parameterName);
+
+            return new StringBuilder(parameterName).append(" ").append(getOperand()).toString();
+        }
+    };
+
     /**
      *
      */

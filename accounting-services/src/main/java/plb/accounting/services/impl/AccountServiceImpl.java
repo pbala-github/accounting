@@ -55,6 +55,8 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
     @Override
     public List<AccountDTO> getAccountsTree() {
-        return transformationService.transform(dao.getAll(Account.class), AccountDTO.class);
+        AccountSearchCriteria criteria = new AccountSearchCriteria();
+        criteria.setTopParentAccount(true);
+        return transformationService.transform(dao.searchAccounts(criteria), AccountDTO.class);
     }
 }

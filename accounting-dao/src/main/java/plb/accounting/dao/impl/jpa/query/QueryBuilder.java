@@ -86,6 +86,14 @@ public class QueryBuilder {
     }
 
     /**
+     * @param field
+     * @return
+     */
+    public QueryBuilder nill(String field) {
+        return and(field, null, Operator.NULL);
+    }
+
+    /**
      * Create a criteria for the given field, value and operator and add it to the criteria map.
      *
      * @param field
@@ -221,14 +229,14 @@ public class QueryBuilder {
                     identifier = QueryUtils.createIdentifier(QueryUtils.createIdentifier(classToQuery.getSimpleName()), criteria.field, counter);
                 }
 
-                if (Date.class.isAssignableFrom(criteria.value.getClass())) {
-                    query.setParameter(identifier, (Date) criteria.value, TemporalType.DATE);
-                } else
-                    query.setParameter(identifier, criteria.value);
+                if (criteria.value != null)
+                    if (Date.class.isAssignableFrom(criteria.value.getClass())) {
+                        query.setParameter(identifier, (Date) criteria.value, TemporalType.DATE);
+                    } else
+                        query.setParameter(identifier, criteria.value);
             }
         });
     }
-
 
     static class Criteria {
         String field;

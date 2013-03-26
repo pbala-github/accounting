@@ -4,7 +4,7 @@ import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.ExternalPartyDTO;
 import plb.accounting.services.AccountingService;
-import plb.accounting.web.WebResource;
+import plb.accounting.web.qualifiers.WebResource;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

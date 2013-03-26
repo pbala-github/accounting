@@ -3,7 +3,9 @@ package plb.accounting.web.viewmodels;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.ExternalPartyDTO;
+import plb.accounting.web.WebHelper;
 import plb.accounting.web.controllers.ExternalPartyController;
+import plb.accounting.web.qualifiers.RequestParam;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -31,6 +33,10 @@ public class ExternalPartiesView {
     private DataModel<BaseExternalPartyDTO> externalParties;
 
     private BaseExternalPartyDTO externalParty;
+
+    @Inject
+    @RequestParam("epId")
+    private Long externalPartyId;
 
     /**
      *
@@ -70,7 +76,7 @@ public class ExternalPartiesView {
     }
 
     public String selectExternalParty() {
-        externalParty = controller.findExternalPartyById(new Long(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("epId")));
+        externalParty = controller.findExternalPartyById(externalPartyId);
         return "externalPartyInfo";
     }
 

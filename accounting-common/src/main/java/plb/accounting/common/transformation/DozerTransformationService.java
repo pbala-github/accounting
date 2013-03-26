@@ -19,7 +19,7 @@ public class DozerTransformationService implements ITransformationService {
     /**
      *
      */
-    private Mapper mapper ;
+    private Mapper mapper;
 
     @Override
     public <T> T transform(Object srcObject, Class<T> targetClass) {
@@ -42,8 +42,11 @@ public class DozerTransformationService implements ITransformationService {
     }
 
     @PostConstruct
-    private void init() {
-        mapper = DozerBeanMapperSingletonWrapper.getInstance();
-        ((DozerBeanMapper) mapper).setMappingFiles(Arrays.asList("config/dozer/dozerBeanMapping.xml"));
+    private synchronized void init() {
+        if (mapper == null) {
+            mapper = DozerBeanMapperSingletonWrapper.getInstance();
+            ((DozerBeanMapper) mapper).setMappingFiles(Arrays.asList("config/dozer/dozerBeanMapping.xml"));
+        }
+
     }
 }
