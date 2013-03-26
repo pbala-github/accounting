@@ -196,7 +196,7 @@ public class QueryBuilder {
             void visitCriteria(Map.Entry<String, Set<Criteria>> entry, Criteria criteria, int counter) {
                 if (QueryUtils.isNestedProperty(criteria.field)) {
                     String[] fieldPaths = QueryUtils.extractFieldPaths(criteria.field);
-                    sb.append(",").append("IN(").append(identifier).append(".").append(fieldPaths[0]).append(") ").append(QueryUtils.createIdentifier(fieldPaths[0]));
+                    sb.append(" ").append("JOIN ").append(identifier).append(".").append(fieldPaths[0]).append(" ").append(QueryUtils.createIdentifier(fieldPaths[0]));
                 }
             }
         });
