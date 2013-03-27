@@ -3,6 +3,7 @@ package plb.accounting.web.controllers;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
+import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.dto.reporting.StatusReportResult;
 import plb.accounting.services.AccountingService;
@@ -45,4 +46,7 @@ public class AccountController {
         return service.getAccounts();
     }
 
+    public DetailedAccountDTO loadAccount(Long accountId) {
+        return service.findAccountById(accountId);
+    }
 }

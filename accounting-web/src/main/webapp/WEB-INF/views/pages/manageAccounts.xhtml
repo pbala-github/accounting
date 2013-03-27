@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+    <title>Not used</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
+        <ui:param name="results" value="#{accountsResult}"/>
+        <ui:define name="myForm">
+            <h:panelGrid columns="4">
+                <h:outputLabel value="Account Name"/>
+                <h:inputText value="#{accSearchCriteria.accountName}"/>
+
+                <h:outputLabel value="Balance From:"/>
+                <h:inputText value="#{accSearchCriteria.lowestAccountBalance}"/>
+
+                <h:outputLabel value="Balance To:"/>
+                <h:inputText value="#{accSearchCriteria.highestAccountBalance}"/>
+
+                <h:outputLabel value="Parent Account"/>
+                <h:selectOneMenu value="#{accSearchCriteria.parentAccountId}">
+                    <f:selectItem itemValue="#{null}" itemLabel=""/>
+                    <f:selectItems value="#{accounts}"
+                                   var="pAcc"
+                                   itemLabel="#{pAcc.name}"
+                                   itemValue="#{pAcc.id}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="#{resourceBundle.account_type}"/>
+                <h:selectOneMenu value="#{accSearchCriteria.accountType}" id="acntType">
+                    <f:selectItem itemValue="#{null}" itemLabel=""/>
+                    <f:selectItems value="#{accountTypes}"
+                                   var="accountType"
+                                   itemLabel="#{resourceBundle['accountType_'.concat(accountType)]}"
+                                   itemValue="#{accountType}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Top Account"/>
+                <h:selectBooleanCheckbox value="#{accSearchCriteria.topParentAccount}"/>
+
+                <h:outputLabel/>
+                <h:outputLabel/>
+                <h:outputLabel/>
+                <h:commandButton value="Search"/>
+            </h:panelGrid>
+        </ui:define>
+        <ui:define name="gridColumns">
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Account Name" />
+                </f:facet>
+                <h:outputText value="#{tblRowItem.name}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Initial Balance" />
+                </f:facet>
+                <h:outputText value="#{tblRowItem.initialBalance}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Current Balance" />
+                </f:facet>
+                <h:outputText value="#{tblRowItem.currentBalance}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Account Type" />
+                </f:facet>
+                <h:outputText value="#{tblRowItem.type}" />
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="" />
+                </f:facet>
+                <h:commandLink value="View" action="#{accountsView.selectTransaction}">
+                    <f:param name="transactionId" value="#{tblRowItem.id}"/>
+                </h:commandLink>
+            </rich:column>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

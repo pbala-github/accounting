@@ -8,6 +8,7 @@ import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.reporting.BaseReportResult;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.web.controllers.AccountController;
+import plb.accounting.web.qualifiers.RequestParam;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -27,18 +28,25 @@ public class AccountsView {
     @Inject
     private AccountController controller;
 
-    @Inject
-    private AccountSearchCriteria searchCriteria;
+    private AccountSearchCriteria searchCriteria = new AccountSearchCriteria();
 
     private DetailedAccountDTO account;
+
+    @Inject
+    @RequestParam("accountId")
+    private Long accountId;
 
 //    @Inject
 //    private StatusReportCriteria statusReportCriteria;
 
+    @Produces
+    @Named("accountsResult")
     public List<BaseAccountInfoDTO> searchAccounts() {
         return controller.getAccounts(searchCriteria);
     }
 
+    @Produces
+    @Named("accSearchCriteria")
     public AccountSearchCriteria getSearchCriteria() {
         return searchCriteria;
     }
@@ -83,6 +91,11 @@ public class AccountsView {
     @Named("accounts")
     public List<BaseAccountInfoDTO> getAccounts() {
         return controller.getAllAccounts();
+    }
+
+    public String selectAccount() {
+        account = controller.loadAccount(accountId);
+        return "editAccount";
     }
 
 }
