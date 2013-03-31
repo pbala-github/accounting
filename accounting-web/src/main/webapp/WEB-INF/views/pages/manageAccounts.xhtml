@@ -46,7 +46,7 @@
                                    itemValue="#{accountType}"/>
                 </h:selectOneMenu>
 
-                <h:outputLabel value="Top Account"/>
+                <h:outputLabel value="Top Accounts Only"/>
                 <h:selectBooleanCheckbox value="#{accSearchCriteria.topParentAccount}"/>
 
                 <h:outputLabel/>
@@ -84,8 +84,8 @@
                 <f:facet name="header">
                     <h:outputText value="" />
                 </f:facet>
-                <h:commandLink value="View" action="#{accountsView.selectTransaction}">
-                    <f:param name="transactionId" value="#{tblRowItem.id}"/>
+                <h:commandLink value="View" action="#{accountsView.selectAccount}">
+                    <f:param name="accountId" value="#{tblRowItem.id}"/>
                 </h:commandLink>
             </rich:column>
         </ui:define>

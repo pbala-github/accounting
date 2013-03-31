@@ -2,14 +2,12 @@ package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
-import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.BaseAccountDTO;
-import plb.accounting.dto.BaseAccountInfoDTO;
-import plb.accounting.dto.DetailedAccountDTO;
+import plb.accounting.dto.*;
 import plb.accounting.model.Account;
 import plb.accounting.services.AccountService;
 
 import javax.ejb.EJB;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +27,18 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     @Override
     public DetailedAccountDTO loadAccountById(long accountId) {
         Account account = dao.findById(Account.class, accountId);
-        return account != null ? transformationService.transform(account, DetailedAccountDTO.class) : null;
+        DetailedAccountDTO accountDTO = null;
+
+        if (account != null) {
+            accountDTO = transformationService.transform(account, DetailedAccountDTO.class);
+            accountDTO.setTransactions(new ArrayList<TransactionDTO>());
+            if(account.getInTransactions()!=null)
+                accountDTO.getTransactions().addAll(transformationService.transform(account.getInTransactions(), TransactionDTO.class));
+            if(account.getOutTransactions()!=null)
+                accountDTO.getTransactions().addAll(transformationService.transform(account.getOutTransactions(), TransactionDTO.class));
+        }
+
+        return accountDTO;
     }
 
     @Override
@@ -37,6 +46,8 @@ public class AccountServiceImpl extends BaseService implements AccountService {
         //new account
         if (accountDTO.getId() == null) {
             accountDTO.setCurrentBalance(accountDTO.getInitialBalance());
+        } else {
+            accountDTO.setCurrentBalance(dao.findById(Account.class, accountDTO.getId()).getCurrentBalance());
         }
 
         Account account = dao.saveOrUpdate(transformationService.transform(accountDTO, Account.class));

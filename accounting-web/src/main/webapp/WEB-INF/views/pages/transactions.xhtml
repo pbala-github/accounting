@@ -17,6 +17,50 @@
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
         <ui:param name="results" value="#{transactions}"/>
+        <ui:define name="myForm">
+            <h:panelGrid columns="2" styleClass="tbl-cntr">
+
+                <h:outputLabel value="Execution Date From"/>
+                <rich:calendar value="#{trSearchCriteria.executionDateFrom}"/>
+
+                <h:outputLabel value="Execution Date To"/>
+                <rich:calendar value="#{trSearchCriteria.executionDateTo}"/>
+
+                <h:outputLabel value="Origin Account"/>
+                <h:selectOneMenu value="#{transaction.originAccount.id}">
+                    <f:selectItems value="#{accounts}"
+                                   var="originAccount"
+                                   itemLabel="#{originAccount.name}"
+                                   itemValue="#{originAccount.id}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Destination Account"/>
+                <h:selectOneMenu value="#{transaction.destinationAccount.id}">
+                    <f:selectItems value="#{accounts}"
+                                   var="destinationAccount"
+                                   itemLabel="#{destinationAccount.name}"
+                                   itemValue="#{destinationAccount.id}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="External Party"/>
+                <h:selectOneMenu value="#{transaction.relatedParty.id}">
+                    <f:selectItems value="#{externalParties}"
+                                   var="exParty"
+                                   itemLabel="#{exParty.name}"
+                                   itemValue="#{exParty.id}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Description"/>
+                <h:inputTextarea value="#{trSearchCriteria.description}"/>
+
+                <h:outputLabel value="Amount From"/>
+                <h:inputText value="#{trSearchCriteria.amountFrom}"/>
+
+                <h:outputLabel value="Amount To"/>
+                <h:inputText value="#{trSearchCriteria.amountTo}"/>
+
+            </h:panelGrid>
+        </ui:define>
         <ui:define name="gridColumns">
             <ui:include src="/WEB-INF/views/include/transactionsGrid.xhtml"/>
         </ui:define>

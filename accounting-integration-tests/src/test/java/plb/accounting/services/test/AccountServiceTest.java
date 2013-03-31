@@ -4,10 +4,7 @@ import com.googlecode.jeeunit.JeeunitRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import plb.accounting.common.search.AccountSearchCriteria;
-import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.AccountTypeEnum;
-import plb.accounting.dto.BaseAccountDTO;
-import plb.accounting.dto.DetailedAccountDTO;
+import plb.accounting.dto.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,7 +25,7 @@ public class AccountServiceTest extends AbstractServiceTest {
 
     @Test
     public void loadAccountById() {
-        BaseAccountDTO account = service.getAccounts().get(0);
+        BaseAccountInfoDTO account = service.getAccounts().get(0);
         assertNotNull(account);
 
         assertEquals(account.getId(), service.findAccountById(account.getId()).getId());
@@ -43,7 +40,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
 
-        BaseAccountDTO stored = service.saveAccount(account);
+        BaseAccountInfoDTO stored = service.saveAccount(account);
         assertNotSame(0, stored.getId());
 
         DetailedAccountDTO found = service.findAccountById(stored.getId());
@@ -55,7 +52,7 @@ public class AccountServiceTest extends AbstractServiceTest {
 
     @Test
     public void deleteAccount() {
-        BaseAccountDTO account = service.getAccounts().get(0);
+        BaseAccountInfoDTO account = service.getAccounts().get(0);
         assertNotNull(account);
         System.out.println("Found account: " + account);
         service.deleteAccount(account.getId());
@@ -66,7 +63,7 @@ public class AccountServiceTest extends AbstractServiceTest {
     public void searchAccounts() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
-        List<BaseAccountDTO> accounts = service.searchAccounts(criteria);
+        List<BaseAccountInfoDTO> accounts = service.searchAccounts(criteria);
         assertNotNull(accounts);
         assertEquals(1, accounts.size());
         assertEquals("Account name 102", accounts.get(0).getName());

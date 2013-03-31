@@ -19,8 +19,8 @@
         <ui:define name="insideForm">
             <rich:tree var="item" toggleType="client" selectionType="ajax">
                 <rich:treeModelRecursiveAdaptor roots="#{accountsView.accountsTree}" nodes="#{item.childrenAccounts}">
-                    <rich:treeNode expanded="true" selectionType="ajax">
-                        #{item.name}
+                    <rich:treeNode expanded="true" selectionType="ajax" immediate="true" >
+                        #{item.name}(#{item.currentBalance})
                     </rich:treeNode>
                 </rich:treeModelRecursiveAdaptor>
             </rich:tree>

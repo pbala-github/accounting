@@ -24,8 +24,7 @@ public class TransactionsView {
     @Inject
     private TransactionController controller;
     
-    @Inject
-    private TransactionSearchCriteria searchCriteria;
+    private TransactionSearchCriteria searchCriteria = new TransactionSearchCriteria();
 
     private TransactionDTO transaction;
 
@@ -60,5 +59,11 @@ public class TransactionsView {
     public String saveTransaction() {
         transaction = controller.saveTransaction(transaction);
         return "editTransaction";
+    }
+
+    @Produces
+    @Named("trSearchCriteria")
+    public TransactionSearchCriteria getTransactionSearchCriteria() {
+        return searchCriteria;
     }
 }

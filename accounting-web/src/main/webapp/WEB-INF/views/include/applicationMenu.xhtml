@@ -22,13 +22,13 @@
                     <h:outputText value="Menu" />
                 </h:panelGroup>
             </f:facet>
-            <rich:menuItem label="Accounts" action="accounts" mode="server"/>
-            <rich:menuItem label="External Parties" action="externalParties" mode="server"/>
-            <rich:menuItem label="Transactions" action="transactions" mode="server"/>
+            <rich:menuItem label="Accounts" action="manageAccounts?faces-redirect=true" mode="server"/>
+            <rich:menuItem label="External Parties" action="externalParties?faces-redirect=true" mode="server"/>
+            <rich:menuItem label="Transactions" action="transactions?faces-redirect=true" mode="server"/>
             <rich:menuSeparator/>
-            <rich:menuItem label="Create Account" action="createAccount" mode="server"/>
-            <rich:menuItem label="Create External Party" action="editExternalParty" mode="server"/>
-            <rich:menuItem label="Create Transaction" action="editTransaction" mode="server"/>
+            <rich:menuItem label="Create Account" action="createAccount?faces-redirect=true" mode="server"/>
+            <rich:menuItem label="Create External Party" action="editExternalParty?faces-redirect=true" mode="server"/>
+            <rich:menuItem label="Create Transaction" action="editTransaction?faces-redirect=true" mode="server"/>
         </rich:dropDownMenu>
     </ui:composition>
 </h:body>

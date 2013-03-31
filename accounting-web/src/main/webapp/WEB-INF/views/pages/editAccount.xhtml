@@ -13,24 +13,18 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
-        <ui:param name="pageTitle" value="#{resourceBundle.view_account_pageTitle}"/>
-        <ui:param name="results" value="#{account.transactions}"/>
+    <ui:composition template="/WEB-INF/views/templates/standardForm.xhtml">
+        <ui:param name="pageTitle" value="#{resourceBundle.edit_account_pageTitle}"/>
+
         <ui:define name="formActions">
-            <h:commandButton action="#{accountsView.editAccount}" value="#{resourceBundle.account_editBtn}">
-                <f:param name="accountId" value="#{account.id}"/>
-            </h:commandButton>
+            <h:commandButton action="#{accountsView.saveAccount}" value="#{resourceBundle.account_saveBtn}"/>
         </ui:define>
 
 
-        <ui:define name="myForm">
+        <ui:define name="insideForm">
             <ui:include src="/WEB-INF/views/include/accountForm.xhtml"/>
         </ui:define>
-        <ui:define name="gridColumns">
-            <ui:include src="/WEB-INF/views/include/transactionsGrid.xhtml"/>
-        </ui:define>
         <ui:define name="outsideForm">
-
         </ui:define>
     </ui:composition>
 </h:body>

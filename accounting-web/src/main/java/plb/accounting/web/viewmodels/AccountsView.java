@@ -95,6 +95,11 @@ public class AccountsView {
 
     public String selectAccount() {
         account = controller.loadAccount(accountId);
+        return "viewAccount";
+    }
+
+    public String editAccount(){
+        account = controller.loadAccount(accountId);
         return "editAccount";
     }
 

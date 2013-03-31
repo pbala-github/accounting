@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class ExternalPartyServiceTest extends AbstractServiceTest {
     @Test
     public void persist() {
-        ExternalPartyDTO party = new ExternalPartyDTO();
+        BaseExternalPartyDTO party = new ExternalPartyDTO();
         party.setName("external party 99");
         party.setDescription("external party description");
         party.setVat("1111111119");

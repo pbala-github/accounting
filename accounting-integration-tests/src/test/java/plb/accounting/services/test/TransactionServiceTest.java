@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.BaseAccountDTO;
+import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.TransactionDTO;
 
@@ -25,10 +26,10 @@ public class TransactionServiceTest extends AbstractServiceTest {
         TransactionDTO transaction = new TransactionDTO();
         transaction.setAmount(BigDecimal.TEN);
         transaction.setDescription("transaction description");
-        BaseAccountDTO destinationAccount = service.getAccounts().get(0);
+        BaseAccountInfoDTO destinationAccount = service.getAccounts().get(0);
         transaction.setDestinationAccount(destinationAccount);
         transaction.setExecutionDate(new Date());
-        BaseAccountDTO originAccount = service.getAccounts().get(1);
+        BaseAccountInfoDTO originAccount = service.getAccounts().get(1);
         transaction.setOriginAccount(originAccount);
         BaseExternalPartyDTO externalParty = service.getExternalParties().get(0);
         transaction.setRelatedParty(externalParty);
