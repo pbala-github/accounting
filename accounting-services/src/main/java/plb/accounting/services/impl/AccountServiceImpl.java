@@ -5,6 +5,7 @@ import plb.accounting.dao.AccountDAO;
 import plb.accounting.dto.*;
 import plb.accounting.model.Account;
 import plb.accounting.services.AccountService;
+import plb.accounting.services.impl.intercept.Validate;
 
 import javax.ejb.EJB;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class AccountServiceImpl extends BaseService implements AccountService {
         return accountDTO;
     }
 
+    @Validate
     @Override
     public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO accountDTO) {
         //new account

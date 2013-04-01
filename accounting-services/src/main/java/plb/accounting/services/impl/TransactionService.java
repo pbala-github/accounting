@@ -4,6 +4,7 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.TransactionDTO;
 import plb.accounting.model.Transaction;
+import plb.accounting.services.impl.intercept.Validate;
 
 import javax.ejb.EJB;
 import java.util.List;
@@ -28,6 +29,7 @@ public class TransactionService extends BaseService implements plb.accounting.se
         return transaction != null ? transformationService.transform(transaction, TransactionDTO.class) : null;
     }
 
+    @Validate
     @Override
     public TransactionDTO saveTransaction(TransactionDTO transaction) {
         Transaction t = dao.saveOrUpdate(transformationService.transform(transaction,Transaction.class));

@@ -25,10 +25,10 @@
        <h:panelGrid columns="4" cellspacing="10px">
 
            <h:outputLabel value="#{resourceBundle.account_name}" for="acntName"/>
-           <h:inputText id="acntName" value="#{account.name}"/>
+           <h:inputText id="acntName" value="#{account.name}" disabled="#{accountWM.readOnly}"/>
 
            <h:outputLabel value="#{resourceBundle.account_parent}" for="acntParent"/>
-           <h:selectOneMenu value="#{account.parentAccount.id}" id="acntParent">
+           <h:selectOneMenu value="#{account.parentAccount.id}" id="acntParent" disabled="#{accountWM.readOnly}">
                <f:selectItem itemValue="#{null}" itemLabel=""/>
                <f:selectItems value="#{accounts}"
                               var="accountParent"
@@ -37,13 +37,13 @@
            </h:selectOneMenu>
 
            <h:outputLabel value="#{resourceBundle.account_initialBalance}" for="acntInitBal"/>
-           <h:inputText id="acntInitBal" value="#{account.initialBalance}"/>
+           <h:inputText id="acntInitBal" value="#{account.initialBalance}" disabled="#{accountWM.readOnly}"/>
 
            <h:outputLabel value="#{resourceBundle.account_currentBalance}"/>
-           <h:inputText value="#{account.currentBalance}" disabled="true"/>
+           <h:inputText value="#{account.currentBalance}" disabled="true" />
 
            <h:outputLabel value="#{resourceBundle.account_type}" for="acntType"/>
-           <h:selectOneMenu value="#{account.type}" id="acntType">
+           <h:selectOneMenu value="#{account.type}" id="acntType" disabled="#{accountWM.readOnly}">
                <f:selectItem itemValue="#{null}" itemLabel=""/>
                <f:selectItems value="#{accountTypes}"
                               var="accountType"
@@ -61,7 +61,7 @@
                         id="acntDescr"
                         rows="5"
                         cols="40"
-               />
+                        disabled="#{accountWM.readOnly}"/>
 
    </ui:composition>
 </h:body>

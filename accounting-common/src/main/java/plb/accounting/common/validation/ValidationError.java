@@ -6,7 +6,7 @@ import java.io.Serializable;
  * User: pbala
  * Date: 1/14/13 9:34 AM
  */
-public class ValidationError {
+public class ValidationError implements Serializable{
 
     private String fieldPointer;
 

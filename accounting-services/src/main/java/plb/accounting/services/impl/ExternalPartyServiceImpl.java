@@ -6,6 +6,7 @@ import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.ExternalPartyDTO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.services.ExternalPartyService;
+import plb.accounting.services.impl.intercept.Validate;
 
 import javax.ejb.EJB;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ExternalPartyServiceImpl extends BaseService implements ExternalPar
         return externalParty != null ? transformationService.transform(externalParty, ExternalPartyDTO.class) : null;
     }
 
+    @Validate
     @Override
     public BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization) {
         ExternalParty externalParty = dao.saveOrUpdate(transformationService.transform(organization, ExternalParty.class));

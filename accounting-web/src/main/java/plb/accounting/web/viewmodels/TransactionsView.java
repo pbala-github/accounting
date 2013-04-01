@@ -28,6 +28,8 @@ public class TransactionsView {
 
     private TransactionDTO transaction;
 
+    private List<TransactionDTO> transactions;
+
     @Inject
     @RequestParam("transactionId")
     private Long transactionId;
@@ -35,7 +37,7 @@ public class TransactionsView {
     @Produces
     @Named("transactions")
     public List<TransactionDTO> getTransactions() {
-        return controller.getTransactions(searchCriteria);
+        return transactions;
     }
     
     public String selectTransaction() {
@@ -65,5 +67,9 @@ public class TransactionsView {
     @Named("trSearchCriteria")
     public TransactionSearchCriteria getTransactionSearchCriteria() {
         return searchCriteria;
+    }
+
+    public void loadTransactions() {
+        transactions = controller.getTransactions(searchCriteria);
     }
 }

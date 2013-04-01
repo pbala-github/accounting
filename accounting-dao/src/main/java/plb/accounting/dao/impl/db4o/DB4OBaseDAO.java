@@ -3,10 +3,9 @@ package plb.accounting.dao.impl.db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
-import plb.accounting.common.validation.AccountingValidator;
+import plb.accounting.common.exceptions.BusinessException;
 import plb.accounting.common.validation.IAccountingValidator;
 import plb.accounting.common.validation.ValidationErrorList;
-import plb.accounting.common.validation.ValidationException;
 import plb.accounting.dao.EntityDAO;
 import plb.accounting.model.BaseEntity;
 
@@ -109,6 +108,6 @@ public abstract class DB4OBaseDAO implements EntityDAO {
 
         ValidationErrorList errors = this.validator.validate(entity);
         if (!errors.getErrors().isEmpty())
-            throw new ValidationException(errors);
+            throw new BusinessException(errors);
     }
 }

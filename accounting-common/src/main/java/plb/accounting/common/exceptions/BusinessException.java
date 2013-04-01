@@ -1,17 +1,19 @@
-package plb.accounting.common.validation;
+package plb.accounting.common.exceptions;
+
+import plb.accounting.common.validation.ValidationErrorList;
 
 /**
  * User: pbala
  * Date: 1/14/13 9:54 AM
  */
-public class ValidationException extends RuntimeException{
+public class BusinessException extends RuntimeException{
 
     /**
      *
      */
     private ValidationErrorList errorList;
 
-    public ValidationException(ValidationErrorList errorList) {
+    public BusinessException(ValidationErrorList errorList) {
         this.errorList = errorList;
     }
 

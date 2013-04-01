@@ -18,7 +18,7 @@
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
         <ui:param name="results" value="#{transactions}"/>
         <ui:define name="myForm">
-            <h:panelGrid columns="2" styleClass="tbl-cntr">
+            <h:panelGrid columns="4" styleClass="tbl-cntr">
 
                 <h:outputLabel value="Execution Date From"/>
                 <rich:calendar value="#{trSearchCriteria.executionDateFrom}"/>
@@ -28,6 +28,7 @@
 
                 <h:outputLabel value="Origin Account"/>
                 <h:selectOneMenu value="#{transaction.originAccount.id}">
+                    <f:selectItem value="#{null}" itemLabel=""/>
                     <f:selectItems value="#{accounts}"
                                    var="originAccount"
                                    itemLabel="#{originAccount.name}"
@@ -36,14 +37,22 @@
 
                 <h:outputLabel value="Destination Account"/>
                 <h:selectOneMenu value="#{transaction.destinationAccount.id}">
+                    <f:selectItem value="#{null}" itemLabel=""/>
                     <f:selectItems value="#{accounts}"
                                    var="destinationAccount"
                                    itemLabel="#{destinationAccount.name}"
                                    itemValue="#{destinationAccount.id}"/>
                 </h:selectOneMenu>
 
+                <h:outputLabel value="Amount From"/>
+                <h:inputText value="#{trSearchCriteria.amountFrom}"/>
+
+                <h:outputLabel value="Amount To"/>
+                <h:inputText value="#{trSearchCriteria.amountTo}"/>
+
                 <h:outputLabel value="External Party"/>
                 <h:selectOneMenu value="#{transaction.relatedParty.id}">
+                    <f:selectItem value="#{null}" itemLabel=""/>
                     <f:selectItems value="#{externalParties}"
                                    var="exParty"
                                    itemLabel="#{exParty.name}"
@@ -51,13 +60,9 @@
                 </h:selectOneMenu>
 
                 <h:outputLabel value="Description"/>
-                <h:inputTextarea value="#{trSearchCriteria.description}"/>
+                <h:inputText value="#{trSearchCriteria.description}"/>
 
-                <h:outputLabel value="Amount From"/>
-                <h:inputText value="#{trSearchCriteria.amountFrom}"/>
-
-                <h:outputLabel value="Amount To"/>
-                <h:inputText value="#{trSearchCriteria.amountTo}"/>
+                <h:commandButton value="Search" action="#{transactionsView.loadTransactions}"/>
 
             </h:panelGrid>
         </ui:define>

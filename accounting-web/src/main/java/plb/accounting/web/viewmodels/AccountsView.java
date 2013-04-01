@@ -30,7 +30,8 @@ public class AccountsView {
 
     private AccountSearchCriteria searchCriteria = new AccountSearchCriteria();
 
-    private DetailedAccountDTO account;
+    @Inject
+    private AccountWM accountWM;
 
     @Inject
     @RequestParam("accountId")
@@ -56,6 +57,7 @@ public class AccountsView {
     }
 
     public String saveAccount() {
+        DetailedAccountDTO account = accountWM.getAccountDto();
         if (account.getParentAccount() != null && account.getParentAccount().getId() == null) {
             account.setParentAccount(null);
         }
@@ -77,29 +79,20 @@ public class AccountsView {
     }
 
     @Produces
-    @Named("account")
-    public BaseAccountInfoDTO getAccount() {
-        if (account == null) {
-            account = new DetailedAccountDTO();
-            account.setParentAccount(new BaseAccountInfoDTO());
-        }
-
-        return account;
-    }
-
-    @Produces
     @Named("accounts")
     public List<BaseAccountInfoDTO> getAccounts() {
         return controller.getAllAccounts();
     }
 
     public String selectAccount() {
-        account = controller.loadAccount(accountId);
+        accountWM.setAccountDto(controller.loadAccount(accountId));
+        accountWM.setReadOnly(true);
         return "viewAccount";
     }
 
-    public String editAccount(){
-        account = controller.loadAccount(accountId);
+    public String editAccount() {
+        accountWM.setAccountDto(controller.loadAccount(accountId));
+        accountWM.setReadOnly(false);
         return "editAccount";
     }
 
