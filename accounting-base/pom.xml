@@ -18,6 +18,7 @@
         <module>../accounting-transfer-objects</module>
         <module>../accounting-services</module>
         <module>../accounting-web</module>
+        <module>../accounting-ear</module>
         <!--<module>../accounting-mvc</module>-->
     </modules>
 
@@ -74,6 +75,12 @@
             <dependency>
                 <groupId>accounting</groupId>
                 <artifactId>accounting-services-spec</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>accounting</groupId>
+                <artifactId>accounting-dao</artifactId>
                 <version>${version}</version>
             </dependency>
 

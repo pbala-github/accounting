@@ -7,7 +7,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Not Used</title>
@@ -17,10 +18,14 @@
     <ui:composition template="/WEB-INF/views/templates/standardForm.xhtml">
         <ui:param name="pageTitle" value="#{resourceBundle.total_accounts_title}"/>
         <ui:define name="insideForm">
-            <rich:tree var="item" toggleType="client" selectionType="ajax">
+            <rich:tree var="item" toggleType="client" selectionType="client">
                 <rich:treeModelRecursiveAdaptor roots="#{accountsView.accountsTree}" nodes="#{item.childrenAccounts}">
-                    <rich:treeNode expanded="true" selectionType="ajax" immediate="true" >
-                        #{item.name}(#{item.currentBalance})
+                    <rich:treeNode expanded="true" selectionType="client" immediate="true" >
+                        <h:outputLink value="viewAccount.faces">
+                            #{item.name}
+                            <f:param name="accountId" value="#{item.id}"/>
+                        </h:outputLink>
+                        (#{item.currentBalance})
                     </rich:treeNode>
                 </rich:treeModelRecursiveAdaptor>
             </rich:tree>
