@@ -1,9 +1,6 @@
 package plb.accounting.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -12,12 +9,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "EXTERNAL_PARTIES")
-public class ExternalParty extends BaseEntity{
+public class ExternalParty extends BaseEntity {
 
     /**
      *
      */
-    @NotEmpty
     @Column(name = "EX_PARTY_NAME", nullable = false, unique = true)
     private String name;
 
@@ -36,7 +32,6 @@ public class ExternalParty extends BaseEntity{
     /**
      *
      */
-    @Valid
     @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @OrderBy("executionDate asc")
     private List<Transaction> transactions;

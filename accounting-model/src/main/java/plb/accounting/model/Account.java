@@ -1,11 +1,6 @@
 package plb.accounting.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,28 +14,24 @@ public class Account extends BaseEntity {
     /**
      *
      */
-    @NotEmpty
     @Column(name = "ACC_NAME", nullable = false)
     private String name;
 
     /**
      *
      */
-    @Min(0)
     @Column(name = "ACC_INITIAL_BALANCE", nullable = false)
     private BigDecimal initialBalance;
 
     /**
      *
      */
-    @Min(0)
     @Column(name = "ACC_CURRENT_BALANCE", nullable = false)
     private BigDecimal currentBalance;
 
     /**
      *
      */
-    @Valid
     @ManyToOne
     @JoinColumn(name = "ACC_PARENT_ACCOUNT")
     private Account parentAccount;
@@ -48,8 +39,7 @@ public class Account extends BaseEntity {
     /**
      *
      */
-    @Valid
-    @OneToMany(mappedBy = "parentAccount",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentAccount", cascade = CascadeType.ALL)
     @OrderBy("name ASC")
     private List<Account> childrenAccounts;
 
@@ -62,22 +52,19 @@ public class Account extends BaseEntity {
     /**
      *
      */
-    @Valid
-    @OneToMany(mappedBy = "destinationAccount",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "destinationAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("executionDate ASC")
     private List<Transaction> inTransactions;
 
     /**
      *
      */
-    @Valid
-    @OneToMany(mappedBy = "originAccount",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "originAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("executionDate ASC")
     private List<Transaction> outTransactions;
     /**
      *
      */
-    @NotNull
     @Column(name = "ACC_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountTypeEnum type;

@@ -6,12 +6,12 @@ package plb.accounting.dto.reporting;
  */
 public interface IGroupingReportCriteria extends ReportCriteria {
 
-    public enum GroupType{
-        ACCOUNT,PERIOD
+    public enum GroupType {
+        ACCOUNT, PERIOD
     }
 
     GroupType getGroupBy();
 
-   void setGroupBy(GroupType groupBy);
+    void setGroupBy(GroupType groupBy);
 
 }

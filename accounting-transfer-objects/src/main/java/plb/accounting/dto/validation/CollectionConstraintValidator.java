@@ -8,7 +8,7 @@ import java.util.Collection;
  * User: pbala
  * Date: 1/15/13 9:45 AM
  */
-public class CollectionConstraintValidator implements ConstraintValidator<NotEmptyCollection,Collection<?>>{
+public class CollectionConstraintValidator implements ConstraintValidator<NotEmptyCollection, Collection<?>> {
 
     @Override
     public void initialize(NotEmptyCollection constraintAnnotation) {

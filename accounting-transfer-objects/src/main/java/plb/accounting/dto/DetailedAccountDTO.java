@@ -1,6 +1,5 @@
 package plb.accounting.dto;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -12,7 +11,6 @@ public class DetailedAccountDTO extends AccountDTO {
     /**
      *
      */
-    @Valid
     private List<TransactionDTO> transactions;
 
     public List<TransactionDTO> getTransactions() {

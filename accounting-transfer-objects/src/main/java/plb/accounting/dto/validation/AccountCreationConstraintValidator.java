@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
  * User: pbala
  * Date: 1/14/13 2:31 PM
  */
-public class AccountCreationConstraintValidator implements ConstraintValidator<AccountCreationConstraint,BaseAccountDTO>{
+public class AccountCreationConstraintValidator implements ConstraintValidator<AccountCreationConstraint, BaseAccountDTO> {
 
     @Override
     public void initialize(AccountCreationConstraint constraintAnnotation) {
@@ -19,11 +19,11 @@ public class AccountCreationConstraintValidator implements ConstraintValidator<A
     @Override
     public boolean isValid(BaseAccountDTO value, ConstraintValidatorContext context) {
 
-        if(value.getType() == null){
+        if (value.getType() == null) {
             return value.getParentAccount() != null && value.getParentAccount().getType() != null;
-        }else if(value.getType() != null && value.getParentAccount() == null){
+        } else if (value.getType() != null && value.getParentAccount() == null) {
             return true;
-        }else{
+        } else {
             return value.getType().equals(value.getParentAccount().getType());
         }
 

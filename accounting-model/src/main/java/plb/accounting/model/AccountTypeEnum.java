@@ -5,5 +5,5 @@ package plb.accounting.model;
  * Date: 10/29/12 9:30 PM
  */
 public enum AccountTypeEnum {
-    INCOME,OUTCOME,STORAGE
+    INCOME, OUTCOME, STORAGE
 }

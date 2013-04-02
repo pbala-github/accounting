@@ -6,7 +6,6 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 
 /**
@@ -17,32 +16,30 @@ public class BaseAccountInfoDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull(groups = {Default.class, AccountCreation.class})
-    @Size(min = 2, groups = {Default.class, AccountCreation.class})
+    @NotNull(message = "{account.name.NotNull}",groups = {AccountCreation.class})
+    @Size(min = 2, message = "{account.name.MinLength}",groups = {AccountCreation.class})
     private String name;
 
     /**
      *
      */
-    @DecimalMin(value = "0.0", groups = {Default.class, AccountCreation.class})
+    @DecimalMin(value = "0.0", message = "{account.initialBalance.MinValue}",groups = {AccountCreation.class})
     private BigDecimal initialBalance;
 
     /**
      *
      */
-    @Min(0)
     private BigDecimal currentBalance;
 
     /**
      *
      */
-    @NotNull(groups = {Default.class, AccountCreation.class})
+    @NotNull(message = "{account.description.NotNull}",groups = {AccountCreation.class})
     private String description;
 
     /**
      *
      */
-    @NotNull
     private AccountTypeEnum type;
 
     public String getName() {

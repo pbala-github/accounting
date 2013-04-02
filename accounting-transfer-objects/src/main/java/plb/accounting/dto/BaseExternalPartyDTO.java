@@ -7,12 +7,12 @@ import javax.validation.constraints.Size;
  * User: pbala
  * Date: 11/6/12 9:44 AM
  */
-public class BaseExternalPartyDTO extends BaseDTO{
+public class BaseExternalPartyDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull
-    @Size(min = 2)
+    @NotNull(message = "{externalParty.name.NotNull}")
+    @Size(min = 2,message = "{externalParty.name.MinLength}")
     private String name;
 
     /**

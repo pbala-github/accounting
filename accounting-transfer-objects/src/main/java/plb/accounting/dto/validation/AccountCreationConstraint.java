@@ -10,10 +10,12 @@ import java.lang.annotation.*;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy =AccountCreationConstraintValidator.class )
+@Constraint(validatedBy = AccountCreationConstraintValidator.class)
 @Documented
 public @interface AccountCreationConstraint {
     String message() default "{com.plb.accounting.acountTypeOrParent.required}";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

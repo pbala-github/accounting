@@ -12,7 +12,7 @@ import java.util.Set;
  * User: pbala
  * Date: 11/7/12 9:03 AM
  */
-public abstract class BaseGroupingReportCriteria implements IGroupingReportCriteria{
+public abstract class BaseGroupingReportCriteria implements IGroupingReportCriteria {
 
     /**
      *
@@ -71,8 +71,8 @@ public abstract class BaseGroupingReportCriteria implements IGroupingReportCrite
     public void setIncludedAccountsIds(Set<Long> includedAccountsIds) {
         this.includedAccountsIds = includedAccountsIds;
     }
-    
-    public Set<Long> addIncludedAccount(Long accountId){
+
+    public Set<Long> addIncludedAccount(Long accountId) {
         this.includedAccountsIds.add(accountId);
         return this.includedAccountsIds;
     }

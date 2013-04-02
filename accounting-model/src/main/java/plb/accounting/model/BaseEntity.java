@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 /**
  * Base Entity to hold the id of all other entities
- *
+ * <p/>
  * User: pbala
  * Date: 10/29/12 9:28 PM
  */

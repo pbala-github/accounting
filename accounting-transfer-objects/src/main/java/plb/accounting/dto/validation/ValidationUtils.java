@@ -8,32 +8,30 @@ import java.util.Collection;
  */
 public class ValidationUtils {
 
-    public static boolean isEmptyCollection(Collection collection){
+    public static boolean isEmptyCollection(Collection collection) {
         return collection == null || collection.isEmpty();
     }
 
     /**
-     *
      * @param value
      * @return
      */
     public static boolean hasEmptyElements(Collection<?> value) {
 
-        for(Object o : value){
-          if(isEmptyObject(o))
-              return true;
+        for (Object o : value) {
+            if (isEmptyObject(o))
+                return true;
         }
 
         return false;
     }
 
     /**
-     *
      * @param o
      * @return
      */
     private static boolean isEmptyObject(Object o) {
         //TODO simplistic implementation
-        return null ==  o;
+        return null == o;
     }
 }

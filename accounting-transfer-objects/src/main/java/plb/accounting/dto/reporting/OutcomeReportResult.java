@@ -4,7 +4,7 @@ package plb.accounting.dto.reporting;
  * User: pbala
  * Date: 11/13/12 4:20 PM
  */
-public class OutcomeReportResult extends BaseReportResult<OutcomeReportCriteria>{
+public class OutcomeReportResult extends BaseReportResult<OutcomeReportCriteria> {
 
     /**
      *
