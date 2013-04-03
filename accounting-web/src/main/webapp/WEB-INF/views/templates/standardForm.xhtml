@@ -5,7 +5,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <h:head>
     <title>Not Used</title>
@@ -17,10 +19,12 @@
         <ui:define name="content">
             <h:form id="pageForm">
                 <h:panelGroup layout="block" styleClass="action-bar">
-                    <h:outputText value=">> #{pageTitle}" styleClass="action-bar-title"/>
-                    <h:panelGroup styleClass="action-bar-actions">
-                        <ui:insert name="formActions" />
-                    </h:panelGroup>
+                    <rich:toolbar height="26" itemSeparator="grid">
+                        <h:outputText value=">> #{pageTitle}" styleClass="action-bar-title"/>
+                        <rich:toolbarGroup location="right">
+                            <ui:insert name="formActions" />
+                        </rich:toolbarGroup>
+                    </rich:toolbar>
                 </h:panelGroup>
 
                 <div class="message-container">

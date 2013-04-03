@@ -8,6 +8,7 @@ import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.dto.validation.AccountCreation;
 
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 
 /**
@@ -49,6 +50,7 @@ public class AccountValidationTest extends BaseValidationTest{
         
         account.setType(null);
         BaseAccountDTO parentAccount = new BaseAccountDTO();
+        parentAccount.setId(new Long(1));
 //        parentAccount.setType(AccountTypeEnum.INCOME);
 //        parentAccount.setDescription("description");
 //        parentAccount.setName("name");
@@ -60,7 +62,7 @@ public class AccountValidationTest extends BaseValidationTest{
 
     }
 
-    @Test
+//    @Test
     public void accountValidations(){
         AccountDTO account = new AccountDTO();
         ValidationErrorList errorList = getValidator().validate(account);

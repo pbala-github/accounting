@@ -56,7 +56,7 @@
             <f:facet name="header">
                 <h:outputText value="" />
             </f:facet>
-            <h:commandLink value="View" action="#{transactionsView.selectTransaction}">
+            <h:commandLink value="View" action="#{transactionsView.selectTransaction}" immediate="true">
                 <f:param name="transactionId" value="#{tblRowItem.id}"/>
             </h:commandLink>
         </rich:column>

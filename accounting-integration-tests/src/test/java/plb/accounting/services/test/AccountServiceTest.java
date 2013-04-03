@@ -5,7 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dto.*;
+import plb.accounting.services.impl.intercept.Validate;
 
+import javax.enterprise.inject.spi.Annotated;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.InterceptionType;
+import javax.inject.Inject;
+import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,12 +24,15 @@ import static org.junit.Assert.*;
 @RunWith(JeeunitRunner.class)
 public class AccountServiceTest extends AbstractServiceTest {
 
-    @Test
+    @Inject
+    BeanManager beanManager;
+
+//    @Test
     public void getAccounts() {
         assertNotNull(service.getAccounts());
     }
 
-    @Test
+//    @Test
     public void loadAccountById() {
         BaseAccountInfoDTO account = service.getAccounts().get(0);
         assertNotNull(account);
@@ -32,12 +41,26 @@ public class AccountServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void testBeanManager() {
+        System.out.println("Interceptor binding type: " + beanManager.isInterceptorBinding(Validate.class));
+
+        System.out.println(beanManager.getInterceptorBindingDefinition(Validate.class));
+        System.out.println(beanManager.resolveInterceptors(InterceptionType.AROUND_INVOKE, new Validate(){
+            @Override
+            public Class<? extends Annotation> annotationType() {
+                return Validate.class;
+            }
+        }));
+
+    }
+
+    @Test
     public void saveAccount() {
         AccountDTO account = new AccountDTO();
         account.setCurrentBalance(BigDecimal.ZERO);
         account.setDescription("Description");
         account.setInitialBalance(BigDecimal.ZERO);
-        account.setName("Account name");
+//        account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
 
         BaseAccountInfoDTO stored = service.saveAccount(account);
@@ -50,7 +73,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         assertEquals(found.getName(), account.getName());
     }
 
-    @Test
+//    @Test
     public void deleteAccount() {
         BaseAccountInfoDTO account = service.getAccounts().get(0);
         assertNotNull(account);
@@ -59,7 +82,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         assertNull(service.findAccountById(account.getId()));
     }
 
-    @Test
+//    @Test
     public void searchAccounts() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");

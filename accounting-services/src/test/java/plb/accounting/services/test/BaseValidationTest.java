@@ -1,14 +1,9 @@
 package plb.accounting.services.test;
 
-import org.junit.BeforeClass;
 import plb.accounting.common.validation.AccountingValidator;
 import plb.accounting.common.validation.IAccountingValidator;
 import plb.accounting.common.validation.ValidationError;
 import plb.accounting.common.validation.ValidationErrorList;
-
-import javax.inject.Inject;
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 /**
  * User: pbala
@@ -16,22 +11,26 @@ import javax.validation.Validator;
  */
 public abstract class BaseValidationTest {
 
-    @Inject
-    private IAccountingValidator validator;
+    private static IAccountingValidator validator;
 
-    protected IAccountingValidator getValidator(){
+    static {
+        validator = new AccountingValidator();
+        ((AccountingValidator)validator).init();
+    }
+
+    protected IAccountingValidator getValidator() {
         return validator;
     }
-    
-    protected void printValidationErrors(ValidationErrorList errorList){
+
+    protected void printValidationErrors(ValidationErrorList errorList) {
         System.out.println("**********************************************");
         System.out.println("TOTAL ERRORS: " + errorList.getErrors().size());
-        for(ValidationError error : errorList.getErrors()){
+        for (ValidationError error : errorList.getErrors()) {
             System.out.println("Error: " + error.getFieldPointer() + ": " + error.getMessageKey());
-                    
+
         }
         System.out.println("**********************************************");
     }
-    
-            
+
+
 }

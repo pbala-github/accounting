@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = AccountCreationConstraintValidator.class)
 @Documented
 public @interface AccountCreationConstraint {
-    String message() default "{com.plb.accounting.acountTypeOrParent.required}";
+    String message() default "{account.typeOrParent.required}";
 
     Class<?>[] groups() default {};
 

@@ -23,7 +23,7 @@ public class TransactionValidationTest extends BaseValidationTest{
         ValidationErrorList errorList = getValidator().validate(transaction);
 
         printValidationErrors(errorList);
-        Assert.assertEquals(5,errorList.getErrors().size());
+        Assert.assertEquals(4,errorList.getErrors().size());
 
         transaction.setExecutionDate(new Date());
         transaction.setAmount(BigDecimal.TEN);

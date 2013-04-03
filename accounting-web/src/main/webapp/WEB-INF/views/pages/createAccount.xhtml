@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <h:head>
     <title>Not Used</title>
@@ -17,7 +19,7 @@
         <ui:param name="pageTitle" value="#{resourceBundle.create_account_pageTitle}"/>
 
         <ui:define name="formActions">
-            <h:commandButton action="#{accountsView.saveAccount}" value="#{resourceBundle.account_saveBtn}"/>
+                <h:commandButton action="#{accountsView.saveAccount}" value="#{resourceBundle.account_saveBtn}"/>
         </ui:define>
 
 

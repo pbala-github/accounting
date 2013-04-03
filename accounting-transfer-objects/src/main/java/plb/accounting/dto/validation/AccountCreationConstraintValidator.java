@@ -20,11 +20,11 @@ public class AccountCreationConstraintValidator implements ConstraintValidator<A
     public boolean isValid(BaseAccountDTO value, ConstraintValidatorContext context) {
 
         if (value.getType() == null) {
-            return value.getParentAccount() != null && value.getParentAccount().getType() != null;
+            return value.getParentAccount() != null && value.getParentAccount().getId() != null;
         } else if (value.getType() != null && value.getParentAccount() == null) {
             return true;
         } else {
-            return value.getType().equals(value.getParentAccount().getType());
+            return false;
         }
 
     }

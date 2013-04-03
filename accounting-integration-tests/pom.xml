@@ -21,11 +21,11 @@
                     <includes>
                         <!--<include>**/QueryBuilderTest.java</include>-->
                         <!--DAO Tests-->
-                        <include>**/JpaAccountDAOTest.java</include>
+                        <!--<include>**/JpaAccountDAOTest.java</include>-->
                         <!--<include>**/JpaExternalPartyDAOTest.java</include>-->
                         <!--<include>**/JpaTransactionDAOTest.java</include>-->
                         <!--Service Tests-->
-                        <!--<include>**/AccountServiceTest.java</include>-->
+                        <include>**/AccountServiceTest.java</include>
                         <!--<include>**/ExternalPartyServiceTest.java</include>-->
                         <!--<include>**/TransactionServiceTest.java</include>-->
                         <!--<include>**/ReportServiceTest.java</include>-->

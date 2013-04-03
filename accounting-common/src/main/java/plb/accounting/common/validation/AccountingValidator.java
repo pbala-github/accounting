@@ -23,10 +23,8 @@ public class AccountingValidator implements IAccountingValidator{
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         this.validator = validatorFactory.getValidator();
     }
-
-
 }

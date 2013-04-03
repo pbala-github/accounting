@@ -16,6 +16,7 @@
 
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
+        <ui:param name="pageTitle" value="#{resourceBundle.manage_exParties_pageTitle}"/>
         <ui:param name="results" value="#{externalParties}"/>
         <ui:define name="myForm">
             <h:panelGrid columns="2" styleClass="tbl-cntr">

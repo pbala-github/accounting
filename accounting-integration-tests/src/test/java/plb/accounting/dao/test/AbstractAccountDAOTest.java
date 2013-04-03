@@ -22,7 +22,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     DataBootstrap dataBootstrap;
 
     @Override
-    @Test
+//    @Test
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
@@ -47,7 +47,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     }
 
     @Override
-    @Test
+//    @Test
     public void getAll() {
         assertNotNull(getDAO().getAll(Account.class));
     }
@@ -73,7 +73,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         assertEquals(found.getName(), account.getName());
     }
 
-    @Test
+//    @Test
     @Override
     public void findById() {
         Account account = getDAO().getAll(Account.class).get(0);

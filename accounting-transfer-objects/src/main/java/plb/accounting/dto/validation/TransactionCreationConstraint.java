@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = TransactionCreationConstraintValidator.class)
 @Documented
 public @interface TransactionCreationConstraint {
-    String message() default "{com.plb.accounting.accountBalanceViolation}";
+    String message() default "{account.transaction.balanceViolation}";
 
     Class<?>[] groups() default {};
 

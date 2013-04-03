@@ -27,7 +27,7 @@ public class ValidationErrorConverter {
 
     private static ValidationError toError(ConstraintViolation violation) {
         String fieldPointer = String.valueOf(violation.getPropertyPath());
-        String messageKey =  removeBrackets(violation.getMessageTemplate());
+        String messageKey =  removeBrackets(violation.getMessage());
         Serializable value = toSerializable(violation.getInvalidValue());
 
         return new ValidationError(fieldPointer,messageKey,value);
