@@ -1,4 +1,4 @@
-package plb.accounting.dto.validation;
+package plb.accounting.services.impl.validation;
 
 import plb.accounting.dto.BaseAccountDTO;
 

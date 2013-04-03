@@ -1,11 +1,5 @@
 package plb.accounting.dto;
 
-import plb.accounting.dto.validation.AccountCreation;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
@@ -16,14 +10,11 @@ public class BaseAccountInfoDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull(message = "{account.name.NotNull}",groups = {AccountCreation.class})
-    @Size(min = 2, message = "{account.name.MinLength}",groups = {AccountCreation.class})
     private String name;
 
     /**
      *
      */
-    @DecimalMin(value = "0.0", message = "{account.initialBalance.MinValue}",groups = {AccountCreation.class})
     private BigDecimal initialBalance;
 
     /**
@@ -34,7 +25,6 @@ public class BaseAccountInfoDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull(message = "{account.description.NotNull}",groups = {AccountCreation.class})
     private String description;
 
     /**

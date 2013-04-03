@@ -1,13 +1,5 @@
 package plb.accounting.dto;
 
-import plb.accounting.dto.validation.TransactionCreation;
-import plb.accounting.dto.validation.TransactionCreationConstraint;
-
-import javax.validation.GroupSequence;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,33 +7,25 @@ import java.util.Date;
  * User: pbala
  * Date: 11/6/12 9:10 AM
  */
-@TransactionCreationConstraint(groups = TransactionCreation.class)
-@GroupSequence({TransactionDTO.class, TransactionCreation.class})
 public class TransactionDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull(message = "{transaction.executionDate.NotNull}")
-    @Past(message = "{transaction.executionDate.Past}")
     private Date executionDate;
 
     /**
      *
      */
-    @NotNull(message = "{transaction.originAccount.NotNull}")
     private BaseAccountInfoDTO originAccount;
 
     /**
      *
      */
-    @NotNull (message = "{transaction.destinationAccount.NotNull}")
     private BaseAccountInfoDTO destinationAccount;
 
     /**
      *
      */
-    @NotNull(message = "{transaction.amount.NotNull}")
-    @Min(value = 0, message = "{transaction.amount.Positive}")
     private BigDecimal amount;
 
     /**

@@ -1,4 +1,4 @@
-package plb.accounting.dto.validation;
+package plb.accounting.services.impl.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,0 +1,100 @@
+<constraint-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping validation-mapping-1.0.xsd"
+                     xmlns="http://jboss.org/xml/ns/javax/validation/mapping">
+    <default-package>plb.accounting.dto</default-package>
+    <bean class="BaseAccountInfoDTO">
+        <field name="name">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{account.name.NotNull}</message>
+                <groups>
+                    <value>plb.accounting.services.impl.validation.AccountCreation</value>
+                </groups>
+            </constraint>
+            <constraint annotation="javax.validation.constraints.Size">
+                <message>{account.name.MinLength}</message>
+                <groups>
+                    <value>plb.accounting.services.impl.validation.AccountCreation</value>
+                </groups>
+                <element name="min">0</element>
+            </constraint>
+        </field>
+        <field name="initialBalance">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="javax.validation.constraints.Min">
+                <message>{account.initialBalance.MinValue}</message>
+                <groups>
+                    <value>plb.accounting.services.impl.validation.AccountCreation</value>
+                </groups>
+                <element name="value">0</element>
+            </constraint>
+        </field>
+        <field name="description">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{account.description.NotNull}</message>
+                <groups>
+                    <value>plb.accounting.services.impl.validation.AccountCreation</value>
+                </groups>
+            </constraint>
+        </field>
+    </bean>
+    <bean class="BaseAccountDTO">
+        <class>
+            <constraint annotation="plb.accounting.services.impl.validation.AccountCreationConstraint">
+                <groups>
+                    <value>plb.accounting.services.impl.validation.AccountCreation</value>
+                </groups>
+            </constraint>
+        </class>
+    </bean>
+    <bean class="TransactionDTO">
+        <class>
+            <group-sequence>
+                <value>TransactionDTO</value>
+                <value>plb.accounting.services.impl.validation.TransactionCreation</value>
+            </group-sequence>
+            <constraint annotation="plb.accounting.services.impl.validation.TransactionCreationConstraint">
+                <groups>
+                    <value>plb.accounting.services.impl.validation.TransactionCreation</value>
+                </groups>
+            </constraint>
+        </class>
+        <field name="executionDate">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{transaction.executionDate.NotNull}</message>
+            </constraint>
+            <constraint annotation="javax.validation.constraints.Past">
+                <message>{transaction.executionDate.Past}</message>
+            </constraint>
+        </field>
+        <field name="originAccount">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{transaction.originAccount.NotNull}</message>
+            </constraint>
+        </field>
+        <field name="destinationAccount">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{transaction.destinationAccount.NotNull}</message>
+            </constraint>
+        </field>
+        <field name="amount">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{transaction.amount.NotNull}</message>
+            </constraint>
+            <constraint annotation="javax.validation.constraints.Min">
+                <message>{transaction.amount.Positive}</message>
+                <element name="value">0</element>
+            </constraint>
+        </field>
+    </bean>
+    <bean class="BaseExternalPartyDTO">
+        <field name="name">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{externalParty.name.NotNull}</message>
+            </constraint>
+            <constraint annotation="javax.validation.constraints.Size">
+                <message>{externalParty.name.MinLength}</message>
+                <element name="min">2</element>
+            </constraint>
+        </field>
+    </bean>
+</constraint-mappings>

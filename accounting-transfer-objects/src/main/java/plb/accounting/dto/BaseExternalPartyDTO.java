@@ -1,8 +1,5 @@
 package plb.accounting.dto;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * User: pbala
  * Date: 11/6/12 9:44 AM
@@ -11,8 +8,6 @@ public class BaseExternalPartyDTO extends BaseDTO {
     /**
      *
      */
-    @NotNull(message = "{externalParty.name.NotNull}")
-    @Size(min = 2,message = "{externalParty.name.MinLength}")
     private String name;
 
     /**

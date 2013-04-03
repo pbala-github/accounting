@@ -1,12 +1,11 @@
 package plb.accounting.services.test;
 
-import junit.framework.Assert;
+import static junit.framework.Assert.*;
 import org.junit.Test;
 import plb.accounting.common.validation.ValidationErrorList;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.TransactionDTO;
-import plb.accounting.dto.validation.TransactionCreation;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,7 +22,7 @@ public class TransactionValidationTest extends BaseValidationTest{
         ValidationErrorList errorList = getValidator().validate(transaction);
 
         printValidationErrors(errorList);
-        Assert.assertEquals(4,errorList.getErrors().size());
+        assertEquals(4,errorList.getErrors().size());
 
         transaction.setExecutionDate(new Date());
         transaction.setAmount(BigDecimal.TEN);
@@ -32,7 +31,7 @@ public class TransactionValidationTest extends BaseValidationTest{
         errorList = getValidator().validate(transaction);
 
         printValidationErrors(errorList);
-        Assert.assertEquals(2,errorList.getErrors().size());
+        assertEquals(2,errorList.getErrors().size());
 
         AccountDTO dstAccount = new AccountDTO();
         transaction.setDestinationAccount(dstAccount);
@@ -51,13 +50,13 @@ public class TransactionValidationTest extends BaseValidationTest{
         errorList = getValidator().validate(transaction);
 
         printValidationErrors(errorList);
-        Assert.assertEquals(1,errorList.getErrors().size());
+        assertEquals(1,errorList.getErrors().size());
 
         srcAccount.setCurrentBalance(new BigDecimal(34));
 
         errorList = getValidator().validate(transaction);
 
         printValidationErrors(errorList);
-        Assert.assertEquals(0,errorList.getErrors().size());
+        assertEquals(0,errorList.getErrors().size());
     }
 }

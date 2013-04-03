@@ -1,9 +1,5 @@
 package plb.accounting.dto.reporting;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import plb.accounting.dto.validation.NotEmptyCollection;
-
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,26 +13,21 @@ public abstract class BaseGroupingReportCriteria implements IGroupingReportCrite
     /**
      *
      */
-    @NotNull
     private Date startDate;
 
     /**
      *
      */
-    @NotNull
     private Date endDate;
 
     /**
      *
      */
-    @NotEmpty
-    @NotEmptyCollection
     private Set<Long> includedAccountsIds = new HashSet<Long>();
 
     /**
      *
      */
-    @NotNull
     protected GroupType groupBy = GroupType.PERIOD;
 
 
