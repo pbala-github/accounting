@@ -37,6 +37,7 @@
         <glassfish-embedded-all.version>3.1.2.2</glassfish-embedded-all.version>
         <jeeunit.version>1.0.0</jeeunit.version>
         <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
+        <weld-se.version>1.1.10.Final</weld-se.version>
     </properties>
 
     <dependencyManagement>
@@ -229,6 +230,22 @@
                 <artifactId>glassfish-embedded-all</artifactId>
                 <version>${glassfish-embedded-all.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.se</groupId>
+                <artifactId>weld-se</artifactId>
+                <version>${weld-se.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.se</groupId>
+                <artifactId>weld-se-core</artifactId>
+                <version>${weld-se.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-core</artifactId>
+                <version>${weld-se.version}</version>
+            </dependency>
+
             <!-- Easy Mock -->
             <dependency>
                 <groupId>org.easymock</groupId>

@@ -1,9 +1,16 @@
 package plb.accounting.services.test;
 
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
+import org.jboss.weld.environment.se.events.ContainerInitialized;
 import plb.accounting.common.validation.AccountingValidator;
 import plb.accounting.common.validation.IAccountingValidator;
 import plb.accounting.common.validation.ValidationError;
 import plb.accounting.common.validation.ValidationErrorList;
+
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
 
 /**
  * User: pbala
@@ -11,12 +18,16 @@ import plb.accounting.common.validation.ValidationErrorList;
  */
 public abstract class BaseValidationTest {
 
-    private static IAccountingValidator validator;
+    @Inject
+    private IAccountingValidator validator;
 
-    static {
-        validator = new AccountingValidator();
-        ((AccountingValidator)validator).init();
-    }
+//    static {
+//        Weld weld = new Weld();
+//        WeldContainer container = weld.initialize();
+//        System.out.println("CDI Container Initialized: " + container);
+//        validator = container.instance().select(IAccountingValidator.class).get();
+//        System.out.println("Validator Retrieved: " + validator);
+//    }
 
     protected IAccountingValidator getValidator() {
         return validator;
@@ -32,5 +43,9 @@ public abstract class BaseValidationTest {
         System.out.println("**********************************************");
     }
 
+    public void printHello(@Observes ContainerInitialized event) {
 
+        System.out.println("CDI Container initialized");
+
+    }
 }
