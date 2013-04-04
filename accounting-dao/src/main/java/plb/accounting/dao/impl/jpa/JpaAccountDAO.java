@@ -83,6 +83,10 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
         if (searchCriteria.getParentAccountId() != null)
             conditions.add(builder.equal(root.<Account>get("parentAccount").<Long>get("id"), searchCriteria.getParentAccountId()));
 
+        if (searchCriteria.isTopParentAccount()) {
+            conditions.add(builder.isNull(root.get("parentAccount")));
+        }
+
         if (!conditions.isEmpty())
             criteria.where(builder.and(conditions.toArray(new Predicate[0])));
 

@@ -21,10 +21,9 @@
             <rich:tree var="item" toggleType="client" selectionType="client">
                 <rich:treeModelRecursiveAdaptor roots="#{accountsView.accountsTree}" nodes="#{item.childrenAccounts}">
                     <rich:treeNode expanded="true" selectionType="client" immediate="true" >
-                        <h:outputLink value="viewAccount.faces">
-                            #{item.name}
+                        <h:commandLink value="#{item.name}" action="#{accountsView.selectAccount}" immediate="true">
                             <f:param name="accountId" value="#{item.id}"/>
-                        </h:outputLink>
+                        </h:commandLink>
                         (#{item.currentBalance})
                     </rich:treeNode>
                 </rich:treeModelRecursiveAdaptor>

@@ -3,7 +3,8 @@ package plb.accounting.services.impl;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dto.*;
-import plb.accounting.model.Account;
+import plb.accounting.dto.AccountTypeEnum;
+import plb.accounting.model.*;
 import plb.accounting.services.AccountService;
 import plb.accounting.services.impl.intercept.Validate;
 
@@ -50,6 +51,12 @@ public class AccountServiceImpl extends BaseService implements AccountService {
             accountDTO.setCurrentBalance(accountDTO.getInitialBalance());
         } else {
             accountDTO.setCurrentBalance(dao.findById(Account.class, accountDTO.getId()).getCurrentBalance());
+        }
+
+        if (accountDTO.getType() == null) {
+            BaseAccountDTO baseAccountDTO = (BaseAccountDTO) accountDTO;
+            plb.accounting.model.AccountTypeEnum parentAccountType = dao.findById(Account.class, baseAccountDTO.getParentAccount().getId()).getType();
+            accountDTO.setType(AccountTypeEnum.valueOf(parentAccountType.name()));
         }
 
         Account account = dao.saveOrUpdate(transformationService.transform(accountDTO, Account.class));

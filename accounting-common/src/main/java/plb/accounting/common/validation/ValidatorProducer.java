@@ -1,6 +1,7 @@
 package plb.accounting.common.validation;
 
 import org.springframework.util.Assert;
+import plb.accounting.common.injection.Accounting;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
@@ -28,6 +29,7 @@ public class ValidatorProducer {
         validator = validatorFactory.getValidator();
     }
 
+    @Accounting
     @Produces
     public Validator getValidator() {
         return validator;

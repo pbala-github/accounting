@@ -1,5 +1,7 @@
 package plb.accounting.common.validation;
 
+import plb.accounting.common.injection.Accounting;
+
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -11,6 +13,7 @@ import java.util.Set;
  */
 public class AccountingValidator implements IAccountingValidator {
 
+    @Accounting
     @Inject
     private Validator validator;
 
