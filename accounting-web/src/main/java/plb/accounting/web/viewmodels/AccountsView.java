@@ -63,6 +63,8 @@ public class AccountsView {
         }
 
         controller.saveAccount(account);
+        accountWM.setReadOnly(true);
+        accountWM.setAccountDto(controller.loadAccount(account.getId()));
         return "viewAccount";
     }
 
