@@ -5,6 +5,7 @@ import org.dozer.DozerBeanMapperSingletonWrapper;
 import org.dozer.Mapper;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/6/12 10:19 AM
  */
+@ApplicationScoped
 public class DozerTransformationService implements ITransformationService {
 
     /**

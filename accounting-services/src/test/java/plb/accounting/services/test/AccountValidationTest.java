@@ -1,6 +1,7 @@
 package plb.accounting.services.test;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import plb.accounting.common.validation.ValidationErrorList;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.AccountTypeEnum;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertEquals;
  * User: pbala
  * Date: 1/14/13 3:48 PM
  */
+@RunWith(WeldJUnit4Runner.class)
 public class AccountValidationTest extends BaseValidationTest {
 
     @Test

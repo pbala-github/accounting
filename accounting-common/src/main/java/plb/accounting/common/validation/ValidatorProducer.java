@@ -8,7 +8,6 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.validation.*;
-import java.io.InputStream;
 
 /**
  * User: pbala
@@ -25,23 +24,21 @@ public class ValidatorProducer {
     private void postConstruct() {
         Assert.notNull(beanManager);
         Configuration<?> configuration = Validation.byDefaultProvider().configure();
-        configuration.addMapping(getMappingStream());
+        addMappings(configuration);//
         ConstraintValidatorFactory constraintValidatorFactory = new CDIConstraintValidatorFactory(beanManager);
         ValidatorFactory validatorFactory = configuration.constraintValidatorFactory(constraintValidatorFactory).buildValidatorFactory();
         validator = validatorFactory.getValidator();
+    }
+
+    private void addMappings(Configuration<?> configuration) {
+        configuration.addMapping(Thread.currentThread().getContextClassLoader().getResourceAsStream("constraints.xml"));
+        configuration.addMapping(Thread.currentThread().getContextClassLoader().getResourceAsStream("report-constraints.xml"));
     }
 
     @Accounting
     @Produces
     public Validator getValidator() {
         return validator;
-    }
-
-    /**
-     * @return
-     */
-    public InputStream getMappingStream() {
-        return Thread.currentThread().getContextClassLoader().getResourceAsStream("accounting-validation.xml");
     }
 
 }
