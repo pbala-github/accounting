@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+                version="2.0">
+    <namespace>http://plb/accounting/tags</namespace>
+
+    <!--<composite-library-name>components</composite-library-name>-->
+
+    <function>
+        <function-name>hasAnyMessages</function-name>
+        <function-class>plb.accounting.web.WebFunctions</function-class>
+        <function-signature>boolean hasAnyMessages()</function-signature>
+    </function>
+
+</facelet-taglib>

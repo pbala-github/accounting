@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:acc="http://plb/accounting/tags"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+    <title></title>
+</h:head>
+<h:body>
+    <composite:interface>
+    </composite:interface>
+    <composite:implementation>
+        <a4j:outputPanel ajaxRendered="true">
+            <!--rendered="#{acc:hasAnyMessages()}"-->
+            <h:panelGroup layout="block"
+                          style="width:#{width == null ? '100%' : width}; height:auto;overflow:auto; margin: 0 auto; border:dotted 1px; border-color: red; background-color: #ffffff;">
+                <h:messages errorStyle="color:red"/>
+            </h:panelGroup>
+            <!--rendered="#{not acc:hasAnyMessages() and not empty errorsList.errors}"-->
+            <h:panelGroup layout="block"
+                          class="errorsTable"
+                          style="width:#{width == null ? '100%' : width}; height:auto; overflow:auto; margin: 0 auto;">
+                <div class="errPanelHdr">
+                    <h:outputText value="Errors found: #{fn:length(errorsList.errors)}"
+                                  style="color:red; font-weight: bold; color: #ffffff;"/>
+                </div>
+                <rich:dataTable value="#{errorsList.errors}" var="err" rowKeyVar="rowKey" width="100%">
+                    <rich:column style="width:15px">
+                        <h:outputText value="#{rowKey + 1}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Field</f:facet>
+                        <h:outputText value="#{err.fieldPointer}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Message</f:facet>
+                        <h:outputText value="#{err.messageKey}"/>
+                    </rich:column>
+                </rich:dataTable>
+            </h:panelGroup>
+        </a4j:outputPanel>
+    </composite:implementation>
+</h:body>
+</html>

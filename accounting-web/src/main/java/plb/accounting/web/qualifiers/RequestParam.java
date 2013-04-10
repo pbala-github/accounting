@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD,ElementType.TYPE,ElementType.FIELD})
 public @interface RequestParam {
-    @Nonbinding public String value() default "";
+    @Nonbinding String value() default "";
 }

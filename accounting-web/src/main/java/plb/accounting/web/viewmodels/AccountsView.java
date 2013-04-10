@@ -7,6 +7,7 @@ import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.reporting.BaseReportResult;
 import plb.accounting.dto.reporting.StatusReportCriteria;
+import plb.accounting.web.ExceptionHandlingHelper;
 import plb.accounting.web.controllers.AccountController;
 import plb.accounting.web.qualifiers.RequestParam;
 
@@ -62,7 +63,13 @@ public class AccountsView {
             account.setParentAccount(null);
         }
 
-        controller.saveAccount(account);
+        try {
+            controller.saveAccount(account);
+        } catch (Exception e) {
+            ExceptionHandlingHelper.populateErrors(e);
+            return null;
+        }
+
         accountWM.setReadOnly(true);
         accountWM.setAccountDto(controller.loadAccount(account.getId()));
         return "viewAccount";

@@ -7,7 +7,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:acc="http://plb/accounting/tags"
+      xmlns:comp="http://java.sun.com/jsf/composite/components"
+>
 
 <h:head>
     <title>Not Used</title>
@@ -22,14 +25,12 @@
                     <rich:toolbar height="26" itemSeparator="grid">
                         <h:outputText value=">> #{pageTitle}" styleClass="action-bar-title"/>
                         <rich:toolbarGroup location="right">
-                            <ui:insert name="formActions" />
+                            <ui:insert name="formActions"/>
                         </rich:toolbarGroup>
                     </rich:toolbar>
                 </h:panelGroup>
 
-                <div class="message-container">
-                    <h:messages layout="block" styleClass="errors"/>
-                </div>
+                <comp:errorsPanel/>
 
                 <h:panelGroup layout="block" styleClass="form-cntr">
                     <ui:insert name="insideForm"/>

@@ -27,10 +27,11 @@ public class ValidationInterceptor {
 
         System.out.println("INTERCEPTING METHOD FOR VALIDATION");
         Object[] parameters = ctx.getParameters();
+        Class<?>[] groups = ctx.getMethod().getAnnotation(Validate.class).groups();
         ValidationErrorList errorList = new ValidationErrorList(new ArrayList<ValidationError>());
 
         for (Object parameter : parameters) {
-            errorList.getErrors().addAll(validator.validate(parameter, new Class<?>[]{}).getErrors());
+            errorList.getErrors().addAll(validator.validate(parameter, groups).getErrors());
         }
 
         if (!errorList.getErrors().isEmpty()) {
