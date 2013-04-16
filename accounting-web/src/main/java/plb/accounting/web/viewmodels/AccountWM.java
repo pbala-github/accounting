@@ -9,11 +9,11 @@ import javax.inject.Named;
 
 @Named("accountWM")
 @RequestScoped
-public class AccountWM  extends WebModelSupport{
+public class AccountWM extends WebModelSupport {
 
     private DetailedAccountDTO accountDto;
 
-    public AccountWM(){
+    public AccountWM() {
         accountDto = new DetailedAccountDTO();
         accountDto.setParentAccount(new BaseAccountInfoDTO());
     }

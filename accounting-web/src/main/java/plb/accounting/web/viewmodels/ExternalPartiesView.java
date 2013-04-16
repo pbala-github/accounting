@@ -3,13 +3,12 @@ package plb.accounting.web.viewmodels;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dto.BaseExternalPartyDTO;
 import plb.accounting.dto.ExternalPartyDTO;
-import plb.accounting.web.WebHelper;
+import plb.accounting.web.ExceptionHandlingHelper;
 import plb.accounting.web.controllers.ExternalPartyController;
 import plb.accounting.web.qualifiers.RequestParam;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
-import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -49,7 +48,13 @@ public class ExternalPartiesView {
      * @return
      */
     public String saveExternalParty() {
-        externalParty = controller.saveExternalParty(externalParty);
+        try {
+            externalParty = controller.saveExternalParty(externalParty);
+        } catch (Exception e) {
+            ExceptionHandlingHelper.populateErrors(e);
+            return null;
+        }
+
         externalParty = controller.findExternalPartyById(externalParty.getId());
         return "externalPartyInfo";
     }
@@ -89,7 +94,11 @@ public class ExternalPartiesView {
     @Named("externalParty")
     public BaseExternalPartyDTO getExternalParty() {
         if (externalParty == null) {
-            externalParty = new ExternalPartyDTO();
+            if (externalPartyId != null) {
+                externalParty = controller.findExternalPartyById(externalPartyId);
+            } else {
+                externalParty = new ExternalPartyDTO();
+            }
         }
 
         return externalParty;

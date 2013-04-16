@@ -16,7 +16,8 @@
 
 <h:body>
     <ui:composition>
-        <rich:dropDownMenu>
+        <rich:menuItem id="homeMenuItem" label="Home" action="homePage?faces-redirect=true" mode="server" styleClass="topMenu"/>
+        <rich:dropDownMenu id="mainMenu" styleClass="topMenu">
             <f:facet name="label">
                 <h:panelGroup>
                     <h:outputText value="Menu" />

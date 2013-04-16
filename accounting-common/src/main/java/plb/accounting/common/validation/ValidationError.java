@@ -31,4 +31,13 @@ public class ValidationError implements Serializable{
     public Serializable getInvalidValue() {
         return invalidValue;
     }
+
+    @Override
+    public String toString() {
+        return "ValidationError{" +
+                "fieldPointer='" + fieldPointer + '\'' +
+                ", messageKey='" + messageKey + '\'' +
+                ", invalidValue=" + invalidValue +
+                '}';
+    }
 }

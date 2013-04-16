@@ -52,12 +52,12 @@
                 <h:inputText value="#{trSearchCriteria.amountTo}"/>
 
                 <h:outputLabel value="External Party"/>
-                <h:selectOneMenu value="#{transaction.relatedParty.id}">
+                <h:selectOneMenu value="#{trSearchCriteria.orgName}">
                     <f:selectItem value="#{null}" itemLabel=""/>
                     <f:selectItems value="#{externalParties}"
                                    var="exParty"
                                    itemLabel="#{exParty.name}"
-                                   itemValue="#{exParty.id}"/>
+                                   itemValue="#{exParty.name}"/>
                 </h:selectOneMenu>
 
                 <h:outputLabel value="Description"/>

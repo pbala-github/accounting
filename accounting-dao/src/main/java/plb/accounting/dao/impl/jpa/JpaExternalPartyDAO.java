@@ -53,7 +53,7 @@ public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDA
         List<Predicate> conditions = new ArrayList<Predicate>();
 
         if (StringUtils.hasText(criteria.getName()))
-            conditions.add(builder.equal(root.get("name"), criteria.getName()));
+            conditions.add(builder.like(builder.lower(root.<String>get("name")),"%" + criteria.getName().toLowerCase() + "%"));
 
         if (StringUtils.hasText(criteria.getVat()))
             conditions.add(builder.equal(root.get("vat"), criteria.getVat()));

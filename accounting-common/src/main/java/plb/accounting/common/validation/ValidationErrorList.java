@@ -18,4 +18,11 @@ public class ValidationErrorList implements Serializable {
     public List<ValidationError> getErrors() {
         return errors;
     }
+
+    @Override
+    public String toString() {
+        return "ValidationErrorList{" +
+                "errors=" + errors +
+                '}';
+    }
 }

@@ -102,7 +102,7 @@ public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
             conditions.add(builder.like(root.get("relatedParty").<String>get("name"), criteria.getOrgName()));
 
         if (criteria.getOriginAccountIds() != null && !criteria.getOriginAccountIds().isEmpty()) {
-            conditions.add(builder.in(root.get("originAccount").<Long>get("id")).in(criteria.getOriginAccountIds()));
+            conditions.add(root.get("originAccount").<Long>get("id").in(criteria.getOriginAccountIds()));
         }
 
         if (!conditions.isEmpty())

@@ -64,14 +64,14 @@ public class AccountsView {
         }
 
         try {
-            controller.saveAccount(account);
+            BaseAccountInfoDTO baseAccountInfoDTO = controller.saveAccount(account);
+            accountWM.setAccountDto(controller.loadAccount(baseAccountInfoDTO.getId()));
         } catch (Exception e) {
             ExceptionHandlingHelper.populateErrors(e);
             return null;
         }
 
         accountWM.setReadOnly(true);
-        accountWM.setAccountDto(controller.loadAccount(account.getId()));
         return "viewAccount";
     }
 

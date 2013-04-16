@@ -40,6 +40,13 @@
         <weld-se.version>1.1.10.Final</weld-se.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <!-- Accounting projects -->

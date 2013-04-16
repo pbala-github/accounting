@@ -85,6 +85,11 @@
                 <element name="value">0</element>
             </constraint>
         </field>
+        <field name="description">
+            <constraint annotation="javax.validation.constraints.NotNull">
+                <message>{transaction.description.NotNull}</message>
+            </constraint>
+        </field>
     </bean>
     <bean class="BaseExternalPartyDTO">
         <field name="name">

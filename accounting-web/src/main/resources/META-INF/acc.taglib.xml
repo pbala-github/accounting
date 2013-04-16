@@ -4,7 +4,7 @@
                 version="2.0">
     <namespace>http://plb/accounting/tags</namespace>
 
-    <!--<composite-library-name>components</composite-library-name>-->
+    <composite-library-name>components</composite-library-name>
 
     <function>
         <function-name>hasAnyMessages</function-name>

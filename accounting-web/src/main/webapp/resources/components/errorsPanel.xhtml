@@ -18,20 +18,17 @@
     </composite:interface>
     <composite:implementation>
         <a4j:outputPanel ajaxRendered="true">
-            <!--rendered="#{acc:hasAnyMessages()}"-->
-            <h:panelGroup layout="block"
+            <h:panelGroup layout="block" rendered="#{acc:hasAnyMessages()}"
                           style="width:#{width == null ? '100%' : width}; height:auto;overflow:auto; margin: 0 auto; border:dotted 1px; border-color: red; background-color: #ffffff;">
                 <h:messages errorStyle="color:red"/>
             </h:panelGroup>
-            <!--rendered="#{not acc:hasAnyMessages() and not empty errorsList.errors}"-->
-            <h:panelGroup layout="block"
-                          class="errorsTable"
-                          style="width:#{width == null ? '100%' : width}; height:auto; overflow:auto; margin: 0 auto;">
+            <h:panelGroup layout="block" rendered="#{not acc:hasAnyMessages() and not empty errorsList.errors}"
+                          class="errors-div">
                 <div class="errPanelHdr">
                     <h:outputText value="Errors found: #{fn:length(errorsList.errors)}"
                                   style="color:red; font-weight: bold; color: #ffffff;"/>
                 </div>
-                <rich:dataTable value="#{errorsList.errors}" var="err" rowKeyVar="rowKey" width="100%">
+                <rich:dataTable value="#{errorsList.errors}" var="err" rowKeyVar="rowKey" styleClass="errors-table">
                     <rich:column style="width:15px">
                         <h:outputText value="#{rowKey + 1}"/>
                     </rich:column>

@@ -453,3 +453,36 @@ body {
     margin: 5px;
     padding: 5px;
 }
+
+.errors-div{
+    width:100%;
+    height:auto;
+    overflow:auto;
+    margin: 7px auto;
+}
+
+.errors-table{
+    width: 100%;
+}
+
+.errPanelHdr{
+    background-color: red;
+}
+
+.search-form label{
+    font-weight: bold;
+    margin: 2px;
+}
+
+.topMenu{
+    display: inline-block;
+}
+
+#navigationForm{
+    display: inline-block;
+}
+.logout {
+    color: white;
+    float: right;
+    margin-right: 10px;
+}

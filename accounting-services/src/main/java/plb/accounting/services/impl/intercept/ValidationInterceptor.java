@@ -35,6 +35,7 @@ public class ValidationInterceptor {
         }
 
         if (!errorList.getErrors().isEmpty()) {
+            System.out.println("Validation errors: " + errorList);
             throw new BusinessException(errorList);
         }
 

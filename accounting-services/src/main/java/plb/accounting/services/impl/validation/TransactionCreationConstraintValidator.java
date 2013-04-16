@@ -26,17 +26,25 @@ public class TransactionCreationConstraintValidator implements ConstraintValidat
     @Override
     public boolean isValid(TransactionDTO transaction, ConstraintValidatorContext context) {
 
-        boolean valid = transaction.getOriginAccount().getId() != null;
+        boolean valid = true;
 
-        if (valid) {
-            DetailedAccountDTO oa = service.loadAccountById(transaction.getOriginAccount().getId());
-            DetailedAccountDTO da = service.loadAccountById(transaction.getDestinationAccount().getId());
+        DetailedAccountDTO oa = (transaction.getOriginAccount() == null || transaction.getOriginAccount().getId() == null) ? null : service.loadAccountById(transaction.getOriginAccount().getId());
+        DetailedAccountDTO da = (transaction.getDestinationAccount() == null || transaction.getDestinationAccount().getId() == null) ? null : service.loadAccountById(transaction.getDestinationAccount().getId());
 
-            if (oa == null || da == null || !validBalance(transaction.getAmount(), oa.getCurrentBalance())) {
-                valid = false;
-            }
-
+        context.disableDefaultConstraintViolation();
+        if (oa == null) {
+            context.buildConstraintViolationWithTemplate("{transaction.originAccount.Null}").addNode("originAccount").addConstraintViolation();
+            valid = false;
         }
+        if (da == null) {
+            context.buildConstraintViolationWithTemplate("{transaction.destinationAccount.Null}").addNode("destinationAccount").addConstraintViolation();
+            valid = false;
+        }
+        if (oa != null && !validBalance(transaction.getAmount(), oa.getCurrentBalance())) {
+            context.buildConstraintViolationWithTemplate("{account.transaction.balanceViolation}").addConstraintViolation();
+            valid = false;
+        }
+
 
         return valid;
     }
@@ -44,4 +52,5 @@ public class TransactionCreationConstraintValidator implements ConstraintValidat
     private boolean validBalance(BigDecimal requestedAmount, BigDecimal availableAmount) {
         return availableAmount.subtract(requestedAmount).compareTo(BigDecimal.ZERO) >= 0;
     }
+
 }
