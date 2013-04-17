@@ -10,8 +10,21 @@ GlassFish Application Server 3.1 Servlet 3.0//EN"
         <!--<jndi-name>mail/Session</jndi-name>-->
     <!--</resource-ref>-->
     <!--<jsp-config/>-->
+    <!--<security-role-mapping>-->
+        <!--<role-name>acc_user</role-name>-->
+        <!--<group-name>accuser</group-name>-->
+    <!--</security-role-mapping>-->
+    <!--<security-role-mapping>-->
+        <!--<role-name>acc_user</role-name>-->
+        <!--<principal-name>CN=Panagiotis Bala, OU=Intrasoft International, O=Intrasoft International, L=Artemis, ST=Athens, C=GR</principal-name>-->
+    <!--</security-role-mapping>-->
+    <security-role-mapping>
+        <role-name>admin</role-name>
+        <group-name>Admin</group-name>
+    </security-role-mapping>
     <security-role-mapping>
         <role-name>acc_user</role-name>
-        <group-name>accuser</group-name>
+        <group-name>Users</group-name>
     </security-role-mapping>
+
 </glassfish-web-app>
