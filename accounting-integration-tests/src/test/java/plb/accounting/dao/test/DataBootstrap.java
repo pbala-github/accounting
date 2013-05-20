@@ -1,8 +1,6 @@
 package plb.accounting.dao.test;
 
 import org.junit.Assert;
-import plb.accounting.dao.AccountDAO;
-import plb.accounting.dao.EntityDAO;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
@@ -13,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +22,11 @@ import java.util.Random;
  */
 public class DataBootstrap {
 
-    public static final int MAX_TRANSACTIONS = 5;
+    public static final int MAX_ACCOUNTS = 5;
+
+    public static final int MAX_EXTERNAL_PARTIES = 5;
+
+    public static final int MAX_TRANSACTIONS = 25;
 
     private static Random amountGenerator = new Random(50);
 
@@ -41,14 +44,31 @@ public class DataBootstrap {
             return;
         }
         Assert.assertNotNull(db);
+
+        //clean up
         cleanup();
-        for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
-            createTransaction(t);
+
+        //Initialize external parties
+        List<ExternalParty> externalParties = new ArrayList<ExternalParty>();
+        for (int i = 0; i < MAX_EXTERNAL_PARTIES; i++) {
+            externalParties.add(db.saveOrUpdate(createParty(i)));
+        }
+
+        //Initialize accounts
+        for (int i = 0; i < MAX_ACCOUNTS; i++) {
+            Account account = db.saveOrUpdate(createAccount(i));
+            for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
+                createTransaction(t, account, externalParties.get(new Random(externalParties.size()).nextInt()));
+            }
         }
 
         initialized = true;
     }
 
+    /**
+     * @param o
+     * @return
+     */
     public ExternalParty createParty(int o) {
         ExternalParty party = new ExternalParty();
         party.setDescription("org_description_" + o);
@@ -58,6 +78,10 @@ public class DataBootstrap {
         return party;
     }
 
+    /**
+     * @param a
+     * @return
+     */
     public Account createAccount(int a) {
         Account account = new Account();
         account.setCurrentBalance(BigDecimal.ZERO);
@@ -70,25 +94,18 @@ public class DataBootstrap {
     }
 
 
-    private Transaction createTransaction(int t) {
+    private Transaction createTransaction(int t, Account originAccount, ExternalParty externalParty) {
 
-        ExternalParty party = createParty(t);
-        Account originAccount = createAccount(t);
         Account destinationAccount = createAccount(t + 100);
 
-        db.saveOrUpdate(originAccount);
-        System.out.println(originAccount);
         db.saveOrUpdate(destinationAccount);
-        System.out.println(destinationAccount);
-        db.saveOrUpdate(party);
-        System.out.println(party);
 
         Transaction transaction = new Transaction();
         transaction.setAmount(new BigDecimal(amountGenerator.nextInt(100)));
         transaction.setDescription("tr_description_" + t);
         transaction.setExecutionDate(new Date());
 
-        transaction.setRelatedParty(party);
+        transaction.setRelatedParty(externalParty);
         transaction.setOriginAccount(originAccount);
         transaction.setDestinationAccount(destinationAccount);
 
