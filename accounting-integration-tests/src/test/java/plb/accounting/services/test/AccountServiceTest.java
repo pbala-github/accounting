@@ -50,6 +50,11 @@ public class AccountServiceTest extends AbstractServiceTest {
             public Class<? extends Annotation> annotationType() {
                 return Validate.class;
             }
+
+            @Override
+            public Class<?>[] groups() {
+                return new Class<?>[0];  //To change body of implemented methods use File | Settings | File Templates.
+            }
         }));
 
     }

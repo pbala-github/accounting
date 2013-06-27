@@ -1,5 +1,7 @@
 package plb.accounting.model;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,14 +24,14 @@ public class Transaction extends BaseEntity {
      *
      */
     @ManyToOne
-    @JoinColumn(name = "TR_ORIGIN_ACCOUNT")
+    @JoinColumn(name = "TR_ORIGIN_ACCOUNT", nullable = false)
     private Account originAccount;
 
     /**
      *
      */
     @ManyToOne
-    @JoinColumn(name = "TR_DEST_ACCOUNT")
+    @JoinColumn(name = "TR_DEST_ACCOUNT", nullable = false)
     private Account destinationAccount;
 
     /**
@@ -51,11 +53,34 @@ public class Transaction extends BaseEntity {
     @JoinColumn(name = "TR_REL_PARTY")
     private ExternalParty relatedParty;
 
+
+    /**
+     * JPA
+     */
+    private Transaction() {
+    }
+
+    /**
+     * @param originAccount
+     * @param destinationAccount
+     * @param executionDate
+     * @param amount
+     * @param description
+     */
+    public Transaction(Account originAccount, Account destinationAccount, Date executionDate, BigDecimal amount, String description) {
+        setOriginAccount(originAccount);
+        setDestinationAccount(destinationAccount);
+        setExecutionDate(executionDate);
+        setAmount(amount);
+        setDescription(description);
+    }
+
     public Date getExecutionDate() {
         return executionDate;
     }
 
     public void setExecutionDate(Date executionDate) {
+        Assert.notNull(executionDate);
         this.executionDate = executionDate;
     }
 
@@ -64,6 +89,8 @@ public class Transaction extends BaseEntity {
     }
 
     public void setOriginAccount(Account originAccount) {
+        Assert.notNull(originAccount);
+        Assert.isTrue(originAccount.getCurrentBalance().subtract(this.amount).compareTo(BigDecimal.ZERO) >= 0);
         this.originAccount = originAccount;
     }
 
@@ -72,6 +99,7 @@ public class Transaction extends BaseEntity {
     }
 
     public void setDestinationAccount(Account destinationAccount) {
+        Assert.notNull(destinationAccount);
         this.destinationAccount = destinationAccount;
     }
 
@@ -80,6 +108,8 @@ public class Transaction extends BaseEntity {
     }
 
     public void setAmount(BigDecimal amount) {
+        Assert.notNull(amount);
+        Assert.isTrue(BigDecimal.ZERO.compareTo(amount) <= 0);
         this.amount = amount;
     }
 
@@ -88,6 +118,7 @@ public class Transaction extends BaseEntity {
     }
 
     public void setDescription(String description) {
+        Assert.hasLength(description);
         this.description = description;
     }
 

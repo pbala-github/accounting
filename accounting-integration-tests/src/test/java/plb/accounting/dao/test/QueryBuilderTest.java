@@ -1,7 +1,6 @@
 package plb.accounting.dao.test;
 
 import com.googlecode.jeeunit.JeeunitRunner;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import plb.accounting.common.paging.PaginationInfo;
@@ -12,7 +11,6 @@ import plb.accounting.model.Transaction;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.util.Arrays;

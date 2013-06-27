@@ -1,10 +1,8 @@
 package plb.accounting.dao.test;
 
 import com.googlecode.jeeunit.JeeunitRunner;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import plb.accounting.dao.ExternalPartyDAO;
-import plb.accounting.dao.impl.jpa.JpaExternalPartyDAO;
 
 import javax.inject.Inject;
 

@@ -1,16 +1,21 @@
 package plb.accounting.dao.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.dao.TransactionDAO;
-import plb.accounting.dao.impl.jpa.JPAEntityDao;
+import plb.accounting.dao.impl.Logging;
 
 import javax.ejb.EJB;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -20,10 +25,8 @@ import java.lang.reflect.Proxy;
  * User: pbala
  * Date: 3/13/13 10:21 AM
  */
+@Alternative
 public class JpaDaoResources {
-
-    @Inject
-    EntityManager em;
 
     @Inject
     UserTransaction userTransaction;
@@ -40,8 +43,6 @@ public class JpaDaoResources {
     @Produces
     @Transactional
     public AccountDAO getTransactionalAccountDAO() {
-//        System.out.println("Entity Manager: " + em);
-//        System.out.println("Accounts: " + em.createQuery("from Account ").getResultList());
         return advanceDao(dao, AccountDAO.class);
     }
 
@@ -65,12 +66,12 @@ public class JpaDaoResources {
                 Object result;
                 userTransaction.begin();
                 try {
-                    result =  method.invoke(dao, args);
+                    result = method.invoke(dao, args);
                 } catch (Exception e) {
                     e.printStackTrace();
                     userTransaction.rollback();
                     throw new RuntimeException(e);
-                } 
+                }
 
                 userTransaction.commit();
                 return result;
@@ -79,5 +80,15 @@ public class JpaDaoResources {
 
     }
 
+
+//    @Produces
+//    @PersistenceContext(unitName = "testAccountingPU")
+//    private EntityManager entityManager;
+//
+//    @Produces
+//    @Logging
+//    private Logger logger(InjectionPoint injectionPoint) {
+//        return LoggerFactory.getLogger(injectionPoint.getBean().getClass());
+//    }
 
 }

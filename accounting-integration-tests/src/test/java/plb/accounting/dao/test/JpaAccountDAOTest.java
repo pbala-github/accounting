@@ -11,7 +11,7 @@ import javax.inject.Inject;
  * Date: 3/11/13 4:48 PM
  */
 @RunWith(JeeunitRunner.class)
-public class JpaAccountDAOTest extends AbstractAccountDAOTest{
+public class JpaAccountDAOTest extends AbstractAccountDAOTest {
 
     @Inject
     @Transactional
