@@ -132,7 +132,7 @@ public class Account extends BaseEntity {
     /**
      * @param currentBalance
      */
-    public void setCurrentBalance(BigDecimal currentBalance) {
+    private void setCurrentBalance(BigDecimal currentBalance) {
         Assert.notNull(currentBalance);
         Assert.isTrue(BigDecimal.ZERO.compareTo(initialBalance) <= 0);
         this.currentBalance = currentBalance;

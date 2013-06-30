@@ -90,7 +90,8 @@ public class Transaction extends BaseEntity {
 
     public void setOriginAccount(Account originAccount) {
         Assert.notNull(originAccount);
-        Assert.isTrue(originAccount.getCurrentBalance().subtract(this.amount).compareTo(BigDecimal.ZERO) >= 0);
+        if (null != this.amount)
+            Assert.isTrue(originAccount.getCurrentBalance().subtract(this.amount).compareTo(BigDecimal.ZERO) >= 0);
         this.originAccount = originAccount;
     }
 
@@ -110,6 +111,8 @@ public class Transaction extends BaseEntity {
     public void setAmount(BigDecimal amount) {
         Assert.notNull(amount);
         Assert.isTrue(BigDecimal.ZERO.compareTo(amount) <= 0);
+        if (null != this.originAccount)
+            Assert.isTrue(this.originAccount.getCurrentBalance().subtract(amount).compareTo(BigDecimal.ZERO) >= 0);
         this.amount = amount;
     }
 

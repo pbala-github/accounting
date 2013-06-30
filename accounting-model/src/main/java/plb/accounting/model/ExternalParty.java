@@ -3,6 +3,7 @@ package plb.accounting.model;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ExternalParty extends BaseEntity {
      */
     @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @OrderBy("executionDate asc")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
     /**
      * JPA
