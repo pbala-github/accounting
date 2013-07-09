@@ -92,11 +92,8 @@ public class ExternalParty extends BaseEntity {
     /**
      * @param transaction
      */
-    public boolean addTransaction(Transaction transaction) {
+    boolean addTransaction(Transaction transaction) {
         Assert.notNull(transaction);
-        if (transaction.getRelatedParty() == null) {
-            transaction.setRelatedParty(this);
-        }
         Assert.isTrue(this == transaction.getRelatedParty());
         return this.transactions.add(transaction);
     }
@@ -104,7 +101,7 @@ public class ExternalParty extends BaseEntity {
     /**
      * @param transactions
      */
-    public boolean addAllTransactions(List<Transaction> transactions) {
+    boolean addAllTransactions(List<Transaction> transactions) {
         Assert.notNull(transactions);
         boolean result = true;
         for (Transaction transaction : transactions) {
@@ -119,7 +116,7 @@ public class ExternalParty extends BaseEntity {
     public boolean removeTransaction(Transaction transaction) {
         Assert.notNull(transaction);
         Assert.isTrue(this == transaction.getRelatedParty());
-        transaction.setRelatedParty(null);
+        transaction.removeRelatedParty();
         return this.transactions.remove(transaction);
     }
 

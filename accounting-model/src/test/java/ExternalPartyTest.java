@@ -2,16 +2,17 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import plb.accounting.model.Account;
-import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author pbala
@@ -22,41 +23,48 @@ public class ExternalPartyTest {
 
     private ExternalParty externalParty;
 
-    private static Account originAccount;
+    private Account originAccount;
 
-    private static Account destinationAccount;
-
-    @BeforeClass
-    public static void globalInit() {
-        originAccount = new Account("origin account 1", AccountTypeEnum.STORAGE, new BigDecimal(2000));
-        destinationAccount = new Account("destination account 1", AccountTypeEnum.OUTCOME, new BigDecimal(0));
-    }
+    private Account destinationAccount;
 
     @Before
     public void initExternalParty() {
         externalParty = new ExternalParty("external party");
+        originAccount = SampleFactory.getOriginAccount();
+        destinationAccount = SampleFactory.getDestinationAccount();
 
-        transactions = Arrays.asList(new Transaction(//
+        transactions = new ArrayList<>();
+        Transaction transaction = new Transaction(//
                 originAccount,//
                 destinationAccount,//
                 Calendar.getInstance().getTime(),//
                 new BigDecimal(45.2),//
-                "sample transaction 1"),//
+                "sample transaction 1");
+        transaction.setRelatedParty(externalParty);
+        transactions.add(transaction);
+
+        transaction =
                 new Transaction(//
                         originAccount,//
                         destinationAccount,//
                         Calendar.getInstance().getTime(),//
                         new BigDecimal(59),//
-                        "sample transaction 2"),//
+                        "sample transaction 2");
+        transaction.setRelatedParty(externalParty);
+        transactions.add(transaction);
+
+        transaction =
                 new Transaction(//
                         originAccount,//
                         destinationAccount,//
                         Calendar.getInstance().getTime(),//
                         new BigDecimal(345),//
-                        "sample transaction 3")
-        );
+                        "sample transaction 3");
+        transaction.setRelatedParty(externalParty);
+        transactions.add(transaction);
     }
 
+    //Construction tests
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidConstructionNull() {
         new ExternalParty(null);
@@ -72,6 +80,7 @@ public class ExternalPartyTest {
         new ExternalParty("external party 1");
     }
 
+    //Behavioural tests
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidUpdateNull() {
         externalParty.setName(null);
@@ -83,54 +92,27 @@ public class ExternalPartyTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAddTransactionNull() {
-        externalParty.addTransaction(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddTransactionOfOtherExternalParty() {
-        transactions.get(0).setRelatedParty(new ExternalParty("external party 2"));
-        externalParty.addTransaction(transactions.get(0));
-    }
-
-    @Test
-    public void testAddTransaction() {
-        assertTrue(externalParty.addTransaction(transactions.get(0)));
-        assertTrue(transactions.get(0).getRelatedParty() == externalParty);
-        assertEquals(1, externalParty.getTransactions().size());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddAllTransactionsNull() {
-        externalParty.addAllTransactions(null);
-    }
-
-    @Test
-    public void testAddAllTransactions() {
-        assertTrue(externalParty.addAllTransactions(transactions));
-        for (Transaction transaction : transactions) {
-            assertTrue(transaction.getRelatedParty() == externalParty);
-        }
-        assertEquals(transactions.size(), externalParty.getTransactions().size());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testRemoveTransactionNull() {
         externalParty.removeTransaction(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testRemoveTransactionUnknown() {
-        externalParty.addTransaction(transactions.get(0));
-        externalParty.removeTransaction(transactions.get(1));
+        Transaction transaction = new Transaction(//
+                originAccount,//
+                destinationAccount,//
+                Calendar.getInstance().getTime(),//
+                new BigDecimal(45.2),//
+                "sample transaction 1");
+        externalParty.removeTransaction(transaction);
 
     }
 
     @Test
     public void testRemoveTransaction() {
-        externalParty.addTransaction(transactions.get(0));
+        int initialSize = externalParty.getTransactions().size();
         assertTrue(externalParty.removeTransaction(transactions.get(0)));
-        assertEquals(0, externalParty.getTransactions().size());
+        assertEquals(initialSize-1, externalParty.getTransactions().size());
         assertSame(transactions.get(0).getRelatedParty(), null);
     }
 
@@ -141,7 +123,6 @@ public class ExternalPartyTest {
 
     @Test
     public void testRemoveAllTransactions() {
-        externalParty.addAllTransactions(transactions);
         assertTrue(externalParty.removeAllTransactions(transactions));
         assertEquals(0, externalParty.getTransactions().size());
         for (Transaction transaction : transactions) {

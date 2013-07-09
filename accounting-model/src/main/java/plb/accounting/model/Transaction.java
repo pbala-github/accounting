@@ -68,11 +68,11 @@ public class Transaction extends BaseEntity {
      * @param description
      */
     public Transaction(Account originAccount, Account destinationAccount, Date executionDate, BigDecimal amount, String description) {
+        setAmount(amount);
+        setDescription(description);
         setOriginAccount(originAccount);
         setDestinationAccount(destinationAccount);
         setExecutionDate(executionDate);
-        setAmount(amount);
-        setDescription(description);
     }
 
     public Date getExecutionDate() {
@@ -80,6 +80,7 @@ public class Transaction extends BaseEntity {
     }
 
     public void setExecutionDate(Date executionDate) {
+        //TODO allow future dates???????
         Assert.notNull(executionDate);
         this.executionDate = executionDate;
     }
@@ -90,9 +91,12 @@ public class Transaction extends BaseEntity {
 
     public void setOriginAccount(Account originAccount) {
         Assert.notNull(originAccount);
-        if (null != this.amount)
-            Assert.isTrue(originAccount.getCurrentBalance().subtract(this.amount).compareTo(BigDecimal.ZERO) >= 0);
+        Assert.isTrue(!originAccount.equals(destinationAccount));
+        if (this.originAccount != null) {
+            this.originAccount.removeOutTransaction(this);
+        }
         this.originAccount = originAccount;
+        this.originAccount.addOutTransaction(this);
     }
 
     public Account getDestinationAccount() {
@@ -101,7 +105,12 @@ public class Transaction extends BaseEntity {
 
     public void setDestinationAccount(Account destinationAccount) {
         Assert.notNull(destinationAccount);
+        Assert.isTrue(!destinationAccount.equals(originAccount));
+        if (this.destinationAccount != null) {
+            this.destinationAccount.removeInTransaction(this);
+        }
         this.destinationAccount = destinationAccount;
+        this.destinationAccount.addInTransaction(this);
     }
 
     public BigDecimal getAmount() {
@@ -111,9 +120,20 @@ public class Transaction extends BaseEntity {
     public void setAmount(BigDecimal amount) {
         Assert.notNull(amount);
         Assert.isTrue(BigDecimal.ZERO.compareTo(amount) <= 0);
-        if (null != this.originAccount)
-            Assert.isTrue(this.originAccount.getCurrentBalance().subtract(amount).compareTo(BigDecimal.ZERO) >= 0);
+
+        if (null != this.originAccount) {
+            this.originAccount.removeOutTransaction(this);
+        }
+        if (null != this.destinationAccount) {
+            this.destinationAccount.removeInTransaction(this);
+        }
         this.amount = amount;
+        if (null != this.originAccount) {
+            this.originAccount.addOutTransaction(this);
+        }
+        if (null != this.destinationAccount) {
+            this.destinationAccount.addInTransaction(this);
+        }
     }
 
     public String getDescription() {
@@ -130,7 +150,31 @@ public class Transaction extends BaseEntity {
     }
 
     public void setRelatedParty(ExternalParty relatedParty) {
+        if (this.relatedParty != null) {
+            this.relatedParty.removeTransaction(this);
+        }
         this.relatedParty = relatedParty;
+        if (this.relatedParty != null) {
+            this.relatedParty.addTransaction(this);
+        }
+    }
+
+    void removeRelatedParty() {
+        this.relatedParty = null;
+    }
+
+    /**
+     *
+     */
+    public void discard() {
+        this.originAccount.removeOutTransaction(this);
+        this.destinationAccount.removeInTransaction(this);
+        this.originAccount = this.destinationAccount = null;
+
+        if (this.relatedParty != null) {
+            this.relatedParty.removeTransaction(this);
+        }
+        this.relatedParty = null;
     }
 
     @Override
@@ -142,4 +186,5 @@ public class Transaction extends BaseEntity {
                 ", destinationAccount=" + destinationAccount +
                 "} " + super.toString();
     }
+
 }
