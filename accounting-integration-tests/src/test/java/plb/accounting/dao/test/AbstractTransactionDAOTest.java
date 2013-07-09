@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * User: pbala
  * Date: 11/2/12 2:30 PM
  */
-public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<TransactionDAO>{
+public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<TransactionDAO> {
 
     @Inject
     DataBootstrap dataBootstrap;
@@ -45,7 +45,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     public void findById() {
         Transaction transaction = getDAO().getAll(Transaction.class).get(0);
         assertNotNull(transaction);
-        assertEquals(transaction.getId(), getDAO().findById(Transaction.class,transaction.getId()).getId());
+        assertEquals(transaction.getId(), getDAO().findById(Transaction.class, transaction.getId()).getId());
     }
 
     @Test
@@ -53,7 +53,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     public void delete() {
         Transaction transaction = getDAO().getAll(Transaction.class).get(0);
         assertNotNull(transaction);
-        getDAO().delete(Transaction.class,transaction.getId());
+        getDAO().delete(Transaction.class, transaction.getId());
         assertNull(getDAO().findById(Transaction.class, transaction.getId()));
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertNotNull(transaction);
         transaction.setDescription("hhhhhhhhhhh");
         getDAO().saveOrUpdate(transaction);
-        transaction= getDAO().findById(Transaction.class, transaction.getId());
+        transaction = getDAO().findById(Transaction.class, transaction.getId());
         assertEquals("hhhhhhhhhhh", transaction.getDescription());
     }
 
@@ -80,38 +80,38 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
         criteria.setDescription("tr_description_4");
         List<Transaction> transactions = getDAO().searchTransactions(criteria);
-        assertEquals(1,transactions.size());
-        assertEquals("tr_description_4",transactions.get(0).getDescription());
+        assertEquals(1, transactions.size());
+        assertEquals("tr_description_4", transactions.get(0).getDescription());
 
         criteria.setAmountFrom(new BigDecimal(5));
         transactions = getDAO().searchTransactions(criteria);
-        assertEquals(1,transactions.size());
-        assertEquals("tr_description_4",transactions.get(0).getDescription());
+        assertEquals(1, transactions.size());
+        assertEquals("tr_description_4", transactions.get(0).getDescription());
 
         criteria.setAmountTo(new BigDecimal(10));
         transactions = getDAO().searchTransactions(criteria);
-        assertEquals(0,transactions.size());
+        assertEquals(0, transactions.size());
 
         criteria = new TransactionSearchCriteria();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH,1);
+        calendar.set(Calendar.MONTH, 1);
         criteria.setExecutionDateFrom(calendar.getTime());
         transactions = getDAO().searchTransactions(criteria);
         assertFalse(transactions.isEmpty());
 
-        calendar.set(Calendar.MONTH,2);
+        calendar.set(Calendar.MONTH, 2);
         criteria.setExecutionDateTo(calendar.getTime());
         transactions = getDAO().searchTransactions(criteria);
-        assertEquals(0,transactions.size());
+        assertEquals(0, transactions.size());
 
         criteria = new TransactionSearchCriteria();
         criteria.setOrgName("org_name_3");
         transactions = getDAO().searchTransactions(criteria);
         assertFalse(transactions.isEmpty());
-        assertEquals("org_name_3",transactions.get(0).getRelatedParty().getName());
+        assertEquals("org_name_3", transactions.get(0).getRelatedParty().getName());
 
         criteria = new TransactionSearchCriteria();
-        criteria.setOriginAccountIds(new HashSet<Long>(Arrays.asList(1l,2l,3l)));
+        criteria.setOriginAccountIds(new HashSet<Long>(Arrays.asList(1l, 2l, 3l)));
         assertNotNull(getDAO().searchTransactions(criteria));
     }
 }

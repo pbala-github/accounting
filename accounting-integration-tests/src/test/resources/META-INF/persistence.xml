@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="testAccountingPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jar-file>file:/home/pbala/myProjects/accounting/accounting-model/target/accounting-model-1.0.jar</jar-file>
+        <jar-file>file:/home/panagiotis/myProjects/accounting/accounting-model/target/accounting-model-1.0.jar</jar-file>
         <properties>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>

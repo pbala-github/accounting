@@ -19,10 +19,10 @@ public abstract class AbstractDAOTest<D extends EntityDAO> {
     public abstract void getAll();
 
     public abstract void searchByCriteria();
-    
+
     protected abstract D getDAO();
 
-    protected static void bootstrap(){
+    protected static void bootstrap() {
 
     }
 }

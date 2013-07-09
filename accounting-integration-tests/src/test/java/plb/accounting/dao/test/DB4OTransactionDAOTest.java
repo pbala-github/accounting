@@ -13,7 +13,7 @@ public class DB4OTransactionDAOTest extends AbstractTransactionDAOTest {
     private static TransactionDAO dao;
 
     @BeforeClass
-    public static void setup(){
+    public static void setup() {
         dao = new DB4OTransactionDAO();
     }
 

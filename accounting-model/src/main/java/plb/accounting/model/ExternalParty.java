@@ -1,6 +1,10 @@
 package plb.accounting.model;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,13 +38,30 @@ public class ExternalParty extends BaseEntity {
      */
     @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @OrderBy("executionDate asc")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
+    /**
+     * JPA
+     */
+    private ExternalParty() {
+    }
+
+    /**
+     * @param name
+     */
+    public ExternalParty(String name) {
+        setName(name);
+    }
+
+    /**
+     * @return
+     */
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
+        Assert.hasLength(name);
         this.name = name;
     }
 
@@ -60,12 +81,58 @@ public class ExternalParty extends BaseEntity {
         this.description = description;
     }
 
+    /**
+     * @return an unmodifiable list of transactions related to this
+     *         external party
+     */
     public List<Transaction> getTransactions() {
-        return transactions;
+        return Collections.unmodifiableList(transactions);
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    /**
+     * @param transaction
+     */
+    public boolean addTransaction(Transaction transaction) {
+        Assert.notNull(transaction);
+        if (transaction.getRelatedParty() == null) {
+            transaction.setRelatedParty(this);
+        }
+        Assert.isTrue(this == transaction.getRelatedParty());
+        return this.transactions.add(transaction);
+    }
+
+    /**
+     * @param transactions
+     */
+    public boolean addAllTransactions(List<Transaction> transactions) {
+        Assert.notNull(transactions);
+        boolean result = true;
+        for (Transaction transaction : transactions) {
+            result = result && addTransaction(transaction);
+        }
+        return result;
+    }
+
+    /**
+     * @param transaction
+     */
+    public boolean removeTransaction(Transaction transaction) {
+        Assert.notNull(transaction);
+        Assert.isTrue(this == transaction.getRelatedParty());
+        transaction.setRelatedParty(null);
+        return this.transactions.remove(transaction);
+    }
+
+    /**
+     * @param transactions
+     */
+    public boolean removeAllTransactions(List<Transaction> transactions) {
+        Assert.notNull(transactions);
+        boolean result = true;
+        for (Transaction transaction : transactions) {
+            result = result && removeTransaction(transaction);
+        }
+        return result;
     }
 
     @Override
