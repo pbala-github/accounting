@@ -2,13 +2,14 @@ package plb.accounting.web.viewmodels;
 
 import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.DetailedAccountDTO;
+import plb.accounting.web.jsf.ViewScoped;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 @Named("accountWM")
-@RequestScoped
+@ViewScoped
 public class AccountWM extends WebModelSupport {
 
     private DetailedAccountDTO accountDto;

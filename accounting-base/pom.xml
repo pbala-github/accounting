@@ -30,6 +30,7 @@
         <logback-classic.version>1.0.7</logback-classic.version>
         <powermock.version>1.4.12</powermock.version>
         <junit.version>4.7</junit.version>
+        <dbunit.version>2.4.9</dbunit.version>
         <hibernate.validator.version>4.3.1.Final</hibernate.validator.version>
         <easymock.version>3.1</easymock.version>
         <ojdbc6.version>11.2.0.3</ojdbc6.version>
@@ -183,6 +184,13 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>${dbunit.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>

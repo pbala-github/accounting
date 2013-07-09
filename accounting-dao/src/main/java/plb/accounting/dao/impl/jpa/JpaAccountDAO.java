@@ -1,10 +1,12 @@
 package plb.accounting.dao.impl.jpa;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
+import plb.accounting.model.view.AccountView;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -61,9 +63,10 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
 
     //Criteria API implementation
     @Override
-    public List<Account> searchAccounts(AccountSearchCriteria searchCriteria) {
+    public List<AccountView> searchAccounts(AccountSearchCriteria searchCriteria) {
+        Assert.notNull(searchCriteria);
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Account> criteria = builder.createQuery(Account.class);
+        CriteriaQuery<AccountView> criteria = builder.createQuery(AccountView.class);
         Root<Account> root = criteria.from(Account.class);
 
         List<Predicate> conditions = new ArrayList<Predicate>();
@@ -90,9 +93,16 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
         if (!conditions.isEmpty())
             criteria.where(builder.and(conditions.toArray(new Predicate[0])));
 
-        criteria.select(root);
+        criteria.select(builder.construct(AccountView.class,//
+                root.get("id"),//
+                root.get("name"),//
+                root.get("initialBalance"),//
+                root.get("currentBalance"),//
+                root.get("description"),//
+                root.get("type")//
+        ));
 
-        TypedQuery<Account> typedQuery = em.createQuery(criteria);
+        TypedQuery<AccountView> typedQuery = em.createQuery(criteria);
         return typedQuery.getResultList();
     }
 }

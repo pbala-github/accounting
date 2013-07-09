@@ -6,6 +6,7 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.AccountView;
 
 import javax.enterprise.inject.Alternative;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class DB4OAccountDAO extends DB4OBaseDAO implements AccountDAO {
 
     @Override
-    public List<Account> searchAccounts(final AccountSearchCriteria searchCriteria) {
+    public List<AccountView> searchAccounts(final AccountSearchCriteria searchCriteria) {
         Predicate predicate = new Predicate<Account>() {
             @Override
             public boolean match(Account candidate) {

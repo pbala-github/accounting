@@ -3,14 +3,11 @@ package plb.accounting.dao.test;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.dao.TransactionDAO;
-import plb.accounting.dao.impl.jpa.JPAEntityDao;
 
 import javax.ejb.EJB;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -65,12 +62,12 @@ public class JpaDaoResources {
                 Object result;
                 userTransaction.begin();
                 try {
-                    result =  method.invoke(dao, args);
+                    result = method.invoke(dao, args);
                 } catch (Exception e) {
                     e.printStackTrace();
                     userTransaction.rollback();
                     throw new RuntimeException(e);
-                } 
+                }
 
                 userTransaction.commit();
                 return result;

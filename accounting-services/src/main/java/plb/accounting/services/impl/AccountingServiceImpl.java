@@ -20,7 +20,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:01 PM
  */
-@DeclareRoles({Roles.ADMIN, Roles.USER})
+//@DeclareRoles({Roles.ADMIN, Roles.USER})
 @Local(AccountingService.class)
 @Remote(AccountingServiceRemote.class)
 @Stateless
@@ -89,7 +89,7 @@ public class AccountingServiceImpl implements AccountingService {
         return externalPartyService.saveExternalParty(organization);
     }
 
-    @RolesAllowed({Roles.ADMIN})
+//    @RolesAllowed({Roles.ADMIN})
     @Override
     public void deleteAccount(long accountId) {
         accountService.deleteAccount(accountId);
@@ -100,7 +100,7 @@ public class AccountingServiceImpl implements AccountingService {
         transactionService.deleteTransaction(transactionId);
     }
 
-    @RolesAllowed({Roles.ADMIN})
+//    @RolesAllowed({Roles.ADMIN})
     @Override
     public void deleteExternalParty(long organizationId) {
         externalPartyService.deleteExternalParty(organizationId);
@@ -121,25 +121,25 @@ public class AccountingServiceImpl implements AccountingService {
         return externalPartyService.searchExternalParties(criteria);
     }
 
-    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
+//    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
     @Override
     public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
         return reportService.createBalanceReport(criteria);
     }
 
-    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
+//    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
     @Override
     public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
         return reportService.createOutcomeReport(criteria);
     }
 
-    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
+//    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
     @Override
     public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
         return reportService.createIncomeReport(criteria);
     }
 
-    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
+//    @RolesAllowed({Roles.ADMIN, Roles.USER, Roles.VISITOR})
     @Override
     public StatusReportResult createStatusReport(StatusReportCriteria criteria) {
         return reportService.createStatusReport(criteria);

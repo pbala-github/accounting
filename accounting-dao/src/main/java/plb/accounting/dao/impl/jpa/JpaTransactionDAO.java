@@ -1,10 +1,12 @@
 package plb.accounting.dao.impl.jpa;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -69,9 +71,10 @@ public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
 
     //Criteria API
     @Override
-    public List<Transaction> searchTransactions(TransactionSearchCriteria criteria) {
+    public List<TransactionView> searchTransactions(TransactionSearchCriteria criteria) {
+        Assert.notNull(criteria);
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Transaction> criteriaQuery = builder.createQuery(Transaction.class);
+        CriteriaQuery<TransactionView> criteriaQuery = builder.createQuery(TransactionView.class);
         Root<Transaction> root = criteriaQuery.from(Transaction.class);
 
         List<Predicate> conditions = new ArrayList<Predicate>();
@@ -108,10 +111,21 @@ public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
         if (!conditions.isEmpty())
             criteriaQuery.where(builder.and(conditions.toArray(new Predicate[0])));
 
-        criteriaQuery.select(root);
+        criteriaQuery.select(builder.construct(TransactionView.class,//
+                root.get("id"),//
+                root.get("executionDate"),//
+                root.get("originAccount").get("name"),//
+                root.get("originAccount").get("id"),//
+                root.get("destinationAccount").get("name"),//
+                root.get("destinationAccount").get("id"),//
+                root.get("amount"),
+                root.get("description"),
+                root.get("relatedParty").get("name"),//
+                root.get("relatedParty").get("id")//
+        ));
 
-        TypedQuery<Transaction> typedQuery = em.createQuery(criteriaQuery);
-        List<Transaction> resultList = typedQuery.getResultList();
+        TypedQuery<TransactionView> typedQuery = em.createQuery(criteriaQuery);
+        List<TransactionView> resultList = typedQuery.getResultList();
 
         return resultList;
     }

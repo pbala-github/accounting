@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import javax.enterprise.inject.Alternative;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class DB4OTransactionDAO extends DB4OBaseDAO implements TransactionDAO{
 
     @Override
-    public List<Transaction> searchTransactions(final TransactionSearchCriteria searchCriteria) {
+    public List<TransactionView> searchTransactions(final TransactionSearchCriteria searchCriteria) {
 
         Predicate predicate = new Predicate<Transaction>() {
             @Override

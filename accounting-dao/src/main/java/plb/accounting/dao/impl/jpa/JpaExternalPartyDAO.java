@@ -1,9 +1,11 @@
 package plb.accounting.dao.impl.jpa;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
+import plb.accounting.model.view.ExternalPartyView;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -45,15 +47,16 @@ public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDA
 
     //Criteria API
     @Override
-    public List<ExternalParty> searchExternalParties(ExternalPartySearchCriteria criteria) {
+    public List<ExternalPartyView> searchExternalParties(ExternalPartySearchCriteria criteria) {
+        Assert.notNull(criteria);
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<ExternalParty> criteriaQuery = builder.createQuery(ExternalParty.class);
+        CriteriaQuery<ExternalPartyView> criteriaQuery = builder.createQuery(ExternalPartyView.class);
         Root<ExternalParty> root = criteriaQuery.from(ExternalParty.class);
 
         List<Predicate> conditions = new ArrayList<Predicate>();
 
         if (StringUtils.hasText(criteria.getName()))
-            conditions.add(builder.like(builder.lower(root.<String>get("name")),"%" + criteria.getName().toLowerCase() + "%"));
+            conditions.add(builder.like(builder.lower(root.<String>get("name")), "%" + criteria.getName().toLowerCase() + "%"));
 
         if (StringUtils.hasText(criteria.getVat()))
             conditions.add(builder.equal(root.get("vat"), criteria.getVat()));
@@ -61,10 +64,15 @@ public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDA
         if (!conditions.isEmpty())
             criteriaQuery.where(builder.and(conditions.toArray(new Predicate[0])));
 
-        criteriaQuery.select(root);
+        criteriaQuery.select(builder.construct(ExternalPartyView.class,//
+                root.get("id"),//
+                root.get("name"),//
+                root.get("vat"),//
+                root.get("description")//
+        ));
 
-        TypedQuery<ExternalParty> typedQuery = em.createQuery(criteriaQuery);
-        List<ExternalParty> resultList = typedQuery.getResultList();
+        TypedQuery<ExternalPartyView> typedQuery = em.createQuery(criteriaQuery);
+        List<ExternalPartyView> resultList = typedQuery.getResultList();
 
         return resultList;
     }

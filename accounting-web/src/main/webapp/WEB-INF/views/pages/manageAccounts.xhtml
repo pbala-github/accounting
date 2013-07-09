@@ -17,7 +17,7 @@
 <h:body>
     <ui:composition template="/WEB-INF/views/templates/standardFormGrid.xhtml">
         <ui:param name="pageTitle" value="#{resourceBundle.manage_accounts_pageTitle}"/>
-        <ui:param name="results" value="#{accountsResult}"/>
+        <ui:param name="results" value="#{accounts}"/>
         <ui:define name="myForm">
             <h:panelGrid columns="4">
                 <h:outputLabel value="Account Name"/>
@@ -53,7 +53,7 @@
                 <h:outputLabel/>
                 <h:outputLabel/>
                 <h:outputLabel/>
-                <h:commandButton value="Search"/>
+                <h:commandButton value="Search" action="#{accountsView.searchAccounts}"/>
             </h:panelGrid>
         </ui:define>
         <ui:define name="gridColumns">

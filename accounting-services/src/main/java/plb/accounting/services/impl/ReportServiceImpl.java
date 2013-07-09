@@ -5,8 +5,8 @@ import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
-import plb.accounting.model.Account;
-import plb.accounting.model.Transaction;
+import plb.accounting.model.view.AccountView;
+import plb.accounting.model.view.TransactionView;
 import plb.accounting.services.ReportService;
 import plb.accounting.services.impl.reporting.IReportManager;
 
@@ -36,7 +36,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
         transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
         transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
+        List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
@@ -49,7 +49,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
         transactionCriteria.setExecutionDateTo(criteria.getEndDate());
         transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
+        List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
@@ -61,7 +61,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
         transactionCriteria.setExecutionDateTo(criteria.getEndDate());
         transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
 
-        List<Transaction> transactions = transactionDAO.searchTransactions(transactionCriteria);
+        List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
     }
@@ -70,7 +70,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
     public StatusReportResult createStatusReport(StatusReportCriteria criteria) {
         AccountSearchCriteria accountSearchCriteria = new AccountSearchCriteria();
         accountSearchCriteria.setTopParentAccount(true);
-        List<Account> accounts = accountDAO.searchAccounts(accountSearchCriteria);
+        List<AccountView> accounts = accountDAO.searchAccounts(accountSearchCriteria);
 
         return reportManager.createReport(criteria, accounts);
     }

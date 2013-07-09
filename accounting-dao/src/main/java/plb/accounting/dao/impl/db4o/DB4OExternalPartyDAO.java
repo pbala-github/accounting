@@ -6,6 +6,7 @@ import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.ExternalPartyView;
 
 import javax.enterprise.inject.Alternative;
 import java.util.List;
@@ -19,7 +20,7 @@ public class DB4OExternalPartyDAO extends DB4OBaseDAO implements ExternalPartyDA
 
 
     @Override
-    public List<ExternalParty> searchExternalParties(final ExternalPartySearchCriteria searchCriteria) {
+    public List<ExternalPartyView> searchExternalParties(final ExternalPartySearchCriteria searchCriteria) {
         Predicate predicate = new Predicate<ExternalParty>() {
             @Override
             public boolean match(ExternalParty candidate) {

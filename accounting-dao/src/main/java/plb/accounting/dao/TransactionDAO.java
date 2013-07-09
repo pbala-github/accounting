@@ -2,6 +2,7 @@ package plb.accounting.dao;
 
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
  * Date: 3/11/13 2:13 PM
  */
 public interface TransactionDAO extends EntityDAO {
-    List<Transaction> searchTransactions(TransactionSearchCriteria criteria);
+    List<TransactionView> searchTransactions(TransactionSearchCriteria criteria);
 }
