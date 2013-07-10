@@ -1,5 +1,6 @@
+package com.plb.accounting.model.tests;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;

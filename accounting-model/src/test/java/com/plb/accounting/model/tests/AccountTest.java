@@ -1,3 +1,5 @@
+package com.plb.accounting.model.tests;
+
 import org.junit.Before;
 import org.junit.Test;
 import plb.accounting.model.*;

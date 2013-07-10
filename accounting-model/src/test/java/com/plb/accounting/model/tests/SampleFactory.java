@@ -1,3 +1,5 @@
+package com.plb.accounting.model.tests;
+
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.ExternalParty;

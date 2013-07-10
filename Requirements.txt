@@ -40,4 +40,11 @@ accounts. The incomes should be grouped either by account or by time period
 17) Create a total standing report for a specific period of time. Values can be
 grouped by week, month, year.
 
-18) 
+18)  Log those actions that modify in someway the current state. Use a different
+persistence unit with resource-local transactions in order not to affect the
+active JTA transaction.
+
+19) Use two different data sources in persistence unit; one jta and one
+non-jta. The non-jta data source can be used for high-performance queries.
+
+
