@@ -1,31 +1,36 @@
 package plb.accounting.model;
 
-import javax.persistence.*;
-
 /**
  * Base Entity to hold the id of all other entities
  * <p/>
  * User: pbala
  * Date: 10/29/12 9:28 PM
  */
-@MappedSuperclass
 public abstract class BaseEntity {
-    /**
-     *
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ENTITY_ID")
-    private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    public abstract Long getId();
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "id=" + id +
+                "id=" + getId() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseEntity)) return false;
+
+        BaseEntity that = (BaseEntity) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

@@ -4,16 +4,22 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author pbala
  */
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "ATYPE", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "ACCOUNTS", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACC_NAME", "ACC_PARENT_ACCOUNT"})})
+@TableGenerator(name = "Acc_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 5)
 public abstract class AbstractAccount extends BaseEntity implements IAccount {
+
+    @Id
+    @Column(name = "ACC_ID")
+    @GeneratedValue(generator = "Acc_Ids_Gen")
+    private Long id;
+
     /**
      *
      */
@@ -34,12 +40,12 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
      */
     @ManyToOne
     @JoinColumn(name = "ACC_PARENT_ACCOUNT")
-    protected IAccount parentAccount;
+    protected AccountComposite parentAccount;
 
     /**
      *
      */
-    @Column(name = "ACC_DECRIPTION", length = 500)
+    @Column(name = "ACC_DESCRIPTION", length = 500)
     private String description;
 
     /**
@@ -68,6 +74,11 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
         setCurrentBalance(initialBalance);
     }
 
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     /**
      * @return
@@ -125,7 +136,7 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
      * @return
      */
     @Override
-    public IAccount getParentAccount() {
+    public AccountComposite getParentAccount() {
         return parentAccount;
     }
 
@@ -133,7 +144,13 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
      * @param parentAccount
      */
     @Override
-    public void setParentAccount(IAccount parentAccount) {
+    public void setParentAccount(AccountComposite parentAccount) {
+        if (this.parentAccount != null) {
+            this.parentAccount.removeChildrenAccount(this);
+        }
+        if (parentAccount != null) {
+            parentAccount.addChildrenAccount(this);
+        }
         this.parentAccount = parentAccount;
     }
 
@@ -165,5 +182,28 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
                 ", description='" + description + '\'' +
                 ", type=" + type +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractAccount)) return false;
+        if (!super.equals(o)) return false;
+
+        AbstractAccount that = (AbstractAccount) o;
+
+        if (!name.equals(that.name)) return false;
+        if (parentAccount != null ? !parentAccount.equals(that.parentAccount) : that.parentAccount != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (parentAccount != null ? parentAccount.hashCode() : 0);
+        return result;
     }
 }

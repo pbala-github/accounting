@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-    <persistence-unit name="accountingTestPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="accountingTestMySqlPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <!--Managed Classes-->
+        <class>plb.accounting.model.Transaction</class>
+        <class>plb.accounting.model.ExternalParty</class>
+        <class>plb.accounting.model.AbstractAccount</class>
+        <class>plb.accounting.model.Account</class>
+        <class>plb.accounting.model.AccountComposite</class>
+
+        <shared-cache-mode>ALL</shared-cache-mode>
+        <validation-mode>NONE</validation-mode>
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/accounting"/>
+            <property name="hibernate.connection.username" value="accounting"/>
+            <property name="hibernate.connection.password" value="accounting"/>
+            <property name="hibernate.connection.pool_size" value="2"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!--<property name="hibernate.transaction.factory_class"-->
+                      <!--value="org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory"/>-->
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="accountingTestDerbyPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <!--Managed Classes-->
+        <class>plb.accounting.model.Transaction</class>
+        <class>plb.accounting.model.ExternalParty</class>
+        <class>plb.accounting.model.AbstractAccount</class>
+        <class>plb.accounting.model.Account</class>
+        <class>plb.accounting.model.AccountComposite</class>
+
         <shared-cache-mode>ALL</shared-cache-mode>
         <validation-mode>NONE</validation-mode>
 
         <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="org.apache.derby.jdbc.ClientDriver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:derby://localhost:1527/AccountingDB;create=true"/>
+            <property name="javax.persistence.jdbc.user"
+                      value="APP"/>
+            <property name="javax.persistence.jdbc.password"
+                      value="APP"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>-->
         </properties>
     </persistence-unit>
 </persistence>

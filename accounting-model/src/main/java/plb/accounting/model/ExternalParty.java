@@ -13,8 +13,13 @@ import java.util.List;
  */
 @Entity
 @Table(name = "EXTERNAL_PARTIES")
+@TableGenerator(name = "ExPrt_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 5)
 public class ExternalParty extends BaseEntity {
 
+    @Id
+    @Column(name = "EXT_PARTY_ID")
+    @GeneratedValue(generator = "ExPrt_Ids_Gen")
+    private Long id;
     /**
      *
      */
@@ -43,7 +48,7 @@ public class ExternalParty extends BaseEntity {
     /**
      * JPA
      */
-    private ExternalParty() {
+    protected ExternalParty() {
     }
 
     /**
@@ -51,6 +56,12 @@ public class ExternalParty extends BaseEntity {
      */
     public ExternalParty(String name) {
         setName(name);
+    }
+
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     /**
@@ -139,5 +150,27 @@ public class ExternalParty extends BaseEntity {
                 ", vat='" + vat + '\'' +
                 ", description='" + description + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExternalParty)) return false;
+        if (!super.equals(o)) return false;
+
+        ExternalParty that = (ExternalParty) o;
+
+        if (!name.equals(that.name)) return false;
+        if (vat != null ? !vat.equals(that.vat) : that.vat != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (vat != null ? vat.hashCode() : 0);
+        return result;
     }
 }

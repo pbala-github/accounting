@@ -12,7 +12,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "TRANSACTIONS")
+@TableGenerator(name = "Tr_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 20)
 public class Transaction extends BaseEntity {
+
+    @Id
+    @Column(name = "TR_ID")
+    @GeneratedValue(generator = "Tr_Ids_Gen")
+    private Long id;
     /**
      *
      */
@@ -23,14 +29,14 @@ public class Transaction extends BaseEntity {
     /**
      *
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "TR_ORIGIN_ACCOUNT", nullable = false)
     private Account originAccount;
 
     /**
      *
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "TR_DEST_ACCOUNT", nullable = false)
     private Account destinationAccount;
 
@@ -73,6 +79,12 @@ public class Transaction extends BaseEntity {
         setOriginAccount(originAccount);
         setDestinationAccount(destinationAccount);
         setExecutionDate(executionDate);
+    }
+
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     public Date getExecutionDate() {
@@ -187,4 +199,33 @@ public class Transaction extends BaseEntity {
                 "} " + super.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        if (!super.equals(o)) return false;
+
+        Transaction that = (Transaction) o;
+
+        if (!amount.equals(that.amount)) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (!destinationAccount.equals(that.destinationAccount)) return false;
+        if (!executionDate.equals(that.executionDate)) return false;
+        if (!originAccount.equals(that.originAccount)) return false;
+        if (relatedParty != null ? !relatedParty.equals(that.relatedParty) : that.relatedParty != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + executionDate.hashCode();
+        result = 31 * result + originAccount.hashCode();
+        result = 31 * result + destinationAccount.hashCode();
+        result = 31 * result + amount.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (relatedParty != null ? relatedParty.hashCode() : 0);
+        return result;
+    }
 }

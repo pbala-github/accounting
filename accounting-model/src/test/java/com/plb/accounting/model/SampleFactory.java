@@ -1,10 +1,12 @@
-package com.plb.accounting.model.tests;
+package com.plb.accounting.model;
 
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.ExternalParty;
+import plb.accounting.model.Transaction;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * @author pbala
@@ -12,7 +14,6 @@ import java.math.BigDecimal;
 public class SampleFactory {
 
     /**
-     *
      * @return
      */
     public static Account getOriginAccount() {
@@ -20,7 +21,6 @@ public class SampleFactory {
     }
 
     /**
-     *
      * @return
      */
     public static Account getDestinationAccount() {
@@ -29,5 +29,13 @@ public class SampleFactory {
 
     public static ExternalParty getExternalParty() {
         return new ExternalParty("external party 1");
+    }
+
+    public static Transaction getTransaction() {
+        return getTransaction(getOriginAccount(), getDestinationAccount());
+    }
+
+    public static Transaction getTransaction(Account originAccount, Account destinationAccount) {
+        return new Transaction(originAccount, destinationAccount, Calendar.getInstance().getTime(), new BigDecimal(340), "sample transaction");
     }
 }

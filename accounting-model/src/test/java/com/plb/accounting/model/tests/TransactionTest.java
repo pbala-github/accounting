@@ -1,5 +1,6 @@
 package com.plb.accounting.model.tests;
 
+import com.plb.accounting.model.SampleFactory;
 import org.junit.Before;
 import org.junit.Test;
 import plb.accounting.model.Account;

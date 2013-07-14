@@ -13,6 +13,7 @@ import java.util.List;
  * Date: 10/29/12 9:28 PM
  */
 @Entity
+@DiscriminatorValue("ACC")
 public class Account extends AbstractAccount {
 
     /**
@@ -143,28 +144,8 @@ public class Account extends AbstractAccount {
     }
 
     @Override
-    public List<IAccount> getChildrenAccounts() {
+    public List<? extends AbstractAccount> getChildrenAccounts() {
         return null;
-    }
-
-    @Override
-    public boolean addChildrenAccount(Account childrenAccount) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean addAllChildrenAccount(List<Account> childrenAccounts) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean removeChildrenAccount(Account childrenAccount) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean removeAllChildrenAccount(List<Account> childrenAccounts) {
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -186,7 +167,7 @@ public class Account extends AbstractAccount {
     }
 
     private void updateParentAccountBalance(BigDecimal amount) {
-        IAccount pAccount = parentAccount;
+        AccountComposite pAccount = parentAccount;
         if (pAccount != null) {
             pAccount.removeChildrenAccount(this);
         }

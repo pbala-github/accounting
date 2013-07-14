@@ -7,6 +7,6 @@ import org.junit.runners.Suite;
  * @author: pbala
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({})
+@Suite.SuiteClasses({AccountTest.class, ExternalPartyTest.class, TransactionTest.class})
 public class AccountingDomainIntegrationTestSuite {
 }

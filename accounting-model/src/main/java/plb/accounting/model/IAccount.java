@@ -17,19 +17,19 @@ public interface IAccount {
 
     BigDecimal getCurrentBalance();
 
-    IAccount getParentAccount();
+    AccountComposite getParentAccount();
 
-    void setParentAccount(IAccount parentAccount);
+    void setParentAccount(AccountComposite parentAccount);
 
-    List<IAccount> getChildrenAccounts();
+    List<? extends AbstractAccount> getChildrenAccounts();
 
-    boolean addChildrenAccount(Account childrenAccount);
+//    boolean addChildrenAccount(AbstractAccount childrenAccount);
+//
+//    boolean addAllChildrenAccount(List<? extends AbstractAccount>childrenAccounts);
 
-    boolean addAllChildrenAccount(List<Account> childrenAccounts);
+//    boolean removeChildrenAccount(AbstractAccount childrenAccount);
 
-    boolean removeChildrenAccount(Account childrenAccount);
-
-    boolean removeAllChildrenAccount(List<Account> childrenAccounts);
+//    boolean removeAllChildrenAccount(List<? extends AbstractAccount> childrenAccounts);
 
     String getDescription();
 
