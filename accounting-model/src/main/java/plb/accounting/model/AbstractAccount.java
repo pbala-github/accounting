@@ -9,13 +9,6 @@ import java.math.BigDecimal;
 /**
  * @author pbala
  */
-@NamedQueries({
-        @NamedQuery(name = "AbstractAccount.all", query = "select  account from AbstractAccount  account",
-                hints = {//
-                        @QueryHint(name = QueryHints.HINT_READONLY, value = "true")//
-                }),//
-        @NamedQuery(name = "AbstractAccount.byId", query = "select  account from AbstractAccount  account where account.id = :id")
-})
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ATYPE", discriminatorType = DiscriminatorType.STRING)

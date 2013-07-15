@@ -12,13 +12,6 @@ import java.util.List;
 /**
  * @author pbala
  */
-@NamedQueries({
-        @NamedQuery(name = "AccountComposite.all", query = "select  account from AccountComposite  account",
-                hints = {//
-                        @QueryHint(name = QueryHints.HINT_READONLY, value = "true")//
-                }),//
-        @NamedQuery(name = "AccountComposite.byId", query = "select  account from AccountComposite  account where account.id = :id")
-})
 @Entity
 @DiscriminatorValue("ACC_CMPST")
 public class AccountComposite extends AbstractAccount {

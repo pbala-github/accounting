@@ -13,16 +13,6 @@ import java.util.List;
  * User: pbala
  * Date: 10/29/12 9:28 PM
  */
-@NamedQueries({
-        @NamedQuery(//
-                name = "Account.all",//
-                query = "select  account from Account  account",
-                hints = {//
-                        @QueryHint(name = QueryHints.HINT_READONLY, value = "true")//
-                }
-        ),//
-        @NamedQuery(name = "Account.byId", query = "select  account from Account  account where account.id = :id")
-})
 @Entity
 @DiscriminatorValue("ACC")
 public class Account extends AbstractAccount {

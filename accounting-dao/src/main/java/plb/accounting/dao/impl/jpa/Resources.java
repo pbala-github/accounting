@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 
     @Produces
-    @PersistenceContext(unitName = "testAccountingPU")
+    @PersistenceContext(unitName = "accountingPU")
     private EntityManager entityManager;
 
     @Produces

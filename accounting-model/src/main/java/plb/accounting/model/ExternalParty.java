@@ -12,13 +12,6 @@ import java.util.List;
  * User: pbala
  * Date: 10/29/12  9:31 PM
  */
-@NamedQueries({
-        @NamedQuery(name = "ExternalParty.all", query = "select  ep from ExternalParty  ep",
-                hints = {//
-                        @QueryHint(name = QueryHints.HINT_READONLY, value = "true")//
-                }),//
-        @NamedQuery(name = "ExternalParty.byId", query = "select  ep from ExternalParty  ep where ep.id = :id")
-})
 @Entity
 @Table(name = "EXTERNAL_PARTIES")
 @TableGenerator(name = "ExPrt_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 5)

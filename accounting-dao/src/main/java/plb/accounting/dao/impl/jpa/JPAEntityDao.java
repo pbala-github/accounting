@@ -6,6 +6,8 @@ import plb.accounting.model.BaseEntity;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -20,9 +22,7 @@ public abstract class JPAEntityDao implements EntityDAO {
 
     @Override
     public <T extends BaseEntity> T findById(Class<T> clazz, long id) {
-        TypedQuery<T> namedQuery = em.createNamedQuery(clazz.getSimpleName() + ".byId", clazz);
-        namedQuery.setParameter("id", id);
-        return namedQuery.getSingleResult();
+        return em.find(clazz, id);
     }
 
     @Override
@@ -45,7 +45,6 @@ public abstract class JPAEntityDao implements EntityDAO {
     }
 
     /**
-     * Query API implementation
      *
      * @param clazz
      * @param <T>
@@ -53,13 +52,9 @@ public abstract class JPAEntityDao implements EntityDAO {
      */
     @Override
     public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
-        return em.createNamedQuery(clazz.getSimpleName() + ".all").getResultList();
+        CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
+        Root<T> root = criteriaQuery.from(clazz);
+        return em.createQuery(criteriaQuery).getResultList();
     }
-//    @Override
-//    public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
-//        CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
-//        Root<T> root = criteriaQuery.from(clazz);
-//        return em.createQuery(criteriaQuery).getResultList();
-//    }
 
 }
