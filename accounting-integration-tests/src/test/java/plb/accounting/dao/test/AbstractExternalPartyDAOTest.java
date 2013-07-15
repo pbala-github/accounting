@@ -4,6 +4,7 @@ import org.junit.Test;
 import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
+import plb.accounting.model.view.ExternalPartyView;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -22,8 +23,7 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
 //    @Test
     @Override
     public void persist() {
-        ExternalParty party = new ExternalParty();
-        party.setName("external party 1");
+        ExternalParty party = new ExternalParty("external party 1");
         party.setDescription("external party description");
         party.setVat("1111111111");
 
@@ -70,7 +70,7 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
     public void searchByCriteria() {
         ExternalPartySearchCriteria criteria = new ExternalPartySearchCriteria();
         criteria.setName("org_name_2");
-        List<ExternalParty> parties = getDAO().searchExternalParties(criteria);
+        List<ExternalPartyView> parties = getDAO().searchExternalParties(criteria);
         assertEquals(1, parties.size());
         assertEquals("org_name_2", parties.get(0).getName());
 

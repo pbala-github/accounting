@@ -11,6 +11,13 @@ public class OutcomeReportResult extends BaseReportResult<OutcomeReportCriteria>
      */
     private double totalOutcome;
 
+    /**
+     * @param reportCriteria
+     */
+    protected OutcomeReportResult(OutcomeReportCriteria reportCriteria) {
+        super(reportCriteria);
+    }
+
     public double getTotalOutcome() {
         return totalOutcome;
     }

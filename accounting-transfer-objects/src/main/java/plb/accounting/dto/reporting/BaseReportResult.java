@@ -18,6 +18,13 @@ public abstract class BaseReportResult<T extends ReportCriteria> extends Abstrac
      */
     private List<BaseReportResultEntry> resultEntries = new ArrayList<BaseReportResultEntry>();
 
+    /**
+     * @param reportCriteria
+     */
+    protected BaseReportResult(T reportCriteria) {
+        super(reportCriteria);
+    }
+
 
     /**
      * @param income

@@ -11,6 +11,13 @@ public class IncomeReportResult extends BaseReportResult<IncomeReportCriteria> {
      */
     private double totalIncome;
 
+    /**
+     * @param reportCriteria
+     */
+    protected IncomeReportResult(IncomeReportCriteria reportCriteria) {
+        super(reportCriteria);
+    }
+
 
     public double getTotalIncome() {
         return totalIncome;

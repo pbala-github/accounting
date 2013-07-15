@@ -1,5 +1,6 @@
 package plb.accounting.model;
 
+import org.hibernate.ejb.QueryHints;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -10,6 +11,13 @@ import java.util.Date;
  * User: pbala
  * Date: 10/29/12 9:31 PM
  */
+@NamedQueries({
+        @NamedQuery(name = "Transaction.all", query = "select  t from Transaction  t",
+                hints = {//
+                        @QueryHint(name = QueryHints.HINT_READONLY, value = "true")//
+                }),//
+        @NamedQuery(name = "Transaction.byId", query = "select  t from Transaction  t where t.id = :id")
+})
 @Entity
 @Table(name = "TRANSACTIONS")
 @TableGenerator(name = "Tr_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 20)

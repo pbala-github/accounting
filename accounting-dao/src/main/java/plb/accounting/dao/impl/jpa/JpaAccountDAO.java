@@ -6,6 +6,7 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
+import plb.accounting.model.Account_;
 import plb.accounting.model.view.AccountView;
 
 import javax.ejb.Local;
@@ -30,37 +31,6 @@ import java.util.List;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
 
-//    /**
-//     * Query API implementation
-//     *
-//     * @param searchCriteria
-//     * @return
-//     */
-//    @Override
-//    public List<Account> searchAccounts(AccountSearchCriteria searchCriteria) {
-//        QueryBuilder qb = QueryBuilder.forClass(Account.class);
-//
-//        if (StringUtils.hasText(searchCriteria.getAccountName()))
-//            qb.and("name", searchCriteria.getAccountName());
-//
-//        if (searchCriteria.getAccountType() != null)
-//            qb.and("type", AccountTypeEnum.valueOf(searchCriteria.getAccountType().name()));
-//
-//        if (searchCriteria.getLowestAccountBalance() != null)
-//            qb.greaterThan("currentBalance", searchCriteria.getLowestAccountBalance());
-//
-//        if (searchCriteria.getHighestAccountBalance() != null)
-//            qb.lessThan("currentBalance", searchCriteria.getHighestAccountBalance());
-//
-//        if (searchCriteria.getParentAccountId() != null)
-//            qb.and("parentAccount.id", searchCriteria.getParentAccountId());
-//
-//        if(searchCriteria.isTopParentAccount())
-//            qb.nill("parentAccount");
-//
-//        return qb.build(em, searchCriteria).getResultList();
-//    }
-
     //Criteria API implementation
     @Override
     public List<AccountView> searchAccounts(AccountSearchCriteria searchCriteria) {
@@ -72,34 +42,34 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
         List<Predicate> conditions = new ArrayList<Predicate>();
 
         if (StringUtils.hasText(searchCriteria.getAccountName()))
-            conditions.add(builder.equal(root.get("name"), searchCriteria.getAccountName()));
+            conditions.add(builder.equal(root.get(Account_.name), searchCriteria.getAccountName()));
 
         if (searchCriteria.getAccountType() != null)
-            conditions.add(builder.equal(root.get("type"), AccountTypeEnum.valueOf(searchCriteria.getAccountType().name())));
+            conditions.add(builder.equal(root.get(Account_.type), AccountTypeEnum.valueOf(searchCriteria.getAccountType().name())));
 
         if (searchCriteria.getHighestAccountBalance() != null)
-            conditions.add(builder.lessThanOrEqualTo(root.<BigDecimal>get("currentBalance"), searchCriteria.getHighestAccountBalance()));
+            conditions.add(builder.lessThanOrEqualTo(root.<BigDecimal>get(Account_.currentBalance), searchCriteria.getHighestAccountBalance()));
 
         if (searchCriteria.getLowestAccountBalance() != null)
-            conditions.add(builder.greaterThanOrEqualTo(root.<BigDecimal>get("currentBalance"), searchCriteria.getLowestAccountBalance()));
+            conditions.add(builder.greaterThanOrEqualTo(root.<BigDecimal>get(Account_.currentBalance), searchCriteria.getLowestAccountBalance()));
 
         if (searchCriteria.getParentAccountId() != null)
-            conditions.add(builder.equal(root.<Account>get("parentAccount").<Long>get("id"), searchCriteria.getParentAccountId()));
+            conditions.add(builder.equal(root.<Account>get(Account_.parentAccount.getName()).<Long>get(Account_.id), searchCriteria.getParentAccountId()));
 
         if (searchCriteria.isTopParentAccount()) {
-            conditions.add(builder.isNull(root.get("parentAccount")));
+            conditions.add(builder.isNull(root.get(Account_.parentAccount)));
         }
 
         if (!conditions.isEmpty())
             criteria.where(builder.and(conditions.toArray(new Predicate[0])));
 
         criteria.select(builder.construct(AccountView.class,//
-                root.get("id"),//
-                root.get("name"),//
-                root.get("initialBalance"),//
-                root.get("currentBalance"),//
-                root.get("description"),//
-                root.get("type")//
+                root.get(Account_.id),//
+                root.get(Account_.name),//
+                root.get(Account_.initialBalance),//
+                root.get(Account_.currentBalance),//
+                root.get(Account_.description),//
+                root.get(Account_.type)//
         ));
 
         TypedQuery<AccountView> typedQuery = em.createQuery(criteria);

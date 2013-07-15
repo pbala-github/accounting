@@ -5,6 +5,7 @@ import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
+import plb.accounting.model.view.AccountView;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
-        List<Account> accounts = getDAO().searchAccounts(criteria);
+        List<AccountView> accounts = getDAO().searchAccounts(criteria);
         assertNotNull(accounts);
         assertEquals(1, accounts.size());
         assertEquals("Account name 102", accounts.get(0).getName());
@@ -56,12 +57,8 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     @Test
     @Override
     public void persist() {
-        Account account = new Account();
-        account.setCurrentBalance(BigDecimal.ZERO);
+        Account account = new Account("Account name", AccountTypeEnum.OUTCOME, BigDecimal.ZERO);
         account.setDescription("Description");
-        account.setInitialBalance(BigDecimal.ZERO);
-        account.setName("Account name");
-        account.setType(AccountTypeEnum.OUTCOME);
 
         Account stored = getDAO().saveOrUpdate(account);
         assertNotSame(0, stored.getId());
@@ -69,7 +66,6 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         Account found = getDAO().findById(Account.class, stored.getId());
 
         assertNotNull(found);
-
         assertEquals(found.getName(), account.getName());
     }
 
@@ -106,6 +102,5 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         assertNull(getDAO().findById(Account.class, account.getId()));
 
     }
-
 
 }

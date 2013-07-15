@@ -70,9 +70,8 @@ public class DataBootstrap {
      * @return
      */
     public ExternalParty createParty(int o) {
-        ExternalParty party = new ExternalParty();
+        ExternalParty party = new ExternalParty("org_name_" + o);
         party.setDescription("org_description_" + o);
-        party.setName("org_name_" + o);
         party.setVat("00000000" + o);
 
         return party;
@@ -83,12 +82,8 @@ public class DataBootstrap {
      * @return
      */
     public Account createAccount(int a) {
-        Account account = new Account();
-        account.setCurrentBalance(BigDecimal.ZERO);
+        Account account = new Account("Account name " + a, AccountTypeEnum.OUTCOME, BigDecimal.ZERO);
         account.setDescription("Description");
-        account.setInitialBalance(BigDecimal.ONE);
-        account.setName("Account name " + a);
-        account.setType(AccountTypeEnum.OUTCOME);
 
         return account;
     }
@@ -97,18 +92,9 @@ public class DataBootstrap {
     private Transaction createTransaction(int t, Account originAccount, ExternalParty externalParty) {
 
         Account destinationAccount = createAccount(t + 100);
-
         db.saveOrUpdate(destinationAccount);
-
-        Transaction transaction = new Transaction();
-        transaction.setAmount(new BigDecimal(amountGenerator.nextInt(100)));
-        transaction.setDescription("tr_description_" + t);
-        transaction.setExecutionDate(new Date());
-
+        Transaction transaction = new Transaction(originAccount, destinationAccount, new Date(), new BigDecimal(amountGenerator.nextInt(100)), "tr_description_" + t);
         transaction.setRelatedParty(externalParty);
-        transaction.setOriginAccount(originAccount);
-        transaction.setDestinationAccount(destinationAccount);
-
         db.saveOrUpdate(transaction);
 
         return transaction;

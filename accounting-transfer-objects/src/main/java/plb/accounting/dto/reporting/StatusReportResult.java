@@ -9,6 +9,13 @@ import plb.accounting.dto.AccountDTO;
 public class StatusReportResult extends BaseReportResult<StatusReportCriteria> {
 
     /**
+     * @param reportCriteria
+     */
+    protected StatusReportResult(StatusReportCriteria reportCriteria) {
+        super(reportCriteria);
+    }
+
+    /**
      * @param account
      * @return
      */

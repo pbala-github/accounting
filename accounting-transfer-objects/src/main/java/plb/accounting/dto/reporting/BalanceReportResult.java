@@ -16,6 +16,13 @@ public class BalanceReportResult extends BaseReportResult<BalanceReportCriteria>
      */
     private double totalOutcome;
 
+    /**
+     * @param reportCriteria
+     */
+    protected BalanceReportResult(BalanceReportCriteria reportCriteria) {
+        super(reportCriteria);
+    }
+
     public double getTotalIncome() {
         return totalIncome;
     }

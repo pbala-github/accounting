@@ -11,12 +11,12 @@ public abstract class AbstractReportResult<T extends ReportCriteria> implements 
      */
     private T reportCriteria;
 
+    protected AbstractReportResult(T reportCriteria) {
+        this.reportCriteria = reportCriteria;
+    }
 
     public T getReportCriteria() {
         return reportCriteria;
     }
 
-    public void setReportCriteria(T reportCriteria) {
-        this.reportCriteria = reportCriteria;
-    }
 }

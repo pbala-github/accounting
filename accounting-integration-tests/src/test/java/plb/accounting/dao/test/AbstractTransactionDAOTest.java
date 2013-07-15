@@ -6,6 +6,7 @@ import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -25,15 +26,11 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Test
     @Override
     public void persist() {
-        Transaction transaction = new Transaction();
-        transaction.setAmount(BigDecimal.ZERO);
-        transaction.setDescription("transaction description");
         Account destinationAccount = getDAO().getAll(Account.class).get(0);
-        transaction.setDestinationAccount(destinationAccount);
-        transaction.setExecutionDate(new Date());
         Account originAccount = getDAO().getAll(Account.class).get(1);
-        transaction.setOriginAccount(originAccount);
         ExternalParty externalParty = getDAO().getAll(ExternalParty.class).get(0);
+
+        Transaction transaction = new Transaction(originAccount, destinationAccount, new Date(), BigDecimal.TEN, "transaction description");
         transaction.setRelatedParty(externalParty);
 
         transaction = getDAO().saveOrUpdate(transaction);
@@ -79,7 +76,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();
         criteria.setDescription("tr_description_4");
-        List<Transaction> transactions = getDAO().searchTransactions(criteria);
+        List<TransactionView> transactions = getDAO().searchTransactions(criteria);
         assertEquals(1, transactions.size());
         assertEquals("tr_description_4", transactions.get(0).getDescription());
 
@@ -108,7 +105,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         criteria.setOrgName("org_name_3");
         transactions = getDAO().searchTransactions(criteria);
         assertFalse(transactions.isEmpty());
-        assertEquals("org_name_3", transactions.get(0).getRelatedParty().getName());
+        assertEquals("org_name_3", transactions.get(0).getRelatedPartyName());
 
         criteria = new TransactionSearchCriteria();
         criteria.setOriginAccountIds(new HashSet<Long>(Arrays.asList(1l, 2l, 3l)));
