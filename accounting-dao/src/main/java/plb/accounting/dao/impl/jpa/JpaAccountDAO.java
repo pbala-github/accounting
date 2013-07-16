@@ -31,7 +31,12 @@ import java.util.List;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
 
-    //Criteria API implementation
+    /**
+     * Search Accounts using advanced criteria
+     *
+     * @param searchCriteria
+     * @return
+     */
     @Override
     public List<AccountView> searchAccounts(AccountSearchCriteria searchCriteria) {
         Assert.notNull(searchCriteria);
@@ -75,4 +80,10 @@ public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
         TypedQuery<AccountView> typedQuery = em.createQuery(criteria);
         return typedQuery.getResultList();
     }
+
+    @Override
+    public List<AccountView> getAll() {
+        return searchAccounts(new AccountSearchCriteria());
+    }
+
 }

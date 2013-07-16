@@ -31,45 +31,12 @@ import java.util.List;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
 
-    //Query API
-//    @Override
-//    public List<Transaction> searchTransactions(TransactionSearchCriteria criteria) {
-//        QueryBuilder qb = QueryBuilder.forClass(Transaction.class);
-//
-//        if (StringUtils.hasText(criteria.getOrgVat()))
-//            qb.and("relatedParty.vat", criteria.getOrgVat());
-//
-//        if (criteria.getAmountFrom() != null)
-//            qb.greaterThan("amount", criteria.getAmountFrom());
-//
-//        if (criteria.getAmountTo() != null)
-//            qb.lessThan("amount", criteria.getAmountTo());
-//
-//        if (StringUtils.hasText(criteria.getDescription()))
-//            qb.and("description", criteria.getDescription());
-//
-//        if (criteria.getDestinationAccountIds() != null && !criteria.getDestinationAccountIds().isEmpty()) {
-//            qb.in("destinationAccount.id", criteria.getDestinationAccountIds());
-//        }
-//
-//        if (criteria.getExecutionDateFrom() != null)
-//            qb.greaterThan("executionDate", criteria.getExecutionDateFrom());
-//
-//        if (criteria.getExecutionDateTo() != null)
-//            qb.lessThan("executionDate", criteria.getExecutionDateTo());
-//
-//        if (StringUtils.hasText(criteria.getOrgName()))
-//            qb.and("relatedParty.name", criteria.getOrgName());
-//
-//        if (criteria.getOriginAccountIds() != null && !criteria.getOriginAccountIds().isEmpty()) {
-//            qb.in("originAccount.id", criteria.getOriginAccountIds());
-//        }
-//
-//        Query query = qb.build(em, criteria);
-//        return query.getResultList();
-//    }
-
-    //Criteria API
+    /**
+     * Search Transactions using advanced criteria
+     *
+     * @param criteria
+     * @return
+     */
     @Override
     public List<TransactionView> searchTransactions(TransactionSearchCriteria criteria) {
         Assert.notNull(criteria);
@@ -128,5 +95,10 @@ public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
         List<TransactionView> resultList = typedQuery.getResultList();
 
         return resultList;
+    }
+
+    @Override
+    public List<TransactionView> getAll() {
+        return searchTransactions(new TransactionSearchCriteria());
     }
 }

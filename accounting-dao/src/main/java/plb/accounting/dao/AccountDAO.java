@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface AccountDAO extends EntityDAO {
     List<AccountView> searchAccounts(AccountSearchCriteria criteria);
+
+    List<AccountView> getAll();
 }

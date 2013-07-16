@@ -34,6 +34,11 @@ public class DB4OExternalPartyDAO extends DB4OBaseDAO implements ExternalPartyDA
         return executeQuery(predicate);
     }
 
+    @Override
+    public List<ExternalPartyView> getAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void delete(long id) {
         ExternalParty party = findById(ExternalParty.class, id);
 

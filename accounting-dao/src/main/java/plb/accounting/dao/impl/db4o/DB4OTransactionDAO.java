@@ -48,4 +48,9 @@ public class DB4OTransactionDAO extends DB4OBaseDAO implements TransactionDAO{
 
         return executeQuery(predicate);
     }
+
+    @Override
+    public List<TransactionView> getAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

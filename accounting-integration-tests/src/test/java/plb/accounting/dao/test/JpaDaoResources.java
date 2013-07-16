@@ -61,23 +61,25 @@ public class JpaDaoResources {
 
     public <T> T advanceDao(final T dao, Class<T> i) {
 
-        return (T) Proxy.newProxyInstance(dao.getClass().getClassLoader(), new Class[]{i}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                Object result;
-                userTransaction.begin();
-                try {
-                    result = method.invoke(dao, args);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    userTransaction.rollback();
-                    throw new RuntimeException(e);
-                }
+//        return (T) Proxy.newProxyInstance(dao.getClass().getClassLoader(), new Class[]{i}, new InvocationHandler() {
+//            @Override
+//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+//                Object result;
+//                userTransaction.begin();
+//                try {
+//                    result = method.invoke(dao, args);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    userTransaction.rollback();
+//                    throw new RuntimeException(e);
+//                }
+//
+//                userTransaction.commit();
+//                return result;
+//            }
+//        });
 
-                userTransaction.commit();
-                return result;
-            }
-        });
+        return dao;
 
     }
 

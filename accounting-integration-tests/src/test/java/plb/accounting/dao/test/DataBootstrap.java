@@ -1,11 +1,15 @@
 package plb.accounting.dao.test;
 
 import org.junit.Assert;
+import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.ExternalPartyDAO;
+import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.AccountView;
+import plb.accounting.model.view.ExternalPartyView;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,18 +36,28 @@ public class DataBootstrap {
 
     @Inject
     @Transactional
-    private ExternalPartyDAO db;
+    private ExternalPartyDAO externalPartyDAO;
+
+    @Inject
+    @Transactional
+    private AccountDAO accountDAO;
+
+    @Inject
+    @Transactional
+    private TransactionDAO transactionDAO;
+
 
     private static Boolean initialized = false;
 
-    @PostConstruct
+//    @PostConstruct
     synchronized void bootstrap() {
         System.out.println("\n\n::::::::::::BOOTSTRAPPING DATA::::::::::::::::::\n\n");
         if (initialized) {
             System.out.println("\n\n:::::::::::::BOOTSTRAP ALREADY COMPLETED::::::::::::::::\n\n");
             return;
         }
-        Assert.assertNotNull(db);
+        Assert.assertNotNull(externalPartyDAO);
+        Assert.assertNotNull(accountDAO);
 
         //clean up
         cleanup();
@@ -51,12 +65,12 @@ public class DataBootstrap {
         //Initialize external parties
         List<ExternalParty> externalParties = new ArrayList<ExternalParty>();
         for (int i = 0; i < MAX_EXTERNAL_PARTIES; i++) {
-            externalParties.add(db.saveOrUpdate(createParty(i)));
+            externalParties.add(externalPartyDAO.saveOrUpdate(createParty(i)));
         }
 
         //Initialize accounts
         for (int i = 0; i < MAX_ACCOUNTS; i++) {
-            Account account = db.saveOrUpdate(createAccount(i));
+            Account account = accountDAO.saveOrUpdate(createAccount(i));
             for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
                 createTransaction(t, account, externalParties.get(new Random(externalParties.size()).nextInt()));
             }
@@ -92,40 +106,36 @@ public class DataBootstrap {
     private Transaction createTransaction(int t, Account originAccount, ExternalParty externalParty) {
 
         Account destinationAccount = createAccount(t + 100);
-        db.saveOrUpdate(destinationAccount);
+        accountDAO.saveOrUpdate(destinationAccount);
         Transaction transaction = new Transaction(originAccount, destinationAccount, new Date(), new BigDecimal(amountGenerator.nextInt(100)), "tr_description_" + t);
         transaction.setRelatedParty(externalParty);
-        db.saveOrUpdate(transaction);
+        transactionDAO.saveOrUpdate(transaction);
 
         return transaction;
     }
 
-    @PreDestroy
+//    @PreDestroy
     public void cleanup() {
         System.out.println("\n\n::::::::::CLEAN UP DATA::::::::::::\n\n");
-        Assert.assertNotNull(db);
         deleteAccounts();
         deleteExternalParties();
     }
 
     private void deleteExternalParties() {
-        List<ExternalParty> externalParties = db.getAll(ExternalParty.class);
+        List<ExternalPartyView> externalParties = externalPartyDAO.getAll();
         if (externalParties != null) {
-            for (ExternalParty externalParty : externalParties) {
-                db.delete(ExternalParty.class, externalParty.getId());
+            for (ExternalPartyView externalParty : externalParties) {
+                externalPartyDAO.delete(ExternalParty.class, externalParty.getDbId());
             }
         }
     }
 
     private void deleteAccounts() {
-        List<Account> accounts = db.getAll(Account.class);
+        List<AccountView> accounts = accountDAO.getAll();
         if (accounts != null) {
-            for (Account account : accounts) {
-                db.delete(Account.class, account.getId());
+            for (AccountView account : accounts) {
+                accountDAO.delete(Account.class, account.getDbId());
             }
         }
-
     }
-
-
 }

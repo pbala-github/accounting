@@ -7,7 +7,6 @@ import plb.accounting.model.Account;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.view.AccountView;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,11 +18,9 @@ import static org.junit.Assert.*;
  */
 public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO> {
 
-    @Inject
-    DataBootstrap dataBootstrap;
 
     @Override
-//    @Test
+    @Test
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setAccountName("Account name 102");
@@ -48,9 +45,11 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     }
 
     @Override
-//    @Test
+    @Test
     public void getAll() {
-        assertNotNull(getDAO().getAll(Account.class));
+        List<AccountView> accountViews = getDAO().getAll();
+        assertNotNull(accountViews);
+        assertEquals(accountViews.size(), DataBootstrap.MAX_ACCOUNTS);
     }
 
 
@@ -69,21 +68,21 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         assertEquals(found.getName(), account.getName());
     }
 
-    //    @Test
+    @Test
     @Override
     public void findById() {
-        Account account = getDAO().getAll(Account.class).get(0);
+        AccountView account = getDAO().getAll().get(0);
         assertNotNull(account);
-        ;
 
-        assertEquals(account.getId(), getDAO().findById(Account.class, account.getId()).getId());
+        assertEquals(account.getDbId(), getDAO().findById(Account.class, account.getDbId()).getId());
     }
 
     @Test
     @Override
     public void update() {
-        Account account = getDAO().getAll(Account.class).get(0);
-        assertNotNull(account);
+        AccountView accountView = getDAO().getAll().get(0);
+        assertNotNull(accountView);
+        Account account = getDAO().findById(Account.class, accountView.getDbId());
 
         account.setName("Updated Account name");
         getDAO().saveOrUpdate(account);
@@ -96,11 +95,10 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     @Test
     @Override
     public void delete() {
-        Account account = getDAO().getAll(Account.class).get(0);
-        assertNotNull(account);
-        getDAO().delete(Account.class, account.getId());
-        assertNull(getDAO().findById(Account.class, account.getId()));
-
+        AccountView accountView = getDAO().getAll().get(0);
+        assertNotNull(accountView);
+        getDAO().delete(Account.class, accountView.getDbId());
+        assertNull(getDAO().findById(Account.class, accountView.getDbId()));
     }
 
 }

@@ -38,6 +38,11 @@ public class DB4OAccountDAO extends DB4OBaseDAO implements AccountDAO {
         return executeQuery(predicate);
     }
 
+    @Override
+    public List<AccountView> getAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 
     public void delete(long id) {
         Account account = findById(Account.class, id);

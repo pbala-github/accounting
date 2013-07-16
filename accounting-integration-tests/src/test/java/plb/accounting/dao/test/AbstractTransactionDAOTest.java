@@ -2,10 +2,14 @@ package plb.accounting.dao.test;
 
 import org.junit.Test;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.dao.AccountDAO;
+import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.model.Account;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.AccountView;
+import plb.accounting.model.view.ExternalPartyView;
 import plb.accounting.model.view.TransactionView;
 
 import javax.inject.Inject;
@@ -23,12 +27,24 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Inject
     DataBootstrap dataBootstrap;
 
+    @Inject
+    @Transactional
+    private AccountDAO accountDAO;
+
+    @Inject
+    @Transactional
+    private ExternalPartyDAO externalPartyDAO;
+
+
     @Test
     @Override
     public void persist() {
-        Account destinationAccount = getDAO().getAll(Account.class).get(0);
-        Account originAccount = getDAO().getAll(Account.class).get(1);
-        ExternalParty externalParty = getDAO().getAll(ExternalParty.class).get(0);
+        AccountView destinationAccountView = accountDAO.getAll().get(0);
+        AccountView originAccountView = accountDAO.getAll().get(1);
+        ExternalPartyView externalPartyView = externalPartyDAO.getAll().get(0);
+        Account destinationAccount = getDAO().findById(Account.class, destinationAccountView.getDbId());
+        Account originAccount = getDAO().findById(Account.class, originAccountView.getDbId());
+        ExternalParty externalParty = getDAO().findById(ExternalParty.class, externalPartyView.getDbId());
 
         Transaction transaction = new Transaction(originAccount, destinationAccount, new Date(), BigDecimal.TEN, "transaction description");
         transaction.setRelatedParty(externalParty);
@@ -40,25 +56,26 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Test
     @Override
     public void findById() {
-        Transaction transaction = getDAO().getAll(Transaction.class).get(0);
+        TransactionView transaction = getDAO().getAll().get(0);
         assertNotNull(transaction);
-        assertEquals(transaction.getId(), getDAO().findById(Transaction.class, transaction.getId()).getId());
+        assertEquals(transaction.getDbId(), getDAO().findById(Transaction.class, transaction.getDbId()).getId());
     }
 
     @Test
     @Override
     public void delete() {
-        Transaction transaction = getDAO().getAll(Transaction.class).get(0);
+        TransactionView transaction = getDAO().getAll().get(0);
         assertNotNull(transaction);
-        getDAO().delete(Transaction.class, transaction.getId());
-        assertNull(getDAO().findById(Transaction.class, transaction.getId()));
+        getDAO().delete(Transaction.class, transaction.getDbId());
+        assertNull(getDAO().findById(Transaction.class, transaction.getDbId()));
     }
 
     @Test
     @Override
     public void update() {
-        Transaction transaction = getDAO().getAll(Transaction.class).get(0);
-        assertNotNull(transaction);
+        TransactionView transactionView = getDAO().getAll().get(0);
+        assertNotNull(transactionView);
+        Transaction transaction = getDAO().findById(Transaction.class, transactionView.getDbId());
         transaction.setDescription("hhhhhhhhhhh");
         getDAO().saveOrUpdate(transaction);
         transaction = getDAO().findById(Transaction.class, transaction.getId());
@@ -68,7 +85,9 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     @Test
     @Override
     public void getAll() {
-        assertNotNull(getDAO().getAll(Transaction.class));
+        List<TransactionView> transactionViews = getDAO().getAll();
+        assertNotNull(transactionViews);
+        assertEquals(DataBootstrap.MAX_TRANSACTIONS, transactionViews.size());
     }
 
     @Test

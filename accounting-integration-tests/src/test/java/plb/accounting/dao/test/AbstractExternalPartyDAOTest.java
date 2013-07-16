@@ -6,7 +6,6 @@ import plb.accounting.dao.ExternalPartyDAO;
 import plb.accounting.model.ExternalParty;
 import plb.accounting.model.view.ExternalPartyView;
 
-import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,10 +16,7 @@ import static org.junit.Assert.*;
  */
 public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<ExternalPartyDAO> {
 
-    @Inject
-    DataBootstrap dataBootstrap;
-
-//    @Test
+    @Test
     @Override
     public void persist() {
         ExternalParty party = new ExternalParty("external party 1");
@@ -31,28 +27,30 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
         assertNotNull(party.getId());
     }
 
-//    @Test
+    @Test
     @Override
     public void findById() {
-        ExternalParty externalParty = getDAO().getAll(ExternalParty.class).get(0);
+        ExternalPartyView externalParty = getDAO().getAll().get(0);
         assertNotNull(externalParty);
-        assertEquals(externalParty.getId(), getDAO().findById(ExternalParty.class, externalParty.getId()).getId());
+        assertEquals(externalParty.getDbId(), getDAO().findById(ExternalParty.class, externalParty.getDbId()).getId());
     }
 
-    //    @Test
+    @Test
     @Override
     public void delete() {
-        ExternalParty party = getDAO().getAll(ExternalParty.class).get(0);
+        ExternalPartyView party = getDAO().getAll().get(0);
         assertNotNull(party);
-        getDAO().delete(ExternalParty.class, party.getId());
-        assertNull(getDAO().findById(ExternalParty.class, party.getId()));
+        getDAO().delete(ExternalParty.class, party.getDbId());
+        assertNull(getDAO().findById(ExternalParty.class, party.getDbId()));
     }
 
-//    @Test
+    @Test
     @Override
     public void update() {
-        ExternalParty party = getDAO().getAll(ExternalParty.class).get(0);
-        assertNotNull(party);
+        ExternalPartyView partyView = getDAO().getAll().get(0);
+        assertNotNull(partyView);
+        ExternalParty party = getDAO().findById(ExternalParty.class, partyView.getDbId());
+
         party.setName("hhhhhhhhhhh");
         getDAO().saveOrUpdate(party);
         party = getDAO().findById(ExternalParty.class, party.getId());
@@ -62,10 +60,12 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
     @Test
     @Override
     public void getAll() {
-        assertNotNull(getDAO().getAll(ExternalParty.class));
+        List<ExternalPartyView> externalPartyViews = getDAO().getAll();
+        assertNotNull(externalPartyViews);
+        assertEquals(externalPartyViews.size(), DataBootstrap.MAX_EXTERNAL_PARTIES);
     }
 
-//    @Test
+    @Test
     @Override
     public void searchByCriteria() {
         ExternalPartySearchCriteria criteria = new ExternalPartySearchCriteria();

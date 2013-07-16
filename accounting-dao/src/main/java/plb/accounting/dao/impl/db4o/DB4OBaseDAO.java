@@ -45,7 +45,7 @@ public abstract class DB4OBaseDAO implements EntityDAO {
             getDb().store(obj);
             long id = getDb().ext().getID(obj);
 
-            obj.setId(id);
+//            obj.setId(id);
             getDb().store(obj);
         } else {
             T found = (T) findById(obj.getClass(), obj.getId());
@@ -71,7 +71,7 @@ public abstract class DB4OBaseDAO implements EntityDAO {
         getDb().delete(entity);
     }
 
-    @Override
+//    @Override
     public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
 
         ObjectSet<T> objectSet = getDb().query(clazz);

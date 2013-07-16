@@ -29,7 +29,12 @@ import java.util.List;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDAO {
 
-    //Criteria API
+    /**
+     * Search ExternalParties using advanced criteria
+     *
+     * @param criteria
+     * @return
+     */
     @Override
     public List<ExternalPartyView> searchExternalParties(ExternalPartySearchCriteria criteria) {
         Assert.notNull(criteria);
@@ -59,5 +64,10 @@ public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDA
         List<ExternalPartyView> resultList = typedQuery.getResultList();
 
         return resultList;
+    }
+
+    @Override
+    public List<ExternalPartyView> getAll() {
+        return searchExternalParties(new ExternalPartySearchCriteria());
     }
 }

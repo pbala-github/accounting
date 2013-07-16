@@ -4,6 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
+ * A simple set of tests for verifying orm configuration
+ *
  * @author: pbala
  */
 @RunWith(Suite.class)

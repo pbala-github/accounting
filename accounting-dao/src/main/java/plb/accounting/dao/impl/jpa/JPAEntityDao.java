@@ -5,10 +5,6 @@ import plb.accounting.model.BaseEntity;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.util.List;
 
 /**
  * User: pbala
@@ -42,19 +38,6 @@ public abstract class JPAEntityDao implements EntityDAO {
     public <T extends BaseEntity> void delete(Class<T> clazz, long id) {
         Object reference = em.getReference(clazz, id);
         em.remove(reference);
-    }
-
-    /**
-     *
-     * @param clazz
-     * @param <T>
-     * @return
-     */
-    @Override
-    public <T extends BaseEntity> List<T> getAll(Class<T> clazz) {
-        CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
-        Root<T> root = criteriaQuery.from(clazz);
-        return em.createQuery(criteriaQuery).getResultList();
     }
 
 }

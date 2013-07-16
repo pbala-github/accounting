@@ -16,7 +16,4 @@ public interface EntityDAO {
 
     <T extends BaseEntity> void delete(Class<T> clazz, long id);
 
-    <T extends BaseEntity> List<T> getAll(Class<T> clazz);
-
-
 }
