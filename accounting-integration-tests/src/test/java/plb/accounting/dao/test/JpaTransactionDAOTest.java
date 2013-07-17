@@ -4,6 +4,7 @@ import com.googlecode.jeeunit.JeeunitRunner;
 import org.junit.runner.RunWith;
 import plb.accounting.dao.TransactionDAO;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 /**
@@ -13,8 +14,7 @@ import javax.inject.Inject;
 @RunWith(JeeunitRunner.class)
 public class JpaTransactionDAOTest extends AbstractTransactionDAOTest {
 
-    @Inject
-    @Transactional
+    @EJB
     private TransactionDAO dao;
 
     @Override

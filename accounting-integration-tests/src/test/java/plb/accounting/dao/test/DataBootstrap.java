@@ -11,14 +11,10 @@ import plb.accounting.model.Transaction;
 import plb.accounting.model.view.AccountView;
 import plb.accounting.model.view.ExternalPartyView;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * User: pbala
@@ -26,7 +22,7 @@ import java.util.Random;
  */
 public class DataBootstrap {
 
-    public static final int MAX_ACCOUNTS = 5;
+    public static final int MAX_ACCOUNTS = 10;
 
     public static final int MAX_EXTERNAL_PARTIES = 5;
 
@@ -34,30 +30,22 @@ public class DataBootstrap {
 
     private static Random amountGenerator = new Random(50);
 
-    @Inject
-    @Transactional
+    @EJB
     private ExternalPartyDAO externalPartyDAO;
 
-    @Inject
-    @Transactional
+    @EJB
     private AccountDAO accountDAO;
 
-    @Inject
-    @Transactional
+    @EJB
     private TransactionDAO transactionDAO;
 
-
-    private static Boolean initialized = false;
-
-//    @PostConstruct
+    //    @PostConstruct
     synchronized void bootstrap() {
         System.out.println("\n\n::::::::::::BOOTSTRAPPING DATA::::::::::::::::::\n\n");
-        if (initialized) {
-            System.out.println("\n\n:::::::::::::BOOTSTRAP ALREADY COMPLETED::::::::::::::::\n\n");
-            return;
-        }
+
         Assert.assertNotNull(externalPartyDAO);
         Assert.assertNotNull(accountDAO);
+        Assert.assertNotNull(transactionDAO);
 
         //clean up
         cleanup();
@@ -69,14 +57,22 @@ public class DataBootstrap {
         }
 
         //Initialize accounts
+        Map<Boolean, List<Account>> accountsPerDestination = new HashMap<Boolean, List<Account>>();
+        accountsPerDestination.put(Boolean.FALSE, new ArrayList<Account>());
+        accountsPerDestination.put(Boolean.TRUE, new ArrayList<Account>());
         for (int i = 0; i < MAX_ACCOUNTS; i++) {
-            Account account = accountDAO.saveOrUpdate(createAccount(i));
-            for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
-                createTransaction(t, account, externalParties.get(new Random(externalParties.size()).nextInt()));
-            }
+            boolean isOriginAccount = i % 2 == 1;
+            Account account = !isOriginAccount ? createDestinationAccount(i) : createOriginAccount(i);
+            account = accountDAO.saveOrUpdate(account);
+            accountsPerDestination.get(isOriginAccount).add(account);
         }
 
-        initialized = true;
+        for (int t = 1; t <= MAX_TRANSACTIONS; t++) {
+            Account originAccount = accountsPerDestination.get(Boolean.TRUE).get(new Random().nextInt(accountsPerDestination.get(Boolean.TRUE).size()));
+            Account destinationAccount = accountsPerDestination.get(Boolean.FALSE).get(new Random().nextInt(accountsPerDestination.get(Boolean.FALSE).size()));
+            createTransaction(t, originAccount, destinationAccount, externalParties.get(new Random().nextInt(externalParties.size())));
+        }
+
     }
 
     /**
@@ -95,7 +91,18 @@ public class DataBootstrap {
      * @param a
      * @return
      */
-    public Account createAccount(int a) {
+    public Account createOriginAccount(int a) {
+        Account account = new Account("Account name " + a, AccountTypeEnum.STORAGE, new BigDecimal(50000));
+        account.setDescription("Description");
+
+        return account;
+    }
+
+    /**
+     * @param a
+     * @return
+     */
+    public Account createDestinationAccount(int a) {
         Account account = new Account("Account name " + a, AccountTypeEnum.OUTCOME, BigDecimal.ZERO);
         account.setDescription("Description");
 
@@ -103,10 +110,8 @@ public class DataBootstrap {
     }
 
 
-    private Transaction createTransaction(int t, Account originAccount, ExternalParty externalParty) {
+    private Transaction createTransaction(int t, Account originAccount, Account destinationAccount, ExternalParty externalParty) {
 
-        Account destinationAccount = createAccount(t + 100);
-        accountDAO.saveOrUpdate(destinationAccount);
         Transaction transaction = new Transaction(originAccount, destinationAccount, new Date(), new BigDecimal(amountGenerator.nextInt(100)), "tr_description_" + t);
         transaction.setRelatedParty(externalParty);
         transactionDAO.saveOrUpdate(transaction);
@@ -114,7 +119,7 @@ public class DataBootstrap {
         return transaction;
     }
 
-//    @PreDestroy
+    //    @PreDestroy
     public void cleanup() {
         System.out.println("\n\n::::::::::CLEAN UP DATA::::::::::::\n\n");
         deleteAccounts();

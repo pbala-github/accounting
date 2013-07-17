@@ -4,6 +4,7 @@ import com.googlecode.jeeunit.JeeunitRunner;
 import org.junit.runner.RunWith;
 import plb.accounting.dao.AccountDAO;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 /**
@@ -13,8 +14,7 @@ import javax.inject.Inject;
 @RunWith(JeeunitRunner.class)
 public class JpaAccountDAOTest extends AbstractAccountDAOTest {
 
-    @Inject
-    @Transactional
+    @EJB
     private AccountDAO dao;
 
     @Override

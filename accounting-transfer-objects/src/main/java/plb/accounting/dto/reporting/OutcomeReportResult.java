@@ -14,7 +14,7 @@ public class OutcomeReportResult extends BaseReportResult<OutcomeReportCriteria>
     /**
      * @param reportCriteria
      */
-    protected OutcomeReportResult(OutcomeReportCriteria reportCriteria) {
+    public OutcomeReportResult(OutcomeReportCriteria reportCriteria) {
         super(reportCriteria);
     }
 

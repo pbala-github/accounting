@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
  * User: pbala
  * Date: 3/8/13 3:29 PM
  */
+@Alternative
 public class Resources {
 
     @Produces

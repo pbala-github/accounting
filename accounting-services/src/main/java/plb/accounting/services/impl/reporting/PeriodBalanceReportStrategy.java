@@ -20,7 +20,7 @@ public class PeriodBalanceReportStrategy implements IReportStrategy<BalanceRepor
     @Override
     public BalanceReportResult createReport(BalanceReportCriteria reportCriteria, Object data) {
 
-        BalanceReportResult result = new BalanceReportResult();
+        BalanceReportResult result = new BalanceReportResult(reportCriteria);
         List<Transaction> transactions = (List<Transaction>) data;
 
          GroupContainer<IPeriod,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);

@@ -4,6 +4,7 @@ import com.googlecode.jeeunit.JeeunitRunner;
 import org.junit.runner.RunWith;
 import plb.accounting.dao.ExternalPartyDAO;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 /**
@@ -13,13 +14,12 @@ import javax.inject.Inject;
 @RunWith(JeeunitRunner.class)
 public class JpaExternalPartyDAOTest extends AbstractExternalPartyDAOTest {
 
-    @Inject
-    @Transactional
-    private ExternalPartyDAO dao;
+    @EJB
+    private ExternalPartyDAO externalPartyDAO;
 
 
     @Override
     protected ExternalPartyDAO getDAO() {
-        return dao;
+        return externalPartyDAO;
     }
 }

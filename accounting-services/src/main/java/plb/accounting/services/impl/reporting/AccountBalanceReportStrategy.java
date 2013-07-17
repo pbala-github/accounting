@@ -27,7 +27,7 @@ public class AccountBalanceReportStrategy implements IReportStrategy<BalanceRepo
     @Override
     public BalanceReportResult createReport(BalanceReportCriteria reportCriteria, Object data) {
 
-        BalanceReportResult result = new BalanceReportResult();
+        BalanceReportResult result = new BalanceReportResult(reportCriteria);
         List<Transaction> transactions = (List<Transaction>) data;
 
         GroupContainer<Account, Transaction> groupContainer = groupStrategy.group(reportCriteria, transactions);

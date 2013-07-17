@@ -3,6 +3,8 @@ package plb.accounting.dao.impl.jpa;
 import plb.accounting.dao.EntityDAO;
 import plb.accounting.model.BaseEntity;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -22,6 +24,7 @@ public abstract class JPAEntityDao implements EntityDAO {
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public <T extends BaseEntity> T saveOrUpdate(T obj) {
         if (obj.getId() != null && em.find(obj.getClass(), obj.getId()) != null) {
             obj = em.merge(obj);
@@ -35,6 +38,7 @@ public abstract class JPAEntityDao implements EntityDAO {
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public <T extends BaseEntity> void delete(Class<T> clazz, long id) {
         Object reference = em.getReference(clazz, id);
         em.remove(reference);

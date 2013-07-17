@@ -51,7 +51,6 @@ public class ReportManager implements IReportManager {
         Assert.notNull(reportStrategy, String.format("No report strategy found for report criteria %s", criteria));
 
         T result = reportStrategy.createReport(criteria, data);
-        result.setReportCriteria(criteria);
 
         return result;
     }

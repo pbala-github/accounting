@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Stateless
 @Local(ExternalPartyDAO.class)
-@TransactionAttribute(TransactionAttributeType.MANDATORY)
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class JpaExternalPartyDAO extends JPAEntityDao implements ExternalPartyDAO {
 
     /**

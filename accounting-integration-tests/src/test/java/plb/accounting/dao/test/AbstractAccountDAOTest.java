@@ -23,13 +23,13 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     @Test
     public void searchByCriteria() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
-        criteria.setAccountName("Account name 102");
+        criteria.setAccountName("Account name 1");
         List<AccountView> accounts = getDAO().searchAccounts(criteria);
         assertNotNull(accounts);
         assertEquals(1, accounts.size());
-        assertEquals("Account name 102", accounts.get(0).getName());
+        assertEquals("Account name 1", accounts.get(0).getName());
 
-        criteria.setLowestAccountBalance(new BigDecimal(5));
+        criteria.setLowestAccountBalance(new BigDecimal(100000));
         accounts = getDAO().searchAccounts(criteria);
         assertNotNull(accounts);
         assertEquals(0, accounts.size());
@@ -49,7 +49,7 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     public void getAll() {
         List<AccountView> accountViews = getDAO().getAll();
         assertNotNull(accountViews);
-        assertEquals(accountViews.size(), DataBootstrap.MAX_ACCOUNTS);
+        assertEquals(DataBootstrap.MAX_ACCOUNTS,accountViews.size());
     }
 
 
@@ -58,8 +58,9 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     public void persist() {
         Account account = new Account("Account name", AccountTypeEnum.OUTCOME, BigDecimal.ZERO);
         account.setDescription("Description");
-
+        beginTransaction();
         Account stored = getDAO().saveOrUpdate(account);
+        commitTransaction();
         assertNotSame(0, stored.getId());
 
         Account found = getDAO().findById(Account.class, stored.getId());
@@ -85,8 +86,9 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
         Account account = getDAO().findById(Account.class, accountView.getDbId());
 
         account.setName("Updated Account name");
+        beginTransaction();
         getDAO().saveOrUpdate(account);
-
+        commitTransaction();
         Account found = getDAO().findById(Account.class, account.getId());
         assertNotNull(found);
         assertEquals("Updated Account name", found.getName());
@@ -95,9 +97,11 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     @Test
     @Override
     public void delete() {
+        beginTransaction();
         AccountView accountView = getDAO().getAll().get(0);
         assertNotNull(accountView);
         getDAO().delete(Account.class, accountView.getDbId());
+        commitTransaction();
         assertNull(getDAO().findById(Account.class, accountView.getDbId()));
     }
 

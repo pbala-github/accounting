@@ -14,7 +14,7 @@ public class IncomeReportResult extends BaseReportResult<IncomeReportCriteria> {
     /**
      * @param reportCriteria
      */
-    protected IncomeReportResult(IncomeReportCriteria reportCriteria) {
+    public IncomeReportResult(IncomeReportCriteria reportCriteria) {
         super(reportCriteria);
     }
 

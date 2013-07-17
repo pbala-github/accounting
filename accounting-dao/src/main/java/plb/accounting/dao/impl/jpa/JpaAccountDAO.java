@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Stateless
 @Local(AccountDAO.class)
-@TransactionAttribute(TransactionAttributeType.MANDATORY)
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class JpaAccountDAO extends JPAEntityDao implements AccountDAO {
 
     /**

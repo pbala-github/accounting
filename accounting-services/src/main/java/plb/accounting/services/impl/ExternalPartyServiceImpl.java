@@ -22,7 +22,7 @@ public class ExternalPartyServiceImpl extends BaseService implements ExternalPar
 
     @Override
     public List<BaseExternalPartyDTO> getExternalParties() {
-        return transformationService.transform(dao.getAll(ExternalParty.class), BaseExternalPartyDTO.class);
+        return transformationService.transform(dao.getAll(), BaseExternalPartyDTO.class);
     }
 
     @Override

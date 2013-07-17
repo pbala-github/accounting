@@ -20,7 +20,7 @@ public class TransactionService extends BaseService implements plb.accounting.se
     
     @Override
     public List<TransactionDTO> getTransactions() {
-        return transformationService.transform(dao.getAll(Transaction.class),TransactionDTO.class);
+        return transformationService.transform(dao.getAll(),TransactionDTO.class);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class PeriodOutcomeReportStrategy implements IReportStrategy<OutcomeRepor
 
     @Override
     public OutcomeReportResult createReport(OutcomeReportCriteria reportCriteria, Object data) {
-        OutcomeReportResult result = new OutcomeReportResult();
+        OutcomeReportResult result = new OutcomeReportResult(reportCriteria);
         List<Transaction> transactions = (List<Transaction>) data;
 
         GroupContainer<IPeriod,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);

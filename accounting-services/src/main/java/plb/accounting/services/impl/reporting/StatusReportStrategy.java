@@ -17,7 +17,7 @@ public class StatusReportStrategy implements IReportStrategy<StatusReportResult,
     @Override
     public StatusReportResult createReport(StatusReportCriteria reportCriteria, Object data) {
         List<Account> accounts = (List<Account>) data;
-        StatusReportResult result = new StatusReportResult();
+        StatusReportResult result = new StatusReportResult(reportCriteria);
 
         for (Account account : accounts) {
             result.addResultEntry(getAccountDTO(account));

@@ -19,7 +19,7 @@ public class PeriodIncomeReportStrategy implements IReportStrategy<IncomeReportR
 
     @Override
     public IncomeReportResult createReport(IncomeReportCriteria reportCriteria, Object data) {
-        IncomeReportResult result = new IncomeReportResult();
+        IncomeReportResult result = new IncomeReportResult(reportCriteria);
         List<Transaction> transactions = (List<Transaction>) data;
 
         GroupContainer<IPeriod,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);

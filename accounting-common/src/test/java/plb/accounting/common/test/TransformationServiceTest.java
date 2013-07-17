@@ -12,6 +12,7 @@ import plb.accounting.common.transformation.DozerTransformationService;
 import plb.accounting.common.transformation.ITransformationService;
 import plb.accounting.dto.AccountDTO;
 import plb.accounting.model.Account;
+import plb.accounting.model.AccountComposite;
 import plb.accounting.model.AccountTypeEnum;
 
 import java.math.BigDecimal;
@@ -40,19 +41,14 @@ public class TransformationServiceTest {
 
 
         Account account = BeanUtils.instantiateClass(Account.class);
-        account.setCurrentBalance(new BigDecimal(33));
+//        account.setCurrentBalance(new BigDecimal(33));
         account.setDescription("Desctiption");
         account.setInitialBalance(new BigDecimal(43));
         account.setName("Account name");
         account.setType(AccountTypeEnum.INCOME);
 
-        Account parent = new Account();
-        parent.setCurrentBalance(new BigDecimal(343));
+        AccountComposite parent = new AccountComposite("Parent Account name",AccountTypeEnum.STORAGE);
         parent.setDescription("Desctiption44");
-        parent.setInitialBalance(new BigDecimal(443));
-        parent.setName("Parent Account name");
-        parent.setType(AccountTypeEnum.STORAGE);
-
         account.setParentAccount(parent);
 
 

@@ -19,7 +19,7 @@ public class BalanceReportResult extends BaseReportResult<BalanceReportCriteria>
     /**
      * @param reportCriteria
      */
-    protected BalanceReportResult(BalanceReportCriteria reportCriteria) {
+    public BalanceReportResult(BalanceReportCriteria reportCriteria) {
         super(reportCriteria);
     }
 

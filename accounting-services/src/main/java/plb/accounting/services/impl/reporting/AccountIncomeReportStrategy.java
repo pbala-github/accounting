@@ -27,7 +27,7 @@ public class AccountIncomeReportStrategy implements IReportStrategy<IncomeReport
     @Override
     public IncomeReportResult createReport(IncomeReportCriteria reportCriteria, Object data) {
 
-        IncomeReportResult result = new IncomeReportResult();
+        IncomeReportResult result = new IncomeReportResult(reportCriteria);
         List<Transaction> transactions = (List<Transaction>) data;
 
         GroupContainer<Account,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);

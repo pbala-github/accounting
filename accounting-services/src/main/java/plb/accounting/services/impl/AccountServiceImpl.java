@@ -24,7 +24,7 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
     @Override
     public List<BaseAccountInfoDTO> getAccounts() {
-        return transformationService.transform(dao.getAll(Account.class), BaseAccountInfoDTO.class);
+        return transformationService.transform(dao.getAll(), BaseAccountInfoDTO.class);
     }
 
     @Override
