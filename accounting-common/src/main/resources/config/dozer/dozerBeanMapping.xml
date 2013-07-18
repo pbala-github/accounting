@@ -4,6 +4,25 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-
+    <mapping>
+        <class-a>plb.accounting.dto.reporting.BaseGroupingReportCriteria</class-a>
+        <class-b>plb.accounting.common.search.TransactionSearchCriteria</class-b>
+        <field>
+            <a>startDate</a>
+            <b>executionDateFrom</b>
+        </field>
+        <field>
+            <a>endDate</a>
+            <b>executionDateTo</b>
+        </field>
+        <field>
+            <a>includedAccountsIds</a>
+            <b>destinationAccountIds</b>
+        </field>
+        <field>
+            <a>includedAccountsIds</a>
+            <b>originAccountIds</b>
+        </field>
+    </mapping>
 
 </mappings>

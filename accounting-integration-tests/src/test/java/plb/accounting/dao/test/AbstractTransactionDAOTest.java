@@ -32,7 +32,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
     private ExternalPartyDAO externalPartyDAO;
 
 
-//    @Test
+    @Test
     @Override
     public void persist() {
         beginTransaction();
@@ -51,7 +51,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertNotNull(transaction.getId());
     }
 
-//    @Test
+    @Test
     @Override
     public void findById() {
         TransactionView transaction = getDAO().getAll().get(0);
@@ -70,7 +70,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertNull(getDAO().findById(Transaction.class, transaction.getDbId()));
     }
 
-//    @Test
+    @Test
     @Override
     public void update() {
         beginTransaction();
@@ -84,7 +84,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertEquals("hhhhhhhhhhh", transaction.getDescription());
     }
 
-//    @Test
+    @Test
     @Override
     public void getAll() {
         List<TransactionView> transactionViews = getDAO().getAll();
@@ -92,7 +92,7 @@ public abstract class AbstractTransactionDAOTest extends AbstractDAOTest<Transac
         assertEquals(DataBootstrap.MAX_TRANSACTIONS, transactionViews.size());
     }
 
-//    @Test
+    @Test
     @Override
     public void searchByCriteria() {
         TransactionSearchCriteria criteria = new TransactionSearchCriteria();

@@ -12,8 +12,6 @@ import java.util.List;
  */
 public interface ExternalPartyService {
 
-    List<BaseExternalPartyDTO> getExternalParties();
-
     ExternalPartyDTO findExternalPartyById(long organizationId);
 
     BaseExternalPartyDTO saveExternalParty(BaseExternalPartyDTO organization);

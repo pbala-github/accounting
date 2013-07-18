@@ -1,6 +1,7 @@
 package plb.accounting.model;
 
-import org.hibernate.ejb.QueryHints;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -15,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "EXTERNAL_PARTIES")
 @TableGenerator(name = "ExPrt_Ids_Gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 5)
+@SQLDelete(sql = "UPDATE EXTERNAL_PARTIES SET DELETED = '1' where EXT_PARTY_ID = ?")
+@Where(clause = "deleted <> '1'")
 public class ExternalParty extends BaseEntity {
 
     @Id
@@ -24,7 +27,7 @@ public class ExternalParty extends BaseEntity {
     /**
      *
      */
-    @Column(name = "EX_PARTY_NAME", nullable = false, unique = true)
+    @Column(name = "EX_PARTY_NAME", nullable = false)
     private String name;
 
     /**
@@ -45,6 +48,8 @@ public class ExternalParty extends BaseEntity {
     @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @OrderBy("executionDate asc")
     private List<Transaction> transactions = new ArrayList<>();
+
+    private char deleted;
 
     /**
      * JPA

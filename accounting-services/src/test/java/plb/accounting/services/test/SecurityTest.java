@@ -37,7 +37,7 @@ public class SecurityTest {
      */
     @Test
     public void testUserAuthorizedAction() {
-        assertNotNull(service.getAccounts());
+        assertNotNull(service.getAccountsTree());
     }
 
     @Test(expected = EJBAccessException.class)

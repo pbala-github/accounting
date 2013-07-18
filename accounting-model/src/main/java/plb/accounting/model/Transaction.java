@@ -1,5 +1,6 @@
 package plb.accounting.model;
 
+import org.hibernate.annotations.Where;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -57,13 +58,14 @@ public class Transaction extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "TR_REL_PARTY")
+    @Where(clause = "deleted <> '1'")
     private ExternalParty relatedParty;
 
 
     /**
      * JPA
      */
-    private Transaction() {
+    protected Transaction() {
     }
 
     /**

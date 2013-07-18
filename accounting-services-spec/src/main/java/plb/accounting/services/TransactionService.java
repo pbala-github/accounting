@@ -11,8 +11,6 @@ import java.util.List;
  */
 public interface TransactionService {
 
-    List<TransactionDTO> getTransactions();
-
     TransactionDTO findTransactionById(long transactionId);
 
     TransactionDTO saveTransaction(TransactionDTO transaction);

@@ -40,12 +40,12 @@ public abstract class AbstractExternalPartyDAOTest extends AbstractDAOTest<Exter
     @Test
     @Override
     public void delete() {
+        beginTransaction();
         ExternalPartyView party = getDAO().getAll().get(0);
         assertNotNull(party);
-        beginTransaction();
         getDAO().delete(ExternalParty.class, party.getDbId());
         commitTransaction();
-//        assertNull(getDAO().findById(ExternalParty.class, party.getDbId()));
+        assertNull(getDAO().findById(ExternalParty.class, party.getDbId()));
     }
 
     @Test

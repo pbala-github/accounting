@@ -1,15 +1,20 @@
 package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
+import plb.accounting.common.utils.Assert;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dto.*;
-import plb.accounting.dto.AccountTypeEnum;
-import plb.accounting.model.*;
+import plb.accounting.model.AbstractAccount;
+import plb.accounting.model.Account;
+import plb.accounting.model.view.AccountView;
 import plb.accounting.services.AccountService;
 import plb.accounting.services.impl.intercept.Validate;
+import plb.accounting.services.impl.mapping.domain.AccountFactory;
+import plb.accounting.services.impl.mapping.dto.AccountDtoFactory;
 import plb.accounting.services.impl.validation.AccountCreation;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,67 +22,86 @@ import java.util.List;
  * User: pbala
  * Date: 11/5/12 4:08 PM
  */
-public class AccountServiceImpl extends BaseService implements AccountService {
+public class AccountServiceImpl implements AccountService {
 
     @EJB
     private AccountDAO dao;
 
-    @Override
-    public List<BaseAccountInfoDTO> getAccounts() {
-        return transformationService.transform(dao.getAll(), BaseAccountInfoDTO.class);
-    }
+    @Inject
+    private AccountDtoFactory dtoFactory;
 
+    @Inject
+    private AccountFactory domainFactory;
+
+    /**
+     *
+     * @param accountId
+     * @return
+     */
     @Override
     public DetailedAccountDTO loadAccountById(long accountId) {
+        Assert.isTrue(accountId > 0);
         Account account = dao.findById(Account.class, accountId);
-        DetailedAccountDTO accountDTO = null;
-
-        if (account != null) {
-            accountDTO = transformationService.transform(account, DetailedAccountDTO.class);
-            accountDTO.setTransactions(new ArrayList<TransactionDTO>());
-            if(account.getInTransactions()!=null)
-                accountDTO.getTransactions().addAll(transformationService.transform(account.getInTransactions(), TransactionDTO.class));
-            if(account.getOutTransactions()!=null)
-                accountDTO.getTransactions().addAll(transformationService.transform(account.getOutTransactions(), TransactionDTO.class));
-        }
-
-        return accountDTO;
+        return account != null ? dtoFactory.toDetailedDto(account) : null;
     }
 
+    /**
+     *
+     * @param accountDTO
+     * @return
+     */
     @Validate(groups = {AccountCreation.class})
     @Override
     public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO accountDTO) {
-        //new account
-        if (accountDTO.getId() == null) {
-            accountDTO.setCurrentBalance(accountDTO.getInitialBalance());
-        } else {
-            accountDTO.setCurrentBalance(dao.findById(Account.class, accountDTO.getId()).getCurrentBalance());
-        }
-
-        if (accountDTO.getType() == null) {
-            BaseAccountDTO baseAccountDTO = (BaseAccountDTO) accountDTO;
-            plb.accounting.model.AccountTypeEnum parentAccountType = dao.findById(Account.class, baseAccountDTO.getParentAccount().getId()).getType();
-            accountDTO.setType(AccountTypeEnum.valueOf(parentAccountType.name()));
-        }
-
-        Account account = dao.saveOrUpdate(transformationService.transform(accountDTO, Account.class));
-        return transformationService.transform(account, BaseAccountInfoDTO.class);
+        Assert.notNull(accountDTO);
+        Account account = domainFactory.toDomainObject(accountDTO);
+        account = dao.saveOrUpdate(account);
+        return dtoFactory.toBaseDto(account);
     }
 
+    /**
+     *
+     * @param accountId
+     */
     @Override
     public void deleteAccount(long accountId) {
-        dao.delete(Account.class, accountId);
+        Assert.isTrue(accountId > 0);
+        dao.delete(AbstractAccount.class, accountId);
     }
 
+    /**
+     *
+     * @param criteria
+     * @return
+     */
     @Override
     public List<BaseAccountInfoDTO> searchAccounts(AccountSearchCriteria criteria) {
-        return transformationService.transform(dao.searchAccounts(criteria), BaseAccountInfoDTO.class);
+        Assert.notNull(criteria);
+        List<BaseAccountInfoDTO> accountInfoDTOList = new ArrayList<BaseAccountInfoDTO>();
+        List<AccountView> accountViewList = dao.searchAccounts(criteria);
+
+        for (AccountView accountView : accountViewList) {
+            accountInfoDTOList.add(dtoFactory.toBaseDto(accountView));
+        }
+
+        return accountInfoDTOList;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<AccountDTO> getAccountsTree() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
         criteria.setTopParentAccount(true);
-        return transformationService.transform(dao.searchAccounts(criteria), AccountDTO.class);
+        List<AccountDTO> accountDTOList = new ArrayList<AccountDTO>();
+        List<AccountView> accountViewList = dao.searchAccounts(criteria);
+
+        for (AccountView accountView : accountViewList) {
+            accountDTOList.add(dtoFactory.toDto(accountView));
+        }
+
+        return accountDTOList;
     }
 }

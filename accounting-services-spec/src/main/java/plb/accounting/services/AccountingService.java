@@ -16,14 +16,7 @@ import java.util.List;
  */
 public interface AccountingService {
 
-    List<BaseAccountInfoDTO> getAccounts();
-
     List<AccountDTO> getAccountsTree();
-
-    List<TransactionDTO> getTransactions();
-
-    List<BaseExternalPartyDTO> getExternalParties();
-
 
     DetailedAccountDTO findAccountById(long accountId);
 

@@ -2,6 +2,7 @@ package plb.accounting.services.impl;
 
 import plb.accounting.common.search.AccountSearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
+import plb.accounting.common.transformation.ITransformationService;
 import plb.accounting.dao.AccountDAO;
 import plb.accounting.dao.TransactionDAO;
 import plb.accounting.dto.reporting.*;
@@ -18,7 +19,7 @@ import java.util.List;
  * User: pbala
  * Date: 11/7/12 12:31 PM
  */
-public class ReportServiceImpl extends BaseService implements ReportService {
+public class ReportServiceImpl implements ReportService {
 
     @Inject
     private IReportManager reportManager;
@@ -27,15 +28,12 @@ public class ReportServiceImpl extends BaseService implements ReportService {
     @EJB
     private AccountDAO accountDAO;
 
+    @Inject
+    private ITransformationService transformationService;
+
     @Override
     public BalanceReportResult createBalanceReport(BalanceReportCriteria criteria) {
-
-        TransactionSearchCriteria transactionCriteria = new TransactionSearchCriteria();
-        transactionCriteria.setExecutionDateFrom(criteria.getStartDate());
-        transactionCriteria.setExecutionDateTo(criteria.getEndDate());
-        transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
-        transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
-
+        TransactionSearchCriteria transactionCriteria = transformationService.transform(criteria, TransactionSearchCriteria.class);
         List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
@@ -43,12 +41,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
 
     @Override
     public OutcomeReportResult createOutcomeReport(OutcomeReportCriteria criteria) {
-
-        TransactionSearchCriteria transactionCriteria = new TransactionSearchCriteria();
-        transactionCriteria.setExecutionDateFrom(criteria.getStartDate());
-        transactionCriteria.setExecutionDateTo(criteria.getEndDate());
-        transactionCriteria.setDestinationAccountIds(criteria.getIncludedAccountsIds());
-
+        TransactionSearchCriteria transactionCriteria = transformationService.transform(criteria, TransactionSearchCriteria.class);
         List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);
@@ -56,11 +49,7 @@ public class ReportServiceImpl extends BaseService implements ReportService {
 
     @Override
     public IncomeReportResult createIncomeReport(IncomeReportCriteria criteria) {
-        TransactionSearchCriteria transactionCriteria = new TransactionSearchCriteria();
-        transactionCriteria.setExecutionDateFrom(criteria.getStartDate());
-        transactionCriteria.setExecutionDateTo(criteria.getEndDate());
-        transactionCriteria.setOriginAccountIds(criteria.getIncludedAccountsIds());
-
+        TransactionSearchCriteria transactionCriteria = transformationService.transform(criteria, TransactionSearchCriteria.class);
         List<TransactionView> transactions = transactionDAO.searchTransactions(transactionCriteria);
 
         return reportManager.createReport(criteria, transactions);

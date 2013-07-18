@@ -13,8 +13,6 @@ import java.util.List;
  */
 public interface AccountService {
 
-    List<BaseAccountInfoDTO> getAccounts();
-
     List<AccountDTO> getAccountsTree();
 
     DetailedAccountDTO loadAccountById(long accountId);
