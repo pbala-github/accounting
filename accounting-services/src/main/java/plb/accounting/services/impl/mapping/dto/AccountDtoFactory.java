@@ -47,11 +47,11 @@ public class AccountDtoFactory {
 
         if (account != null) {
             accountDTO = transformationService.transform(account, DetailedAccountDTO.class);
-            accountDTO.setTransactions(new ArrayList<TransactionDTO>());
-            if (account.getInTransactions() != null)
-                accountDTO.getTransactions().addAll(transformationService.transform(account.getInTransactions(), TransactionDTO.class));
-            if (account.getOutTransactions() != null)
-                accountDTO.getTransactions().addAll(transformationService.transform(account.getOutTransactions(), TransactionDTO.class));
+//            accountDTO.setTransactions(new ArrayList<TransactionDTO>());
+//            if (account.getInTransactions() != null)
+//                accountDTO.getTransactions().addAll(transformationService.transform(account.getInTransactions(), TransactionDTO.class));
+//            if (account.getOutTransactions() != null)
+//                accountDTO.getTransactions().addAll(transformationService.transform(account.getOutTransactions(), TransactionDTO.class));
         }
 
         return accountDTO;

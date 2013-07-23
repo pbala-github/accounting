@@ -11,20 +11,23 @@ public class DetailedAccountDTO extends AccountDTO {
     /**
      *
      */
-    private List<TransactionDTO> transactions;
+    private List<TransactionDTO> inTransactions;
 
-    public List<TransactionDTO> getTransactions() {
-        return transactions;
+    private List<TransactionDTO> outTransactions;
+
+    public List<TransactionDTO> getInTransactions() {
+        return inTransactions;
     }
 
-    public void setTransactions(List<TransactionDTO> transactions) {
-        this.transactions = transactions;
+    public void setInTransactions(List<TransactionDTO> inTransactions) {
+        this.inTransactions = inTransactions;
     }
 
-    @Override
-    public String toString() {
-        return "DetailedAccountDTO{" +
-                "transactions=" + transactions +
-                '}';
+    public List<TransactionDTO> getOutTransactions() {
+        return outTransactions;
+    }
+
+    public void setOutTransactions(List<TransactionDTO> outTransactions) {
+        this.outTransactions = outTransactions;
     }
 }

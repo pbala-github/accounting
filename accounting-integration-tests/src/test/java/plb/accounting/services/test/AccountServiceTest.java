@@ -27,12 +27,14 @@ public class AccountServiceTest extends AbstractServiceTest {
     @Inject
     BeanManager beanManager;
 
-//    @Test
+    @Test
     public void getAccounts() {
-        assertNotNull(service.getAccountsTree());
+        List<AccountDTO> accountsTree = service.getAccountsTree();
+        assertNotNull(accountsTree);
+        System.out.println("Accounts tree:\n\n" + accountsTree + "\n\n");
     }
 
-//    @Test
+    @Test
     public void loadAccountById() {
         BaseAccountInfoDTO account = service.getAccountsTree().get(0);
         assertNotNull(account);
@@ -40,7 +42,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         assertEquals(account.getId(), service.findAccountById(account.getId()).getId());
     }
 
-    @Test
+//    @Test
     public void testBeanManager() {
         System.out.println("Interceptor binding type: " + beanManager.isInterceptorBinding(Validate.class));
 
@@ -53,7 +55,7 @@ public class AccountServiceTest extends AbstractServiceTest {
 
             @Override
             public Class<?>[] groups() {
-                return new Class<?>[0];  //To change body of implemented methods use File | Settings | File Templates.
+                return new Class<?>[0];
             }
         }));
 
@@ -70,6 +72,7 @@ public class AccountServiceTest extends AbstractServiceTest {
 
         BaseAccountInfoDTO stored = service.saveAccount(account);
         assertNotSame(0, stored.getId());
+        System.out.println("New account's id: " + stored.getId());
 
         DetailedAccountDTO found = service.findAccountById(stored.getId());
 

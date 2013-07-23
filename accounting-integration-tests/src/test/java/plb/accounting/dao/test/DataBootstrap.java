@@ -40,7 +40,7 @@ public class DataBootstrap {
     private TransactionDAO transactionDAO;
 
     //    @PostConstruct
-    synchronized void bootstrap() {
+    public synchronized void bootstrap() {
         System.out.println("\n\n::::::::::::BOOTSTRAPPING DATA::::::::::::::::::\n\n");
 
         Assert.assertNotNull(externalPartyDAO);

@@ -35,7 +35,7 @@ public class ExternalPartyServiceTest extends AbstractServiceTest {
         assertEquals(externalParty.getId(), service.findExternalPartyById(externalParty.getId()).getId());
     }
 
-//    @Test
+    @Test
     public void delete() {
         BaseExternalPartyDTO party = service.searchExternalParties(new ExternalPartySearchCriteria()).get(0);
         assertNotNull(party);

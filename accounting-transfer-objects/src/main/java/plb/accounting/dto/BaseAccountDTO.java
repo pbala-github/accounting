@@ -23,6 +23,6 @@ public class BaseAccountDTO extends BaseAccountInfoDTO {
     public String toString() {
         return "BaseAccountDTO{" +
                 "parentAccount=" + parentAccount +
-                '}';
+                "} " + super.toString();
     }
 }

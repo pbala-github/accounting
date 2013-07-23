@@ -21,10 +21,4 @@ public class AccountDTO extends BaseAccountDTO {
         this.childrenAccounts = childrenAccounts;
     }
 
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "childrenAccounts=" + childrenAccounts +
-                '}';
-    }
 }
