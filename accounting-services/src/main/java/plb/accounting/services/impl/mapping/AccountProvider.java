@@ -1,7 +1,9 @@
 package plb.accounting.services.impl.mapping;
 
-import plb.accounting.common.transformation.AccountingObjectProviderSupport;
+import plb.accounting.common.transformation.AccountingObjectProvider;
+import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
+import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.model.AbstractAccount;
 import plb.accounting.model.Account;
 import plb.accounting.model.AccountComposite;
@@ -10,15 +12,21 @@ import plb.accounting.model.AccountTypeEnum;
 /**
  * @author: pbala
  */
-public class AccountProvider extends AccountingObjectProviderSupport<AbstractAccount> {
+public class AccountProvider<T extends AbstractAccount> implements AccountingObjectProvider<T> {
 
     @Override
-    public Class<?> getSourceType() {
-        return BaseAccountInfoDTO.class;
+    public Class<?>[] getSourceTypes() {
+        return new Class<?>[]{AccountDTO.class, BaseAccountInfoDTO.class, DetailedAccountDTO.class};
     }
 
     @Override
-    public AbstractAccount get(ProvisionRequest<AbstractAccount> request) {
+    public Class<?>[] getDestinationTypes() {
+        return new Class<?>[]{AbstractAccount.class,Account.class, AccountComposite.class};
+    }
+
+
+    @Override
+    public T get(ProvisionRequest<T> request) {
         BaseAccountInfoDTO baseAccountInfoDTO = (BaseAccountInfoDTO) request.getSource();
 
         AbstractAccount account = baseAccountInfoDTO.isTransactional() ?//
@@ -29,7 +37,7 @@ public class AccountProvider extends AccountingObjectProviderSupport<AbstractAcc
                 new AccountComposite(baseAccountInfoDTO.getName(),//
                         AccountTypeEnum.valueOf(baseAccountInfoDTO.getType().name()));
 
-        return account;
+        return (T) account;
     }
 
 }

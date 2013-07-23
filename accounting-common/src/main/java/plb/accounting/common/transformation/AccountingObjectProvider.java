@@ -7,7 +7,7 @@ import org.modelmapper.Provider;
  */
 public interface AccountingObjectProvider<T> extends Provider<T> {
 
-    Class<?> getSourceType();
+    Class<?>[] getSourceTypes();
 
-    Class<T> getDestinationType();
+    Class<?>[] getDestinationTypes();
 }

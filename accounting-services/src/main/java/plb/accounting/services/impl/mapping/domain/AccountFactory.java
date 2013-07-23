@@ -7,7 +7,6 @@ import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.model.AbstractAccount;
 import plb.accounting.model.Account;
-import plb.accounting.model.AccountComposite;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -39,8 +38,6 @@ public class AccountFactory {
             accountDTO.setType(AccountTypeEnum.valueOf(parentAccountType.name()));
         }
 
-        return accountDTO.isTransactional() ?//
-                transformationService.transform(accountDTO, Account.class) ://
-                transformationService.transform(accountDTO, AccountComposite.class);
+        return transformationService.transform(accountDTO, AbstractAccount.class);
     }
 }

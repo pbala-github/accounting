@@ -1,6 +1,7 @@
 package plb.accounting.common.transformation;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 
 /**
  * @author: pbala
@@ -8,7 +9,7 @@ import java.lang.reflect.ParameterizedType;
 public abstract class AccountingObjectProviderSupport<T> implements AccountingObjectProvider<T> {
 
     @Override
-    public Class<T> getDestinationType() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    public Class<?>[] getDestinationTypes() {
+        return new Class<?>[]{(Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]};
     }
 }
