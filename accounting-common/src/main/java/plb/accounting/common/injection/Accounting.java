@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * Date: 4/4/13 10:22 PM
  */
 @Qualifier
-@Target({FIELD,TYPE,METHOD})
+@Target({CONSTRUCTOR, METHOD, FIELD, PARAMETER, TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Accounting {
 }

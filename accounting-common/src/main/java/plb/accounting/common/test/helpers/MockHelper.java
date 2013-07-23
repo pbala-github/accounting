@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanInstantiationException;
@@ -18,6 +17,7 @@ import org.springframework.core.GenericCollectionTypeResolver;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
 
 
 public abstract class MockHelper {
@@ -86,7 +86,7 @@ public abstract class MockHelper {
      * @return
      */
     public static String getRandomTime() {
-        return StringUtils.leftPad("" + RNG.nextInt(24), 2, "0") + StringUtils.leftPad("" + RNG.nextInt(60), 2, "0");
+        return "1256";//StringUtils.leftPad("" + RNG.nextInt(24), 2, "0") + StringUtils.leftPad("" + RNG.nextInt(60), 2, "0");
     }
 
     /**

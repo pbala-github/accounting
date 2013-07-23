@@ -20,7 +20,7 @@
             <property name="hibernate.connection.username" value="accounting"/>
             <property name="hibernate.connection.password" value="accounting"/>
             <property name="hibernate.connection.pool_size" value="2"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <!--<property name="hibernate.transaction.factory_class"-->
                       <!--value="org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory"/>-->

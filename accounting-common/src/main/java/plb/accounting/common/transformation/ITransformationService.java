@@ -11,5 +11,5 @@ public interface ITransformationService {
 
     <T> T transform(Object srcObject, Class<T> targetClass);
 
-    <T> List<T> transform(Collection<?> srcCollection,Class<T> targetClass);
+    <T> List<T> transform(Collection<?> srcCollection, Class<T> targetClass);
 }

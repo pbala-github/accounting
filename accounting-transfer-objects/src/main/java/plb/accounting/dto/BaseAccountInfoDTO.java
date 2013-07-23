@@ -32,6 +32,8 @@ public class BaseAccountInfoDTO extends BaseDTO {
      */
     private AccountTypeEnum type;
 
+    private boolean transactional;
+
     public String getName() {
         return name;
     }
@@ -72,6 +74,14 @@ public class BaseAccountInfoDTO extends BaseDTO {
         this.type = type;
     }
 
+    public boolean isTransactional() {
+        return transactional;
+    }
+
+    public void setTransactional(boolean transactional) {
+        this.transactional = transactional;
+    }
+
     @Override
     public String toString() {
         return "BaseAccountInfoDTO{" +
@@ -82,4 +92,5 @@ public class BaseAccountInfoDTO extends BaseDTO {
                 ", type=" + type +
                 '}';
     }
+
 }

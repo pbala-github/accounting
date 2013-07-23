@@ -3,6 +3,8 @@ package plb.accounting.services.test;
 import com.googlecode.jeeunit.JeeunitRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import plb.accounting.common.search.AccountSearchCriteria;
+import plb.accounting.common.search.ExternalPartySearchCriteria;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
@@ -26,12 +28,12 @@ public class TransactionServiceTest extends AbstractServiceTest {
         TransactionDTO transaction = new TransactionDTO();
         transaction.setAmount(BigDecimal.TEN);
         transaction.setDescription("transaction description");
-        BaseAccountInfoDTO destinationAccount = service.getAccounts().get(0);
+        BaseAccountInfoDTO destinationAccount = service.searchAccounts(new AccountSearchCriteria()).get(0);
         transaction.setDestinationAccount(destinationAccount);
         transaction.setExecutionDate(new Date());
-        BaseAccountInfoDTO originAccount = service.getAccounts().get(1);
+        BaseAccountInfoDTO originAccount = service.searchAccounts(new AccountSearchCriteria()).get(1);
         transaction.setOriginAccount(originAccount);
-        BaseExternalPartyDTO externalParty = service.getExternalParties().get(0);
+        BaseExternalPartyDTO externalParty = service.searchExternalParties(new ExternalPartySearchCriteria()).get(0);
         transaction.setRelatedParty(externalParty);
 
         transaction = service.saveTransaction(transaction);
@@ -40,14 +42,14 @@ public class TransactionServiceTest extends AbstractServiceTest {
 
     @Test
     public void findById() {
-        TransactionDTO transaction = service.getTransactions().get(0);
+        TransactionDTO transaction = service.searchTransactions(new TransactionSearchCriteria()).get(0);
         assertNotNull(transaction);
         assertEquals(transaction.getId(), service.findTransactionById(transaction.getId()).getId());
     }
 
     @Test
     public void delete() {
-        TransactionDTO transaction = service.getTransactions().get(0);
+        TransactionDTO transaction = service.searchTransactions(new TransactionSearchCriteria()).get(0);
         assertNotNull(transaction);
         service.deleteTransaction(transaction.getId());
         assertNull(service.findTransactionById(transaction.getId()));
@@ -55,7 +57,7 @@ public class TransactionServiceTest extends AbstractServiceTest {
 
     @Test
     public void update() {
-        TransactionDTO transaction = service.getTransactions().get(0);
+        TransactionDTO transaction = service.searchTransactions(new TransactionSearchCriteria()).get(0);
         assertNotNull(transaction);
         transaction.setDescription("hhhhhhhhhhh");
         service.saveTransaction(transaction);
@@ -65,7 +67,7 @@ public class TransactionServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() {
-        assertNotNull(service.getTransactions());
+        assertNotNull(service.searchTransactions(new TransactionSearchCriteria()));
     }
 
     @Test

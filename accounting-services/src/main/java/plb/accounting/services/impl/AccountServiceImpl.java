@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public BaseAccountInfoDTO saveAccount(BaseAccountInfoDTO accountDTO) {
         Assert.notNull(accountDTO);
-        Account account = domainFactory.toDomainObject(accountDTO);
+        AbstractAccount account = domainFactory.toDomainObject(accountDTO);
         account = dao.saveOrUpdate(account);
         return dtoFactory.toBaseDto(account);
     }

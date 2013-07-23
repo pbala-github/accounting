@@ -5,7 +5,9 @@ import plb.accounting.dao.AccountDAO;
 import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.BaseAccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
+import plb.accounting.model.AbstractAccount;
 import plb.accounting.model.Account;
+import plb.accounting.model.AccountComposite;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -23,7 +25,7 @@ public class AccountFactory {
     @EJB
     private AccountDAO dao;
 
-    public Account toDomainObject(BaseAccountInfoDTO accountDTO) {
+    public AbstractAccount toDomainObject(BaseAccountInfoDTO accountDTO) {
         //new account
         if (accountDTO.getId() == null) {
             accountDTO.setCurrentBalance(accountDTO.getInitialBalance());
@@ -37,6 +39,8 @@ public class AccountFactory {
             accountDTO.setType(AccountTypeEnum.valueOf(parentAccountType.name()));
         }
 
-        return transformationService.transform(accountDTO, Account.class);
+        return accountDTO.isTransactional() ?//
+                transformationService.transform(accountDTO, Account.class) ://
+                transformationService.transform(accountDTO, AccountComposite.class);
     }
 }

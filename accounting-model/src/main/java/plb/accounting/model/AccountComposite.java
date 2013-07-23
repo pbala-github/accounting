@@ -21,7 +21,7 @@ public class AccountComposite extends AbstractAccount {
      */
     @OneToMany(mappedBy = "parentAccount", cascade = CascadeType.ALL)
     @OrderBy("name ASC")
-    private List<AbstractAccount> childrenAccounts = new ArrayList<>();
+    private List<AbstractAccount> childrenAccounts = new ArrayList<AbstractAccount>();
 
     /**
      * @param name

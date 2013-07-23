@@ -43,7 +43,7 @@ public class AccountController {
     }
 
     public List<BaseAccountInfoDTO> getAllAccounts() {
-        return service.getAccounts();
+        return null;//service.getAccounts();
     }
 
     public DetailedAccountDTO loadAccount(Long accountId) {

@@ -29,12 +29,12 @@ public class AccountServiceTest extends AbstractServiceTest {
 
 //    @Test
     public void getAccounts() {
-        assertNotNull(service.getAccounts());
+        assertNotNull(service.getAccountsTree());
     }
 
 //    @Test
     public void loadAccountById() {
-        BaseAccountInfoDTO account = service.getAccounts().get(0);
+        BaseAccountInfoDTO account = service.getAccountsTree().get(0);
         assertNotNull(account);
 
         assertEquals(account.getId(), service.findAccountById(account.getId()).getId());
@@ -65,7 +65,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         account.setCurrentBalance(BigDecimal.ZERO);
         account.setDescription("Description");
         account.setInitialBalance(BigDecimal.ZERO);
-//        account.setName("Account name");
+        account.setName("Account name");
         account.setType(AccountTypeEnum.OUTCOME);
 
         BaseAccountInfoDTO stored = service.saveAccount(account);
@@ -80,7 +80,7 @@ public class AccountServiceTest extends AbstractServiceTest {
 
 //    @Test
     public void deleteAccount() {
-        BaseAccountInfoDTO account = service.getAccounts().get(0);
+        BaseAccountInfoDTO account = service.getAccountsTree().get(0);
         assertNotNull(account);
         System.out.println("Found account: " + account);
         service.deleteAccount(account.getId());

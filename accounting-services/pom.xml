@@ -12,6 +12,19 @@
 
     <artifactId>accounting-services</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/TestReportCriteriaToTransactionCriteriaMapping.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
     <dependencies>
 
         <dependency>

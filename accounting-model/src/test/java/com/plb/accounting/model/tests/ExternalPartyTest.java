@@ -35,7 +35,7 @@ public class ExternalPartyTest {
         originAccount = SampleFactory.getOriginAccount();
         destinationAccount = SampleFactory.getDestinationAccount();
 
-        transactions = new ArrayList<>();
+        transactions = new ArrayList<Transaction>();
         Transaction transaction = new Transaction(//
                 originAccount,//
                 destinationAccount,//

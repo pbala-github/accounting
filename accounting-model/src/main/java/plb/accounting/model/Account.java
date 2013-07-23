@@ -22,13 +22,13 @@ public class Account extends AbstractAccount {
      */
     @OneToMany(mappedBy = "destinationAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("executionDate ASC")
-    private List<Transaction> inTransactions = new ArrayList<>();
+    private List<Transaction> inTransactions = new ArrayList<Transaction>();
     /**
      *
      */
     @OneToMany(mappedBy = "originAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("executionDate ASC")
-    private List<Transaction> outTransactions = new ArrayList<>();
+    private List<Transaction> outTransactions = new ArrayList<Transaction>();
 
     /**
      * JPA

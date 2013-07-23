@@ -5,6 +5,7 @@ import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.TransactionDTO;
+import plb.accounting.model.AbstractAccount;
 import plb.accounting.model.Account;
 import plb.accounting.model.view.AccountView;
 
@@ -38,7 +39,6 @@ public class AccountDtoFactory {
     }
 
     /**
-     *
      * @param account
      * @return
      */
@@ -57,7 +57,11 @@ public class AccountDtoFactory {
         return accountDTO;
     }
 
-    public BaseAccountInfoDTO toBaseDto(Account account) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    /**
+     * @param account
+     * @return
+     */
+    public BaseAccountInfoDTO toBaseDto(AbstractAccount account) {
+        return transformationService.transform(account, BaseAccountInfoDTO.class);
     }
 }

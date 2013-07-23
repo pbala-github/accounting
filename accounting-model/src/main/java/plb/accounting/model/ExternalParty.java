@@ -47,7 +47,7 @@ public class ExternalParty extends BaseEntity {
      */
     @OneToMany(mappedBy = "relatedParty", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @OrderBy("executionDate asc")
-    private List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<Transaction>();
 
     private char deleted;
 

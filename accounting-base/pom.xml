@@ -39,6 +39,7 @@
         <jeeunit.version>1.0.0</jeeunit.version>
         <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
         <weld-se.version>1.1.10.Final</weld-se.version>
+        <model-mapper.version>0.5.6</model-mapper.version>
     </properties>
 
     <repositories>
@@ -136,9 +137,9 @@
             </dependency>
 
             <dependency>
-                <groupId>net.sf.dozer</groupId>
-                <artifactId>dozer</artifactId>
-                <version>5.3.1</version>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>${model-mapper.version}</version>
             </dependency>
 
             <dependency>

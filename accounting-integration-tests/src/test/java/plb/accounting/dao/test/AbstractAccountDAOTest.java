@@ -72,10 +72,15 @@ public abstract class AbstractAccountDAOTest extends AbstractDAOTest<AccountDAO>
     @Test
     @Override
     public void findById() {
-        AccountView account = getDAO().getAll().get(0);
-        assertNotNull(account);
+        AccountView accountView = getDAO().getAll().get(0);
+        assertNotNull(accountView);
 
-        assertEquals(account.getDbId(), getDAO().findById(Account.class, account.getDbId()).getId());
+        Account account = getDAO().findById(Account.class, accountView.getDbId());
+
+        System.out.println("In transactions: " + account.getInTransactions().size());
+        System.out.println("Out transactions: " + account.getOutTransactions().size());
+
+        assertEquals(accountView.getDbId(), account.getId());
     }
 
     @Test

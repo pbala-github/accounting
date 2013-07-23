@@ -27,7 +27,7 @@ public class ExternalPartyController {
      * @return
      */
     public List<BaseExternalPartyDTO> getExternalParties() {
-        return service.getExternalParties();
+        return null;//service.getExternalParties();
     }
 
     /**
