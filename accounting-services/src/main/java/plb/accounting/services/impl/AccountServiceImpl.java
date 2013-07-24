@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public DetailedAccountDTO loadAccountById(long accountId) {
         Assert.isTrue(accountId > 0);
-        Account account = dao.findById(Account.class, accountId);
+        AbstractAccount account = dao.findById(AbstractAccount.class, accountId);
         return account != null ? dtoFactory.toDetailedDto(account) : null;
     }
 

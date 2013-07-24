@@ -4,8 +4,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import plb.accounting.common.search.TransactionSearchCriteria;
 import plb.accounting.dao.TransactionDAO;
-import plb.accounting.model.ExternalParty;
-import plb.accounting.model.Transaction;
+import plb.accounting.model.*;
 import plb.accounting.model.view.TransactionView;
 
 import javax.ejb.Local;
@@ -79,16 +78,18 @@ public class JpaTransactionDAO extends JPAEntityDao implements TransactionDAO {
             criteriaQuery.where(builder.and(conditions.toArray(new Predicate[0])));
 
         criteriaQuery.select(builder.construct(TransactionView.class,//
-                root.get("id"),//
-                root.get("executionDate"),//
-                root.get("originAccount").get("name"),//
-                root.get("originAccount").get("id"),//
-                root.get("destinationAccount").get("name"),//
-                root.get("destinationAccount").get("id"),//
-                root.get("amount"),
-                root.get("description"),
-                root.get("relatedParty").get("name"),//
-                root.get("relatedParty").get("id")//
+                root.get(Transaction_.id),//
+                root.get(Transaction_.executionDate),//
+                root.get(Transaction_.originAccount).get(Account_.name),//
+                root.get(Transaction_.originAccount).get(Account_.id),//
+                root.get(Transaction_.destinationAccount).get(Account_.name),//
+                root.get(Transaction_.destinationAccount).get(Account_.id),//
+                root.get(Transaction_.amount),
+                root.get(Transaction_.description),
+                root.get(Transaction_.relatedParty).get(ExternalParty_.name),//
+                root.get(Transaction_.relatedParty).get(ExternalParty_.id),//
+                root.get(Transaction_.originAccount).get(Account_.type),//
+                root.get(Transaction_.destinationAccount).get(Account_.type)//
         ));
 
         TypedQuery<TransactionView> typedQuery = em.createQuery(criteriaQuery);

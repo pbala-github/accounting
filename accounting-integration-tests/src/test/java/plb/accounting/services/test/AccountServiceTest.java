@@ -81,7 +81,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         assertEquals(found.getName(), account.getName());
     }
 
-//    @Test
+    @Test
     public void deleteAccount() {
         BaseAccountInfoDTO account = service.getAccountsTree().get(0);
         assertNotNull(account);
@@ -90,19 +90,19 @@ public class AccountServiceTest extends AbstractServiceTest {
         assertNull(service.findAccountById(account.getId()));
     }
 
-//    @Test
+    @Test
     public void searchAccounts() {
         AccountSearchCriteria criteria = new AccountSearchCriteria();
-        criteria.setAccountName("Account name 102");
+        criteria.setAccountName("Account name 2");
         List<BaseAccountInfoDTO> accounts = service.searchAccounts(criteria);
         assertNotNull(accounts);
         assertEquals(1, accounts.size());
-        assertEquals("Account name 102", accounts.get(0).getName());
+        assertEquals("Account name 2", accounts.get(0).getName());
 
-        criteria.setLowestAccountBalance(new BigDecimal(5));
+        criteria.setLowestAccountBalance(new BigDecimal(0));
         accounts = service.searchAccounts(criteria);
         assertNotNull(accounts);
-        assertEquals(0, accounts.size());
+        assertEquals(1, accounts.size());
 
         criteria = new AccountSearchCriteria();
         criteria.setAccountType(plb.accounting.dto.AccountTypeEnum.INCOME);
@@ -111,6 +111,10 @@ public class AccountServiceTest extends AbstractServiceTest {
 
         criteria.setAccountType(plb.accounting.dto.AccountTypeEnum.OUTCOME);
         accounts = service.searchAccounts(criteria);
-        assertFalse(accounts.isEmpty());
+        assertEquals(5, accounts.size());
+
+        criteria.setAccountType(AccountTypeEnum.STORAGE);
+        accounts = service.searchAccounts(criteria);
+        assertEquals(5,accounts.size());
     }
 }

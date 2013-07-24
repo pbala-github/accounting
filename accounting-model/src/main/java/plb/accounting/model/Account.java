@@ -177,6 +177,4 @@ public class Account extends AbstractAccount {
             pAccount.addChildrenAccount(this);
         }
     }
-
-
 }

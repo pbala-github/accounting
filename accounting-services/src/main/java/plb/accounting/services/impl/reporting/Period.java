@@ -6,7 +6,7 @@ import java.util.Date;
  * User: pbala
  * Date: 11/14/12 12:26 PM
  */
-public class Period implements IPeriod{
+public class Period {
 
     private Date startPoint;
 
@@ -44,12 +44,20 @@ public class Period implements IPeriod{
     @Override
     public boolean equals(Object obj) {
 
-        if(obj instanceof IPeriod){
-            IPeriod theOther = (IPeriod) obj;
+        if (obj instanceof Period) {
+            Period theOther = (Period) obj;
 
             return startPoint.equals(theOther.getStartPoint()) && endPoint.equals(theOther.getEndPoint());
         }
 
         return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return "Period{" +
+                "startPoint=" + startPoint +
+                ", endPoint=" + endPoint +
+                '}';
     }
 }

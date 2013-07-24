@@ -1,5 +1,7 @@
 package plb.accounting.model.view;
 
+import plb.accounting.model.AccountTypeEnum;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -23,6 +25,10 @@ public class TransactionView {
      *
      */
     private Long originAccountDbId;
+    /**
+     *
+     */
+    private AccountTypeEnum originAccountType;
 
     /**
      *
@@ -32,6 +38,11 @@ public class TransactionView {
      *
      */
     private Long destinationAccountDbId;
+
+    /**
+     *
+     */
+    private AccountTypeEnum destinationAccountType;
 
     /**
      *
@@ -52,7 +63,7 @@ public class TransactionView {
      */
     private Long externalPartyDbId;
 
-    public TransactionView(Long id, Date executionDate, String originAccountName, Long originAccountDbId, String destinationAccountName, Long destinationAccountDbId, BigDecimal amount, String description, String relatedPartyName, Long externalPartyDbId) {
+    public TransactionView(Long id, Date executionDate, String originAccountName, Long originAccountDbId, String destinationAccountName, Long destinationAccountDbId, BigDecimal amount, String description, String relatedPartyName, Long externalPartyDbId, AccountTypeEnum originAccountType, AccountTypeEnum destinationAccountType) {
         this.dbId = id;
         this.executionDate = executionDate;
         this.originAccountName = originAccountName;
@@ -63,6 +74,8 @@ public class TransactionView {
         this.description = description;
         this.relatedPartyName = relatedPartyName;
         this.externalPartyDbId = externalPartyDbId;
+        this.originAccountType = originAccountType;
+        this.destinationAccountType = destinationAccountType;
     }
 
     public Long getDbId() {
@@ -103,5 +116,31 @@ public class TransactionView {
 
     public Long getExternalPartyDbId() {
         return externalPartyDbId;
+    }
+
+    public AccountTypeEnum getOriginAccountType() {
+        return originAccountType;
+    }
+
+    public AccountTypeEnum getDestinationAccountType() {
+        return destinationAccountType;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionView{" +
+                "dbId=" + dbId +
+                ", executionDate=" + executionDate +
+                ", originAccountName='" + originAccountName + '\'' +
+                ", originAccountDbId=" + originAccountDbId +
+                ", originAccountType=" + originAccountType +
+                ", destinationAccountName='" + destinationAccountName + '\'' +
+                ", destinationAccountDbId=" + destinationAccountDbId +
+                ", destinationAccountType=" + destinationAccountType +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", relatedPartyName='" + relatedPartyName + '\'' +
+                ", externalPartyDbId=" + externalPartyDbId +
+                '}';
     }
 }

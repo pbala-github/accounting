@@ -17,7 +17,7 @@ public class ExternalPartyProvider extends AccountingObjectProviderSupport<Exter
 
     @Override
     public ExternalParty get(ProvisionRequest<ExternalParty> request) {
-        ExternalPartyDTO externalPartyDTO = (ExternalPartyDTO) request.getSource();
+        BaseExternalPartyDTO externalPartyDTO = (BaseExternalPartyDTO) request.getSource();
 
         return new ExternalParty(externalPartyDTO.getName());
     }

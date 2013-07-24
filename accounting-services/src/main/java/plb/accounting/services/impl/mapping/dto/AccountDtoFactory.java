@@ -42,7 +42,7 @@ public class AccountDtoFactory {
      * @param account
      * @return
      */
-    public DetailedAccountDTO toDetailedDto(Account account) {
+    public DetailedAccountDTO toDetailedDto(AbstractAccount account) {
         DetailedAccountDTO accountDTO = null;
 
         if (account != null) {

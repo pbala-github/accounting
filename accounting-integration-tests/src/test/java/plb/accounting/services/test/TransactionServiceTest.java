@@ -78,7 +78,7 @@ public class TransactionServiceTest extends AbstractServiceTest {
         assertEquals(1, transactions.size());
         assertEquals("tr_description_4", transactions.get(0).getDescription());
 
-        criteria.setAmountFrom(new BigDecimal(5));
+        criteria.setAmountFrom(new BigDecimal(0));
         transactions = service.searchTransactions(criteria);
         assertEquals(1, transactions.size());
         assertEquals("tr_description_4", transactions.get(0).getDescription());

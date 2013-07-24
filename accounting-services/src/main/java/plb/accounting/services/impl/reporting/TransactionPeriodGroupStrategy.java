@@ -3,6 +3,7 @@ package plb.accounting.services.impl.reporting;
 import org.apache.commons.lang.time.DateUtils;
 import plb.accounting.dto.reporting.IGroupingReportCriteria;
 import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,17 +13,17 @@ import java.util.List;
  * User: pbala
  * Date: 11/14/12 12:17 PM
  */
-public class TransactionPeriodGroupStrategy implements IGroupStrategy<IPeriod,Transaction> {
+public class TransactionPeriodGroupStrategy implements IGroupStrategy<Period,TransactionView> {
 
     @Override
-    public GroupContainer<IPeriod, Transaction> group(IGroupingReportCriteria criteria, List<Transaction> data) {
+    public GroupContainer<Period, TransactionView> group(IGroupingReportCriteria criteria, List<TransactionView> data) {
 
-        GroupContainer<IPeriod,Transaction> groupContainer = new GroupContainer<IPeriod, Transaction>();
+        GroupContainer<Period,TransactionView> groupContainer = new GroupContainer<Period, TransactionView>();
         //group data
-        for(Transaction t : data){
+        for(TransactionView t : data){
 
-            IPeriod period = getPeriod(t.getExecutionDate());
-            Group<IPeriod, Transaction> group = groupContainer.getGroupWithKey(period, true);
+            Period period = getPeriod(t.getExecutionDate());
+            Group<Period, TransactionView> group = groupContainer.getGroupWithKey(period, true);
 
             group.addItem(t);
 
@@ -31,9 +32,9 @@ public class TransactionPeriodGroupStrategy implements IGroupStrategy<IPeriod,Tr
         return groupContainer;
     }
 
-    private IPeriod getPeriod(Date date) {
+    private Period getPeriod(Date date) {
 
-        Date startPoint = DateUtils.truncate(date,Calendar.DAY_OF_MONTH);
+        Date startPoint = DateUtils.truncate(date,Calendar.MONTH);
         Date endPoint = DateUtils.addDays(DateUtils.addMonths(startPoint, 1), -1);
 
         return new Period(startPoint,endPoint);

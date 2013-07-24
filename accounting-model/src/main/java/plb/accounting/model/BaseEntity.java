@@ -10,6 +10,8 @@ public abstract class BaseEntity {
 
     public abstract Long getId();
 
+    public abstract void setId(Long id);
+
     @Override
     public String toString() {
         return "BaseEntity{" +

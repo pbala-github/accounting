@@ -18,7 +18,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <includes>
-                        <include>**/TestReportCriteriaToTransactionCriteriaMapping.java</include>
+                        <!--<include>**/TestReportCriteriaToTransactionCriteriaMapping.java</include>-->
                     </includes>
                 </configuration>
             </plugin>

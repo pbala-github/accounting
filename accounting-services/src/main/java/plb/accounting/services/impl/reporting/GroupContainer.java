@@ -41,4 +41,11 @@ public class GroupContainer<K,E> {
             return groups.get(key);
         return createGroupWithKey(key);
     }
+
+    @Override
+    public String toString() {
+        return "GroupContainer{" +
+                "groups=" + groups +
+                '}';
+    }
 }

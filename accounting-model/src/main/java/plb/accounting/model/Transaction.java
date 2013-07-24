@@ -89,6 +89,11 @@ public class Transaction extends BaseEntity {
         return id;
     }
 
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Date getExecutionDate() {
         return executionDate;
     }

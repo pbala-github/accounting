@@ -81,6 +81,11 @@ public abstract class AbstractAccount extends BaseEntity implements IAccount {
         return id;
     }
 
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * @return
      */

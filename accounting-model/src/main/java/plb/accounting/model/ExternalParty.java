@@ -70,6 +70,11 @@ public class ExternalParty extends BaseEntity {
         return id;
     }
 
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * @return
      */

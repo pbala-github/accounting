@@ -1,8 +1,7 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.dto.reporting.IGroupingReportCriteria;
-import plb.accounting.model.Account;
-import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import java.util.List;
 
@@ -10,18 +9,18 @@ import java.util.List;
  * User: pbala
  * Date: 11/14/12 12:44 PM
  */
-public class TransactionAccountGroupStrategy implements IGroupStrategy<Account,Transaction>{
+public class TransactionAccountGroupStrategy implements IGroupStrategy<AccountGroupKey, TransactionView> {
 
     @Override
-    public GroupContainer<Account, Transaction> group(IGroupingReportCriteria criteria, List<Transaction> data) {
+    public GroupContainer<AccountGroupKey, TransactionView> group(IGroupingReportCriteria criteria, List<TransactionView> data) {
 
-        GroupContainer<Account,Transaction> groupContainer = new GroupContainer<Account, Transaction>();
-        for(Transaction t : data){
+        GroupContainer<AccountGroupKey, TransactionView> groupContainer = new GroupContainer<AccountGroupKey, TransactionView>();
+        for (TransactionView t : data) {
 
-            Group<Account,Transaction> group = groupContainer.getGroupWithKey(t.getOriginAccount(),true);
+            Group<AccountGroupKey, TransactionView> group = groupContainer.getGroupWithKey(AccountGroupKey.fromTransactionViewAsOrigin(t), true);
             group.addItem(t);
 
-            group = groupContainer.getGroupWithKey(t.getDestinationAccount(),true);
+            group = groupContainer.getGroupWithKey(AccountGroupKey.fromTransactionViewAsDestination(t), true);
             group.addItem(t);
 
         }

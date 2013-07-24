@@ -6,6 +6,7 @@ import plb.accounting.dto.AccountTypeEnum;
 import plb.accounting.dto.BaseAccountInfoDTO;
 import plb.accounting.dto.DetailedAccountDTO;
 import plb.accounting.dto.reporting.BaseReportResult;
+import plb.accounting.dto.reporting.BaseReportResultEntry;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.web.ExceptionHandlingHelper;
 import plb.accounting.web.controllers.AccountController;
@@ -90,7 +91,7 @@ public class AccountsView {
 
     @Produces
     @Named("accountsReport")
-    public List<BaseReportResult<StatusReportCriteria>.BaseReportResultEntry> getAccountsReport() {
+    public List<BaseReportResultEntry> getAccountsReport() {
         return controller.getStatusReportResult(new StatusReportCriteria()).getResultEntries();
     }
 

@@ -42,4 +42,12 @@ public class Group<K,E> {
     public boolean addItem(E item){
         return items.add(item);
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "key=" + key +
+                ", items=" + items +
+                '}';
+    }
 }

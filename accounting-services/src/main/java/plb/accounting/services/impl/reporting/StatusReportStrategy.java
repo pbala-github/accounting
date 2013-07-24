@@ -1,10 +1,9 @@
 package plb.accounting.services.impl.reporting;
 
-import plb.accounting.dto.AccountDTO;
 import plb.accounting.dto.reporting.ReportCriteria;
 import plb.accounting.dto.reporting.StatusReportCriteria;
 import plb.accounting.dto.reporting.StatusReportResult;
-import plb.accounting.model.Account;
+import plb.accounting.model.view.AccountView;
 
 import java.util.List;
 
@@ -16,11 +15,11 @@ public class StatusReportStrategy implements IReportStrategy<StatusReportResult,
 
     @Override
     public StatusReportResult createReport(StatusReportCriteria reportCriteria, Object data) {
-        List<Account> accounts = (List<Account>) data;
+        List<AccountView> accounts = (List<AccountView>) data;
         StatusReportResult result = new StatusReportResult(reportCriteria);
 
-        for (Account account : accounts) {
-            result.addResultEntry(getAccountDTO(account));
+        for (AccountView account : accounts) {
+            result.addResultEntry(account.getName(), account.getDbId(), account.getCurrentBalance().doubleValue());
         }
 
         return result;
@@ -31,13 +30,4 @@ public class StatusReportStrategy implements IReportStrategy<StatusReportResult,
         return reportCriteria != null && StatusReportCriteria.class.isAssignableFrom(reportCriteria.getClass());
     }
 
-    private AccountDTO getAccountDTO(Account account) {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setCurrentBalance(account.getCurrentBalance());
-        accountDTO.setName(account.getName());
-        accountDTO.setId(account.getId());
-        accountDTO.setInitialBalance(account.getInitialBalance());
-
-        return accountDTO;
-    }
 }

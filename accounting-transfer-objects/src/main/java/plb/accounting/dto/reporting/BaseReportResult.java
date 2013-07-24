@@ -1,8 +1,5 @@
 package plb.accounting.dto.reporting;
 
-import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.BaseAccountInfoDTO;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +31,7 @@ public abstract class BaseReportResult<T extends ReportCriteria> extends Abstrac
      * @return
      */
     public BaseReportResultEntry addResultEntry(double income, double outcome, Date startDate, Date endDate) {
-        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income, outcome, startDate, endDate);
+        BaseReportResultEntry resultEntry = new PeriodReportResultEntry(income, outcome, startDate, endDate);
         resultEntries.add(resultEntry);
         return resultEntry;
     }
@@ -42,11 +39,12 @@ public abstract class BaseReportResult<T extends ReportCriteria> extends Abstrac
     /**
      * @param income
      * @param outcome
-     * @param account
+     * @param accountDbId
+     * @param accountName
      * @return
      */
-    public BaseReportResultEntry addResultEntry(double income, double outcome, AccountDTO account) {
-        BaseReportResultEntry resultEntry = new BaseReportResultEntry(income, outcome, account);
+    public BaseReportResultEntry addResultEntry(double income, double outcome, Long accountDbId, String accountName) {
+        BaseReportResultEntry resultEntry = new AccountReportResultEntry(income, outcome, accountName, accountDbId);
         resultEntries.add(resultEntry);
         return resultEntry;
     }
@@ -56,74 +54,5 @@ public abstract class BaseReportResult<T extends ReportCriteria> extends Abstrac
         return resultEntries;
     }
 
-    public class BaseReportResultEntry {
-
-        /**
-         *
-         */
-        private Double income;
-
-        /**
-         *
-         */
-        private Double outcome;
-
-        /**
-         *
-         */
-        private BaseAccountInfoDTO account;
-
-        /**
-         *
-         */
-        private Date startDate;
-
-        /**
-         *
-         */
-        private Date endDate;
-
-
-        public BaseReportResultEntry(Double income, Double outcome, Date startDate, Date endDate) {
-            this.income = income;
-            this.outcome = outcome;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-
-        public BaseReportResultEntry(Double income, Double outcome, BaseAccountInfoDTO account) {
-            this.income = income;
-            this.outcome = outcome;
-            this.account = account;
-        }
-
-        public BaseReportResultEntry(Double income, Double outcome, BaseAccountInfoDTO account, Date startDate, Date endDate) {
-            this.income = income;
-            this.outcome = outcome;
-            this.account = account;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-
-        public Double getIncome() {
-            return income;
-        }
-
-        public Double getOutcome() {
-            return outcome;
-        }
-
-        public BaseAccountInfoDTO getAccount() {
-            return account;
-        }
-
-        public Date getStartDate() {
-            return startDate;
-        }
-
-        public Date getEndDate() {
-            return endDate;
-        }
-    }
 
 }

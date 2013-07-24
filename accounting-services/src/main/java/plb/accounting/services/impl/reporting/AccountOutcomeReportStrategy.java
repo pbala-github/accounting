@@ -1,11 +1,12 @@
 package plb.accounting.services.impl.reporting;
 
 import plb.accounting.common.transformation.ITransformationService;
-import plb.accounting.dto.AccountDTO;
-import plb.accounting.dto.reporting.*;
-import plb.accounting.model.Account;
+import plb.accounting.dto.reporting.IGroupingReportCriteria;
+import plb.accounting.dto.reporting.OutcomeReportCriteria;
+import plb.accounting.dto.reporting.OutcomeReportResult;
+import plb.accounting.dto.reporting.ReportCriteria;
 import plb.accounting.model.AccountTypeEnum;
-import plb.accounting.model.Transaction;
+import plb.accounting.model.view.TransactionView;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -15,34 +16,38 @@ import java.util.List;
  * User: pbala
  * Date: 11/14/12 1:07 PM
  */
-public class AccountOutcomeReportStrategy implements IReportStrategy<OutcomeReportResult,OutcomeReportCriteria>{
+public class AccountOutcomeReportStrategy implements IReportStrategy<OutcomeReportResult, OutcomeReportCriteria> {
 
     @Inject
     protected ITransformationService transformationService;
 
     @Inject
-    private IGroupStrategy<Account,Transaction> groupStrategy ;//= new TransactionAccountGroupStrategy();
+    IGroupStrategy<AccountGroupKey, TransactionView> groupStrategy;
 
     @Override
     public OutcomeReportResult createReport(OutcomeReportCriteria reportCriteria, Object data) {
 
         OutcomeReportResult result = new OutcomeReportResult(reportCriteria);
-        List<Transaction> transactions = (List<Transaction>) data;
+        List<TransactionView> transactions = (List<TransactionView>) data;
 
-        GroupContainer<Account,Transaction> groupContainer = groupStrategy.group(reportCriteria,transactions);
+        GroupContainer<AccountGroupKey, TransactionView> groupContainer = groupStrategy.group(reportCriteria, transactions);
 
         //aggregate total amounts
-        BigDecimal totalOutcome =BigDecimal.ZERO;
-        for(Group<Account, Transaction> group : groupContainer.getGroupList()){
+        BigDecimal totalOutcome = BigDecimal.ZERO;
+        for (Group<AccountGroupKey, TransactionView> group : groupContainer.getGroupList()) {
             BigDecimal outcome = BigDecimal.ZERO;
 
-            for(Transaction t : group.getItems()){
-                if(t.getDestinationAccount().getType().equals(AccountTypeEnum.OUTCOME))
+            String accountName = null;
+            for (TransactionView t : group.getItems()) {
+                if (group.getKey().getAccountDbId() == t.getOriginAccountDbId()) {
                     outcome = outcome.add(t.getAmount());
+                    if (t.getDestinationAccountType().equals(AccountTypeEnum.OUTCOME)) {
+                        totalOutcome = totalOutcome.add(t.getAmount());
+                    }
+                }
             }
 
-            totalOutcome = totalOutcome.add(outcome);
-            result.addResultEntry(0,outcome.doubleValue(),transformationService.transform(group.getKey(), AccountDTO.class));
+            result.addResultEntry(0, outcome.doubleValue(), group.getKey().getAccountDbId(), group.getKey().getAccountName());
         }
 
         result.setTotalOutcome(totalOutcome.doubleValue());
