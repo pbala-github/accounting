@@ -1,65 +1,83 @@
 package plb.accounting.services.impl.reporting;
 
+import net.sf.json.*;
+import net.sf.json.util.NewBeanInstanceStrategy;
+import org.apache.commons.io.IOUtils;
 import plb.accounting.model.AccountTypeEnum;
 import plb.accounting.model.view.TransactionView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * @author: pbala
  */
 public class SampleReportData {
+    /**
+     *
+     */
     private static List<TransactionView> transactionViewList;
 
-    public static List<TransactionView> getSampleTransactionViews() {
-        if (transactionViewList != null) {
-            return transactionViewList;
+    /**
+     * @return
+     */
+    public static synchronized List<TransactionView> getSampleTransactionViews() {
+        if (transactionViewList == null) {
+            transactionViewList = loadJson();
         }
 
-        transactionViewList = new ArrayList<TransactionView>();
-        Properties properties = new Properties();
+        return transactionViewList;
+    }
+
+    private static List<TransactionView> loadJson() {
+        List<TransactionView> transactionViewList = new ArrayList<TransactionView>();
         try {
-            properties.load(SampleReportData.class.getClassLoader().getResourceAsStream("transaction_views.properties"));
-            String[] ids = getPropertyValueList(properties, "id");
-            String[] executionDates = getPropertyValueList(properties, "executionDate");
-            String[] originAccountNames = getPropertyValueList(properties, "originAccountName");
-            String[] originAccountDbIds = getPropertyValueList(properties, "originAccountDbId");
-            String[] destinationAccountNames = getPropertyValueList(properties, "destinationAccountName");
-            String[] destinationAccountDbIds = getPropertyValueList(properties, "destinationAccountDbId");
-            String[] amounts = getPropertyValueList(properties, "amount");
-            String[] descriptions = getPropertyValueList(properties, "description");
-            String[] relatedPartyNames = getPropertyValueList(properties, "relatedPartyName");
-            String[] externalPartyDbIds = getPropertyValueList(properties, "externalPartyDbId");
-            String[] originAccountTypes = getPropertyValueList(properties, "originAccountType");
-            String[] destinationAccountTypes = getPropertyValueList(properties, "destinationAccountType");
+
+            InputStream resourceAsStream = SampleReportData.class.getClassLoader().getResourceAsStream("transactions_view.json");
+            String jsonString = IOUtils.toString(resourceAsStream);
+            JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(jsonString);
+            JsonConfig jsonConfig = new JsonConfig();
+            jsonConfig.setRootClass(TransactionView.class);
+            jsonConfig.setNewBeanInstanceStrategy(new NewBeanInstanceStrategy() {
+                @Override
+                public Object newInstance(Class aClass, JSONObject jsonObject) throws InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, InvocationTargetException {
+
+                    try {
+                        return new TransactionView(//
+                                jsonObject.getLong("dbId"),//
+                                getDate(jsonObject.getString("executionDate")),
+                                jsonObject.getString("originAccountName"),
+                                jsonObject.getLong("originAccountDbId"),
+                                jsonObject.getString("destinationAccountName"),
+                                jsonObject.getLong("destinationAccountDbId"),
+                                new BigDecimal(jsonObject.getString("amount")),
+                                jsonObject.getString("description"),
+                                jsonObject.getString("relatedPartyName"),
+                                jsonObject.getLong("externalPartyDbId"),
+                                AccountTypeEnum.valueOf(jsonObject.getString("originAccountType")),
+                                AccountTypeEnum.valueOf(jsonObject.getString("destinationAccountType"))
+                        );
+                    } catch (ParseException e) {
+                        throw new InstantiationException();
+                    }
+                }
+            });
 
 
-            for (int i = 0; i < ids.length; i++) {
-                transactionViewList.add(//
-                        new TransactionView(//
-                                Long.parseLong(ids[i]),//
-                                getDate(executionDates[i]),
-                                originAccountNames[i],
-                                Long.parseLong(originAccountDbIds[i]),
-                                destinationAccountNames[i],
-                                Long.parseLong(destinationAccountDbIds[i]),
-                                new BigDecimal(amounts[i]),
-                                descriptions[i],
-                                relatedPartyNames[i],
-                                Long.parseLong(externalPartyDbIds[i]),
-                                AccountTypeEnum.valueOf(originAccountTypes[i]),
-                                AccountTypeEnum.valueOf(destinationAccountTypes[i])
-                        ));
+            for (Object o : jsonArray) {
+                TransactionView transactionView = (TransactionView) JSONSerializer.toJava((JSON) o, jsonConfig);
+                transactionViewList.add(transactionView);
             }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         return transactionViewList;
@@ -68,9 +86,4 @@ public class SampleReportData {
     private static Date getDate(String executionDate) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(executionDate);
     }
-
-    private static String[] getPropertyValueList(Properties properties, String propertyName) {
-        return properties.getProperty(propertyName).split(",");
-    }
-
 }
